@@ -1,11 +1,11 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 [System.Serializable]
 public class Quest
 {
-
     public int QuestCode;        //퀘스트 코드
     public int requireLV;       //퀘스트 요구 레벨
     public bool processing;     //퀘스트 진행중인지 체크
@@ -29,8 +29,14 @@ public class Quest
 
 public class NPC_Quest_Manager : MonoBehaviour
 {
+    [Header("NPC Code")]
+    public int NPC_Code;
+
+    [Space(10f)]
+
     public Image questIndicator;                //퀘스트 마크
-    public Quest[] quests;                      //퀘스트들 리스트
+    //public Quest[] quests;                      //퀘스트들 리스트
+    public List<QuestManager.Quest> quests = new List<QuestManager.Quest>();
 
     public Player_Controller playerController;  //플레이어
 
@@ -42,28 +48,29 @@ public class NPC_Quest_Manager : MonoBehaviour
     {
         playerController = GameObject.FindAnyObjectByType<Player_Controller>();
         QM = FindFirstObjectByType<QuestManager>();
-        Init();
-    }
-
-    void Init()
-    {
-        for(int i = 0; i < quests.Length; i++)
-        {
-            //DB에서 해당 퀘스트 별 정보 다시 가져오기 로딩
-        }
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+
         //QM.RequestQuestData(1);
     }
 
     // Update is called once per frame
-    //void Update()
-    //{
-        
-    //}
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            for (int i = 0; i < QM.quests.Count; i++)
+            {
+                if (QM.quests[i].NpcCode == NPC_Code)
+                {
+                    quests.Add(QM.quests[i]);
+                }
+            }
+        }
+    }
 
     public bool pEnter;
 
@@ -72,15 +79,8 @@ public class NPC_Quest_Manager : MonoBehaviour
         if(other.gameObject.CompareTag("Player"))
         {
             pEnter = true;
-            for (int i = 0; i < quests.Length; i++)
-            {
-                if (quests[i].requireLV <= playerController.Lv)
-                {
-                    processingQuestIndex = i;       //진행하는 퀘스트의 index 가져오기
 
-                    questIndicator.enabled = true;
-                }
-            }
+            questIndicator.enabled = true;
         }
     }
 
@@ -99,8 +99,6 @@ public class NPC_Quest_Manager : MonoBehaviour
     Coroutine dialog;
     public IEnumerator QuestDialog()    //퀘스트 대화 진행 coroutine
     {
-        quests[processingQuestIndex].processing = true;
-
         Debug.Log("퀘스트 대화 시작");
         yield return null;
     }
