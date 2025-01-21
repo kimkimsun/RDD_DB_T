@@ -36,10 +36,12 @@ public class NPC_Quest_Manager : MonoBehaviour
 
     public int processingQuestIndex;            //진행시작한 퀘스트의 index
 
+    public QuestManager QM;
+
     private void Awake()
     {
         playerController = GameObject.FindAnyObjectByType<Player_Controller>();
-
+        QM = FindFirstObjectByType<QuestManager>();
         Init();
     }
 
@@ -54,7 +56,7 @@ public class NPC_Quest_Manager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        QM.RequestQuestData(1);
     }
 
     // Update is called once per frame
