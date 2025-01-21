@@ -1,5 +1,17 @@
 using UnityEngine;
 using WebSocketSharp;
+[System.Serializable]
+public class QuestData
+{
+    public int quest_code;
+    public int npc_code;
+}
+
+[System.Serializable]
+public class QuestResponse
+{
+    public QuestData[] data;
+}
 public class WsClient : MonoBehaviour
 {
     WebSocket ws;
@@ -8,13 +20,7 @@ public class WsClient : MonoBehaviour
         ws = new WebSocket("ws://localhost:7777");
         //서버에서 설정한 포트를 넣어줍니다.
 
-        ws.OnOpen += (sender, e) =>
-        {
-            Debug.Log("연결완료");
-        };
-
         ws.Connect();
-
 
         //연결합니다.
         ws.OnMessage += Call;
@@ -22,7 +28,19 @@ public class WsClient : MonoBehaviour
 
     void Call(object sender, MessageEventArgs e)
     {
-        Debug.Log("주소 :  " + ((WebSocket)sender).Url + ", 데이터 : " + e.Data);
+        var response = JsonUtility.FromJson<QuestResponse>(e.Data);
+
+        if (response.data.Length > 0)
+        {
+            int questCode = response.data[0].quest_code;
+            int npcCode = response.data[0].npc_code;
+            Debug.Log("quest_code: " + questCode);
+            Debug.Log("npc_code: " + npcCode);
+        }
+        else
+        {
+            Debug.Log("결과가 없습니다.");
+        }
     }
     private void Update()
     {
