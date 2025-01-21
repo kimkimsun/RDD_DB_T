@@ -1,18 +1,22 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
 [System.Serializable]
 public class Quest
 {
+
+    public int QuestCode;        //퀘스트 코드
     public int requireLV;       //퀘스트 요구 레벨
     public bool processing;     //퀘스트 진행중인지 체크
     public string[] texts;      //퀘스트 대화들
-    public int startIndex;      //퀘스트 발급 시점 index
 
-    
+
+    public int startIndex;      //퀘스트 발급 시점 index    
     public bool finishCondition()
     {
         //DB연동?
+        //이게 true를 return하게 되면 완료된거임
         return false;
     }
 
@@ -25,10 +29,12 @@ public class Quest
 
 public class NPC_Quest_Manager : MonoBehaviour
 {
-    public Image questIndicator;
-    public Quest[] quests;
+    public Image questIndicator;                //퀘스트 마크
+    public Quest[] quests;                      //퀘스트들 리스트
 
-    public Player_Controller playerController;
+    public Player_Controller playerController;  //플레이어
+
+    public int processingQuestIndex;            //진행시작한 퀘스트의 index
 
     private void Awake()
     {
@@ -52,19 +58,24 @@ public class NPC_Quest_Manager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    //void Update()
+    //{
         
-    }
+    //}
+
+    public bool pEnter;
 
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.CompareTag("Player"))
         {
-            for(int i = 0; i < quests.Length; i++)
+            pEnter = true;
+            for (int i = 0; i < quests.Length; i++)
             {
                 if (quests[i].requireLV <= playerController.Lv)
                 {
+                    processingQuestIndex = i;       //진행하는 퀘스트의 index 가져오기
+
                     questIndicator.enabled = true;
                 }
             }
@@ -75,9 +86,48 @@ public class NPC_Quest_Manager : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            if(questIndicator.enabled)
+            pEnter = false;
+            if (questIndicator.enabled)
             {
                 questIndicator.enabled = false;
+            }
+        }
+    }
+
+    Coroutine dialog;
+    public IEnumerator QuestDialog()    //퀘스트 대화 진행 coroutine
+    {
+        quests[processingQuestIndex].processing = true;
+
+        Debug.Log("퀘스트 대화 시작");
+        yield return null;
+    }
+
+    private void OnMouseDown()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if(pEnter)
+        {
+            if (questIndicator.enabled)
+            {
+                if (Physics.Raycast(ray, out hit))
+                {
+                    if (dialog == null)
+                    {
+                        dialog = StartCoroutine(QuestDialog());
+                    }
+                    else
+                    {
+                        StopCoroutine(dialog);
+                        dialog = StartCoroutine(QuestDialog());
+                    }
+                }
+            }
+            else
+            {
+                //Default 대화
             }
         }
     }

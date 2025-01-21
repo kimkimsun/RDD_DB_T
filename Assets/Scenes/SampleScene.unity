@@ -993,7 +993,7 @@ GameObject:
   - component: {fileID: 1800426006}
   - component: {fileID: 1800426005}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: WEBSOCKET
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1228,15 +1228,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questIndicator: {fileID: 1988059935}
   quests:
-  - requireLV: 1
+  - QuestCode: 0
+    requireLV: 1
     processing: 0
     texts: []
     startIndex: 0
-  - requireLV: 0
+  - QuestCode: 0
+    requireLV: 0
     processing: 0
     texts: []
     startIndex: 0
   playerController: {fileID: 0}
+  processingQuestIndex: 0
+  pEnter: 0
 --- !u!65 &2147046118
 BoxCollider:
   m_ObjectHideFlags: 0
