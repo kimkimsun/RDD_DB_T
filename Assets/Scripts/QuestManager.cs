@@ -4,11 +4,6 @@ using System.Collections.Generic;
 
 public class QuestManager : MonoBehaviour
 {
-    public class QuestRequestMessage
-    {
-        public string type = "";
-        public int questCode = 0;
-    }
     private WebSocket ws;
     private List<Quest> quests = new List<Quest>();
 
@@ -24,14 +19,7 @@ public class QuestManager : MonoBehaviour
         if (ws == null || !ws.IsAlive)
             return;
 
-
-        // QuestRequestMessage 클래스 사용
-        QuestRequestMessage message = new QuestRequestMessage
-        {
-            type = "getQuest",
-            questCode = questCode
-        };
-
+        var message = new { type = "getQuest", questCode = questCode };
         string jsonMessage = JsonUtility.ToJson(message);  // 메시지 직렬화
         Debug.Log("보내는 메시지: " + jsonMessage);  // 전송하는 메시지 로그
         ws.Send(jsonMessage);
@@ -53,8 +41,8 @@ public class QuestManager : MonoBehaviour
                 {
                     quests.Add(new Quest
                     {
-                        QuestCode = quest.quest_code,   // JSON 필드 이름에 맞게 수정
-                        requireLV = quest.require_lv,  // JSON 필드 이름에 맞게 수정
+                        QuestCode = quest.QuestCode,
+                        requireLV = quest.requireLV,
                         texts = quest.texts
                     });
                 }
@@ -84,14 +72,6 @@ public class QuestManager : MonoBehaviour
     {
         public string type;
         public string message;
-        public List<QuestData> data;
-    }
-
-    [System.Serializable]
-    public class QuestData
-    {
-        public int quest_code;
-        public int require_lv;
-        public string[] texts;
+        public List<Quest> data;
     }
 }
