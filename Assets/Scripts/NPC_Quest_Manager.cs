@@ -43,8 +43,11 @@ public class NPC_Quest_Manager : MonoBehaviour
         public bool requireLevel;               //퀘스트 획득 조건 : 레벨제한이 있는지
         public int condition_Level;             //퀘스트 획득 조건 : 레벨
 
-        public bool connectQuest;               //퀘스트 획득 조건 : 연계 퀘스트
-        public int preQuestCode;                //퀘스트 획득 조건 : 연계 퀘스트의 이전 퀘스트 코드
+        public bool connectQuest;                           //퀘스트 획득 조건 : 연계 퀘스트
+        public NPC_Quest_Manager preQuestNPC_Code = null;   //퀘스트 획득 조건 : 연계 퀘스트의 이전 NPC
+        public int preQuestCode;                            //퀘스트 획득 조건 : 연계 퀘스트의 이전 퀘스트 코드
+        public NPC_Quest_Manager nextQuestNPC_Code = null;  //퀘스트 획득 조건 : 연계 퀘스트의 이후 NPC    
+        public int nextQuestCode;                           //퀘스트 획득 조건 : 연계 퀘스트의 이후 퀘스트 코드
 
         public bool itemQuest;                  //퀘스트 획득 조건 : 요구 아이템
         public string[] requireItemLis;         //퀘스트 획득 조건 : 요구 아이템리스트
@@ -176,17 +179,17 @@ public class NPC_Quest_Manager : MonoBehaviour
         if(dialogPanel != null && !dialogPanel.gameObject.activeSelf)
         {
             dialogPanel.gameObject.SetActive(true);
-            Debug.Log("퀘스트 대화 시작");
+            //Debug.Log("퀘스트 대화 시작");
 
-            for(int i = 0; i < questValues.Count; i++)
-            {
-                if(questValues[i].condition_Level <= playerController.Lv)
-                {
-                    processingQuestindex = i;
-                    processingQuestCode = questValues[i].QuestCode;
-                    //DB에 현재 진행중인 퀘스트 넣기
-                }
-            }
+            //for(int i = 0; i < questValues.Count; i++)
+            //{
+            //    if(questValues[i].condition_Level <= playerController.Lv)
+            //    {
+            //        processingQuestindex = i;
+            //        processingQuestCode = questValues[i].QuestCode;
+            //        //DB에 현재 진행중인 퀘스트 넣기
+            //    }
+            //}
 
             int dialogIndex = 0;
 
@@ -219,6 +222,8 @@ public class NPC_Quest_Manager : MonoBehaviour
                 yield return null;
             }
             dialogPanel.gameObject.SetActive(false);
+            //연계 퀘스트 인지 확인
+
         }
     }
 }
