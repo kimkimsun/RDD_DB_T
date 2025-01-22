@@ -18,6 +18,7 @@ public class NPC_Quest_Manager : MonoBehaviour
     [Header("Dialog Panel")]
     public Image dialogPanel;                                                   //dialog Panel
     public Text dialogText;                                                     //dialog Text
+    public Text dialogTextPopup;                                                //dialog Popup
 
     [Header("Quest Lists")]
     public List<QuestManager.Quest> quests = new List<QuestManager.Quest>();    //퀘스트 목록 from DB
@@ -37,6 +38,7 @@ public class NPC_Quest_Manager : MonoBehaviour
     public class QuestValue
     {
         public bool questGet = false;           //퀘스트 획득 여부 -> DB로 보냄
+        public int questGetIndex = 0;       //퀘스트 획득 시점
         [Header("Quest Get Conditions")]
         public bool requireLevel;               //퀘스트 획득 조건 : 레벨제한이 있는지
         public int condition_Level;             //퀘스트 획득 조건 : 레벨
@@ -54,6 +56,7 @@ public class NPC_Quest_Manager : MonoBehaviour
         [Space(10f)]
         [Header("Quest Finish Conditions")]
         public bool questFinish = false;        //퀘스트 완료 여부 -> DB로 보냄
+        public int questFinishIndex = 0;    //퀘스트 완료 시점
 
         [Space(10f)]
         [Header("Quest Details")]
@@ -62,15 +65,17 @@ public class NPC_Quest_Manager : MonoBehaviour
         [Space(10f)]
         [Header("Quest Information")]
         public int QuestCode;   //대화가 시작 될때, NPC_Quest_Manager.processingQuestIndex의 값을 찾아와야함
+
+        public bool choiceDialogStart;      //N지 선다 대화 시작
+        public int[] choiceDialogIndex;     //N지 선다 대화 선택 시점들
+
         public List<Dialog> dialogs = new List<Dialog>();       //대화 목록
 
-        public int questGetIndex = 0;       //퀘스트 획득 시점
-        public int questFinishIndex = 0;    //퀘스트 완료 시점
-
+        [Space(10f)]
+        [Header("Quest Info Images")]
         public Image descriptImg = null;    //사진 이미지 => imgList여기에서 바꿔치기 함
         public int[] imageShowIndex;        //imageShowIndex.count > 0 일 때, 사진 보여줄 시점들 모음
         public Image[] imgList = null;      //보여줄 image index가 있을 때 해당 이미지 리스트에서 인덱스에 맞는 이미지 가져옴
-        public int choiceDialogIndex = 0;   //N지 선다 대화 선택 시점
     }
 
     //퀘스트 획득조건 별도 제작
@@ -185,19 +190,35 @@ public class NPC_Quest_Manager : MonoBehaviour
 
             int dialogIndex = 0;
 
-            while(dialogIndex < questValues[processingQuestindex].dialogs.Count)
+            //퀘스트 dialogs에 들어있는 dialog 개수 만큼 대화 진행
+            while (dialogIndex < questValues[processingQuestindex].dialogs.Count)
             {
-                if(questValues[processingQuestindex].dialogs[dialogIndex].dialogType)
+                //퀘스트 발급 시점이 되면 퀘스트 발급
+                if (dialogIndex == questValues[processingQuestindex].questGetIndex && !questValues[processingQuestindex].questGet)
                 {
-
+                    questValues[processingQuestindex].questGet = true;
+                    Debug.Log("퀘스트 발급!!!");
                 }
-                else
+
+                //대화 type에 따라 true면 textBox대화 false면 말풍선 대화
+                if (questValues[processingQuestindex].dialogs[dialogIndex].dialogType)
                 {
                     dialogText.text = questValues[processingQuestindex].dialogs[dialogIndex].dialog;
                 }
+                else
+                {
+                    dialogText.text = "말풍선 띄우기" + questValues[processingQuestindex].dialogs[dialogIndex].dialog;
+                }
+
+                //G키를 눌러서 다음 대화로 진행
+                if (Input.GetKeyDown(KeyCode.G))
+                {
+                    dialogIndex++;
+                }
+
                 yield return null;
             }
+            dialogPanel.gameObject.SetActive(false);
         }
-        yield return null;
     }
 }
