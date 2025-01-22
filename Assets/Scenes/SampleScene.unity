@@ -697,7 +697,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &638148889
 RectTransform:
   m_ObjectHideFlags: 0
@@ -773,7 +773,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &677751834
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1336,10 +1336,10 @@ GameObject:
   - component: {fileID: 2147046114}
   - component: {fileID: 2147046113}
   - component: {fileID: 2147046117}
-  - component: {fileID: 2147046118}
+  - component: {fileID: 2147046119}
   m_Layer: 0
   m_Name: NPC
-  m_TagString: Untagged
+  m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1449,34 +1449,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b535c5821cfe9014fbaa7602ded0b8f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NPC_Code: 1
-  questIndicator: {fileID: 0}
-  quests: []
-  playerController: {fileID: 0}
-  processingQuestIndex: 0
   QM: {fileID: 0}
+  NPC_Code: 1
+  questIndicator: {fileID: 1988059935}
+  dialogPanel: {fileID: 638148890}
+  quests: []
+  processingQuestIndex: 0
+  questValues:
+  - QuestCode: 0
+    questGet: 0
+    questProcessing: 0
+    questFinish: 0
+    questDetail: []
+    questGetIndex: 0
+    questFinishIndex: 0
+    descriptImg: {fileID: 0}
+    imageShowIndex: 0
+    choiceDialogIndex: 0
+  imgList: []
+  playerController: {fileID: 0}
   pEnter: 0
---- !u!65 &2147046118
-BoxCollider:
+  detectCol: {fileID: 0}
+--- !u!114 &2147046119
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2147046112}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 20, y: 20, z: 20}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 299c7518677b858489f86b78ae0fc670, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

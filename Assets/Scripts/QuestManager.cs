@@ -8,8 +8,8 @@ public class QuestManager : MonoBehaviour
     [System.Serializable]
     public class Quest
     {
-        public int QuestCode;   // 퀘스트 코드
-        public int NpcCode;     // NPC 코드
+        public int QuestCode;       // 퀘스트 코드
+        public int NpcCode;         // NPC 코드
     }
 
     [System.Serializable]
@@ -25,8 +25,6 @@ public class QuestManager : MonoBehaviour
     {
         public int quest_code;  // 퀘스트 코드
         public int npc_code;    // NPC 코드
-        public string description;
-        public string status;
     }
 
     public class QuestRequestMessage
@@ -92,8 +90,8 @@ public class QuestManager : MonoBehaviour
                 foreach (var quest in response.data)
                 {
                     // quest_code와 npc_code를 추출하여 로그로 출력
-                    Debug.Log("퀘스트 코드: " + quest.quest_code);
-                    Debug.Log("NPC 코드: " + quest.npc_code);
+                    //Debug.Log("퀘스트 코드: " + quest.quest_code);
+                    //Debug.Log("NPC 코드: " + quest.npc_code);
 
                     // 각 퀘스트를 리스트에 추가
                     quests.Add(new Quest
@@ -103,7 +101,7 @@ public class QuestManager : MonoBehaviour
                     });
                 }
 
-                Debug.Log("퀘스트 데이터 업데이트 완료");
+                //Debug.Log("퀘스트 데이터 업데이트 완료");
             }
             else
             {
