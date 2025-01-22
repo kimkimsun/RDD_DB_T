@@ -42,16 +42,25 @@ public class WsClient : MonoBehaviour
             Debug.Log("결과가 없습니다.");
         }
     }
+    public void SendUpdateNpcCode(int questCode, int newNpcCode)
+    {
+        var message = JsonUtility.ToJson(new { action = "updateNpcCode", questCode, newNpcCode });
+        Debug.Log("보낼 메시지: " + message); // 메시지가 제대로 생성되는지 확인
+        ws.Send(message);
+    }
     private void Update()
     {
         if (ws == null)
         {
             return;
         }
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.K))
         {
-            ws.Send("abcd");
-            //데이터를 보냅니다 예제이기 때문에 "abcd" 를 보냅니다
+            SendUpdateNpcCode(1, 3);
+        }
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            ws.Send("제이쓴아님");
         }
     }
 }
