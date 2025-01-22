@@ -17,47 +17,59 @@ public class NPC_Quest_Manager : MonoBehaviour
 
     [Header("Dialog Panel")]
     public Image dialogPanel;                                                   //dialog Panel
+    public Text dialogText;                                                     //dialog Text
 
     [Header("Quest Lists")]
     public List<QuestManager.Quest> quests = new List<QuestManager.Quest>();    //퀘스트 목록 from DB
-    //public QuestConditions getQuestconditions;                                  //퀘스트 획득 세부 조건
     [Space(20f)]
 
-    public int processingQuestIndex;                                            //진행시작한 퀘스트의 index
+    public int processingQuestCode;                                            //진행시작한 퀘스트의 index
+    public int processingQuestindex;                                            //진행시작한 퀘스트의 index
 
+    [System.Serializable]
     public class Dialog
     {
         public bool dialogType = false;     //false =  말풍선 대화, true = TextBox 대화
-        public string dialog = null;      //퀘스트 대사들 모음
+        public string dialog = null;        //퀘스트 대사들 모음
     }
 
     [System.Serializable]
     public class QuestValue
     {
+        public bool questGet = false;           //퀘스트 획득 여부 -> DB로 보냄
         [Header("Quest Get Conditions")]
-        public bool requireLevel;                //퀘스트 획득 조건 : 레벨제한이 있는지
+        public bool requireLevel;               //퀘스트 획득 조건 : 레벨제한이 있는지
         public int condition_Level;             //퀘스트 획득 조건 : 레벨
 
-        public int preQuestCode;                //퀘스트 획득 조건 : 연계 퀘스트의 이전 퀘스트 코드
         public bool connectQuest;               //퀘스트 획득 조건 : 연계 퀘스트
+        public int preQuestCode;                //퀘스트 획득 조건 : 연계 퀘스트의 이전 퀘스트 코드
 
-        public bool itemQuest;
+        public bool itemQuest;                  //퀘스트 획득 조건 : 요구 아이템
+        public string[] requireItemLis;         //퀘스트 획득 조건 : 요구 아이템리스트
+
+        [Space(10f)]
+        [Header("Quest Processing Check")]
+        public bool questProcessing = false;    //퀘스트 진행 여부 -> DB로 보냄
+
+        [Space(10f)]
+        [Header("Quest Finish Conditions")]
+        public bool questFinish = false;        //퀘스트 완료 여부 -> DB로 보냄
+
+        [Space(10f)]
+        [Header("Quest Details")]
+        public Text[] questDetail = null;       //퀘스트 세부 사항 -> DB로 보냄
 
         [Space(10f)]
         [Header("Quest Information")]
         public int QuestCode;   //대화가 시작 될때, NPC_Quest_Manager.processingQuestIndex의 값을 찾아와야함
         public List<Dialog> dialogs = new List<Dialog>();       //대화 목록
 
-        public bool questGet = false;           //퀘스트 획득 여부 -> DB로 보냄
-        public bool questProcessing = false;    //퀘스트 진행 여부 -> DB로 보냄
-        public bool questFinish = false;        //퀘스트 완료 여부 -> DB로 보냄
-        public Text[] questDetail = null;       //퀘스트 세부 사항 -> DB로 보냄
-
         public int questGetIndex = 0;       //퀘스트 획득 시점
         public int questFinishIndex = 0;    //퀘스트 완료 시점
 
         public Image descriptImg = null;    //사진 이미지 => imgList여기에서 바꿔치기 함
-        public int imageShowIndex = 0;      //사진이 != null일 때, 사진 보여줄 시점
+        public int[] imageShowIndex;        //imageShowIndex.count > 0 일 때, 사진 보여줄 시점들 모음
+        public Image[] imgList = null;      //보여줄 image index가 있을 때 해당 이미지 리스트에서 인덱스에 맞는 이미지 가져옴
         public int choiceDialogIndex = 0;   //N지 선다 대화 선택 시점
     }
 
@@ -69,7 +81,6 @@ public class NPC_Quest_Manager : MonoBehaviour
     [Space(20f)]
     [Header("Quest Dialog Lists")]
     public List<QuestValue> questValues = new List<QuestValue>();
-    public Image[] imgList = null;
 
     [Space(10f)]
     public Player_Controller playerController;  //플레이어
@@ -160,8 +171,33 @@ public class NPC_Quest_Manager : MonoBehaviour
         if(dialogPanel != null && !dialogPanel.gameObject.activeSelf)
         {
             dialogPanel.gameObject.SetActive(true);
+            Debug.Log("퀘스트 대화 시작");
+
+            for(int i = 0; i < questValues.Count; i++)
+            {
+                if(questValues[i].condition_Level <= playerController.Lv)
+                {
+                    processingQuestindex = i;
+                    processingQuestCode = questValues[i].QuestCode;
+                    //DB에 현재 진행중인 퀘스트 넣기
+                }
+            }
+
+            int dialogIndex = 0;
+
+            while(dialogIndex < questValues[processingQuestindex].dialogs.Count)
+            {
+                if(questValues[processingQuestindex].dialogs[dialogIndex].dialogType)
+                {
+
+                }
+                else
+                {
+                    dialogText.text = questValues[processingQuestindex].dialogs[dialogIndex].dialog;
+                }
+                yield return null;
+            }
         }
-        Debug.Log("퀘스트 대화 시작");
         yield return null;
     }
 }

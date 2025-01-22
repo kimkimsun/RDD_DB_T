@@ -709,7 +709,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1103630715}
   m_Father: {fileID: 677751834}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1015,6 +1016,85 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1103630714
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1103630715}
+  - component: {fileID: 1103630717}
+  - component: {fileID: 1103630716}
+  m_Layer: 5
+  m_Name: DialogText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1103630715
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1103630714}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 638148889}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -20, y: -80}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1103630716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1103630714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 30
+    m_FontStyle: 1
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
+    m_LineSpacing: 1
+  m_Text: New Text
+--- !u!222 &1103630717
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1103630714}
+  m_CullTransparentMesh: 1
 --- !u!1 &1256032226
 GameObject:
   m_ObjectHideFlags: 0
@@ -1226,7 +1306,6 @@ GameObject:
   - component: {fileID: 2147046114}
   - component: {fileID: 2147046113}
   - component: {fileID: 2147046117}
-  - component: {fileID: 2147046119}
   m_Layer: 0
   m_Name: NPC
   m_TagString: NPC
@@ -1343,40 +1422,38 @@ MonoBehaviour:
   NPC_Code: 1
   questIndicator: {fileID: 1988059935}
   dialogPanel: {fileID: 638148890}
+  dialogText: {fileID: 1103630716}
   quests: []
-  processingQuestIndex: 0
+  processingQuestCode: 0
   questValues:
-  - requireLevel: 0
-    condition_Level: 0
-    preQuestCode: 0
+  - questGet: 0
+    requireLevel: 1
+    condition_Level: 2
     connectQuest: 0
+    preQuestCode: 0
     itemQuest: 0
-    QuestCode: 0
-    questGet: 0
+    requireItemLis: []
     questProcessing: 0
     questFinish: 0
     questDetail: []
+    QuestCode: 5
+    dialogs:
+    - dialogType: 0
+      dialog: "(\uC549\uC740 \uC0C1\uD0DC\uB85C) \uC544\uC774\uACE0\uC624.."
+    - dialogType: 1
+      dialog: "[\uBD80\uC0C1\uC790] \uC640\uC6B0! \uC77C\uC73C\uCF1C\uC918\uC11C
+        \uC815\uB9D0 \uACE0\uB9D9\uAD70! \uC5B4\uCA4C\uB2E4 \uC774\uB7F0 \uD070 \uC0AC\uACE0\uAC00
+        \uB0AC\uB294\uC9C0 \uBAA8\uB974\uACA0\uC9C0\uB9CC \uC5B4\uC11C \uC774 \uBC30\uB97C
+        \uBE60\uC838\uB098\uAC00\uC790\uACE0"
     questGetIndex: 0
     questFinishIndex: 0
     descriptImg: {fileID: 0}
-    imageShowIndex: 0
+    imageShowIndex: 
+    imgList: []
     choiceDialogIndex: 0
-  imgList: []
   playerController: {fileID: 0}
   pEnter: 0
   detectCol: {fileID: 0}
---- !u!114 &2147046119
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2147046112}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 299c7518677b858489f86b78ae0fc670, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
