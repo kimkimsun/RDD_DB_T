@@ -7,29 +7,6 @@ public class NPC_Quest_Manager : MonoBehaviour
 {
     public QuestManager QM;
 
-    [System.Serializable]
-    public class Quest
-    {
-        public int QuestCode;        //퀘스트 코드
-        public int requireLV;       //퀘스트 요구 레벨
-        public bool processing;     //퀘스트 진행중인지 체크
-        public string[] texts;      //퀘스트 대화들
-
-
-        public int startIndex;      //퀘스트 발급 시점 index    
-        public bool finishCondition()
-        {
-            //DB연동?
-            //이게 true를 return하게 되면 완료된거임
-            return false;
-        }
-
-        public void QuestStart()    //퀘스트 발급 함수
-        {
-            //DB에 퀘스트 발급 되었다고 알리기
-        }
-    }
-
     [Header("NPC Code")]
     public int NPC_Code;
 
@@ -57,6 +34,17 @@ public class NPC_Quest_Manager : MonoBehaviour
     [System.Serializable]
     public class QuestValue
     {
+        [Header("Quest Get Conditions")]
+        public bool requireLevel;                //퀘스트 획득 조건 : 레벨제한이 있는지
+        public int condition_Level;             //퀘스트 획득 조건 : 레벨
+
+        public int preQuestCode;                //퀘스트 획득 조건 : 연계 퀘스트의 이전 퀘스트 코드
+        public bool connectQuest;               //퀘스트 획득 조건 : 연계 퀘스트
+
+        public bool itemQuest;
+
+        [Space(10f)]
+        [Header("Quest Information")]
         public int QuestCode;   //대화가 시작 될때, NPC_Quest_Manager.processingQuestIndex의 값을 찾아와야함
         public List<Dialog> dialogs = new List<Dialog>();       //대화 목록
 
