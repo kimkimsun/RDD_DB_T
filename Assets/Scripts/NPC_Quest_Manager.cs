@@ -38,13 +38,18 @@ public class NPC_Quest_Manager : MonoBehaviour
     public class QuestValue
     {
         public bool questGet = false;           //퀘스트 획득 여부 -> DB로 보냄
-        public int questGetIndex = 0;       //퀘스트 획득 시점
-        [Header("Quest Get Conditions")]
-        public bool requireLevel;               //퀘스트 획득 조건 : 레벨제한이 있는지
-        public int condition_Level;             //퀘스트 획득 조건 : 레벨
+        public int questGetIndex = 0;           //퀘스트 획득 시점
 
-        public bool connectQuest;               //퀘스트 획득 조건 : 연계 퀘스트
-        public int preQuestCode;                //퀘스트 획득 조건 : 연계 퀘스트의 이전 퀘스트 코드
+        [Header("Quest Get Conditions")]
+        public bool startQuest;                             //퀘스트 획득 조건 : 시작 퀘스트
+        public bool requireLevel;                           //퀘스트 획득 조건 : 레벨제한이 있는지
+        public int condition_Level;                         //퀘스트 획득 조건 : 레벨
+
+        public bool connectQuest;                           //퀘스트 획득 조건 : 연계 퀘스트
+        public NPC_Quest_Manager preQuestNPC_Code = null;   //퀘스트 획득 조건 : 연계 퀘스트의 이전 NPC
+        public int preQuestCode;                            //퀘스트 획득 조건 : 연계 퀘스트의 이전 퀘스트 코드
+        public NPC_Quest_Manager nextQuestNPC_Code = null;  //퀘스트 획득 조건 : 연계 퀘스트의 이후 NPC    
+        public int nextQuestCode;                           //퀘스트 획득 조건 : 연계 퀘스트의 이후 퀘스트 코드
 
         public bool itemQuest;                  //퀘스트 획득 조건 : 요구 아이템
         public string[] requireItemLis;         //퀘스트 획득 조건 : 요구 아이템리스트
@@ -57,17 +62,18 @@ public class NPC_Quest_Manager : MonoBehaviour
         [Header("Quest Finish Conditions")]
         public bool questFinish = false;        //퀘스트 완료 여부 -> DB로 보냄
         public int questFinishIndex = 0;    //퀘스트 완료 시점
+        public int connectQuestFinishIndex; //퀘스트 완료 조건 : 연계 퀘스트의 완료 시점
 
         [Space(10f)]
         [Header("Quest Details")]
-        public Text[] questDetail = null;       //퀘스트 세부 사항 -> DB로 보냄
+        public Text[] questDetail = null;   //퀘스트 세부 사항 -> DB로 보냄
 
         [Space(10f)]
         [Header("Quest Information")]
-        public int QuestCode;   //대화가 시작 될때, NPC_Quest_Manager.processingQuestIndex의 값을 찾아와야함
+        public int QuestCode;                                   //대화가 시작 될때, NPC_Quest_Manager.processingQuestIndex의 값을 찾아와야함
 
-        public bool choiceDialogStart;      //N지 선다 대화 시작
-        public int[] choiceDialogIndex;     //N지 선다 대화 선택 시점들
+        public bool choiceDialogStart;                          //N지 선다 대화 시작
+        public int[] choiceDialogIndex;                         //N지 선다 대화 선택 시점들
 
         public List<Dialog> dialogs = new List<Dialog>();       //대화 목록
 
@@ -77,11 +83,6 @@ public class NPC_Quest_Manager : MonoBehaviour
         public int[] imageShowIndex;        //imageShowIndex.count > 0 일 때, 사진 보여줄 시점들 모음
         public Image[] imgList = null;      //보여줄 image index가 있을 때 해당 이미지 리스트에서 인덱스에 맞는 이미지 가져옴
     }
-
-    //퀘스트 획득조건 별도 제작
-    //퀘스트 획득 가능 여부
-    //퀘스트 완료 조건
-    //퀘스트 완료 가능 여부
 
     [Space(20f)]
     [Header("Quest Dialog Lists")]
@@ -121,22 +122,55 @@ public class NPC_Quest_Manager : MonoBehaviour
             }
         }
 
-        if(Vector3.Distance(this.transform.position, playerController.gameObject.transform.position) < 10f)
+        if(questValues.Count > 0)
         {
-            pEnter = true;
-            if (!questIndicator.enabled)
+            if (!questValues[0].questGet && questValues[0].requireLevel && questValues[0].condition_Level <= playerController.Lv && !questValues[0].connectQuest && !questValues[0].itemQuest)
             {
-                questIndicator.enabled = true;
+                if (Vector3.Distance(this.transform.position, playerController.gameObject.transform.position) < 10f)
+                {
+                    pEnter = true;
+                    if (!questIndicator.enabled)
+                    {
+                        questIndicator.enabled = true;
+                    }
+                }
+                else
+                {
+                    pEnter = false;
+                    if (questIndicator.enabled)
+                    {
+                        questIndicator.enabled = false;
+                    }
+                }
+            }
+            else if(questValues[0].connectQuest)
+            {
+                if (Vector3.Distance(this.transform.position, playerController.gameObject.transform.position) < 10f)
+                {
+                    pEnter = true;
+                    if (!questIndicator.enabled)
+                    {
+                        questIndicator.enabled = true;
+                    }
+                }
+                else
+                {
+                    pEnter = false;
+                    if (questIndicator.enabled)
+                    {
+                        questIndicator.enabled = false;
+                    }
+                }
+            }
+            else
+            {
+                if (questIndicator.enabled)
+                {
+                    questIndicator.enabled = false;
+                }
             }
         }
-        else
-        {
-            pEnter = false;
-            if (questIndicator.enabled)
-            {
-                questIndicator.enabled = false;
-            }
-        }
+
     }
 
     private void OnMouseDown()
@@ -148,8 +182,8 @@ public class NPC_Quest_Manager : MonoBehaviour
         {
             if (questIndicator.enabled)
             {
-                // processingQuestIndex에 대한 값을 어떻게 가져올 것인가.
-
+                processingQuestindex = 0;
+                processingQuestCode = questValues[processingQuestindex].QuestCode;
                 if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.CompareTag("NPC") && !hit.collider.isTrigger)
                 {
                     if (dialog == null)
@@ -176,29 +210,17 @@ public class NPC_Quest_Manager : MonoBehaviour
         if(dialogPanel != null && !dialogPanel.gameObject.activeSelf)
         {
             dialogPanel.gameObject.SetActive(true);
-            Debug.Log("퀘스트 대화 시작");
-
-            for(int i = 0; i < questValues.Count; i++)
-            {
-                if(questValues[i].condition_Level <= playerController.Lv)
-                {
-                    processingQuestindex = i;
-                    processingQuestCode = questValues[i].QuestCode;
-                    //DB에 현재 진행중인 퀘스트 넣기
-                }
-            }
 
             int dialogIndex = 0;
 
             //퀘스트 dialogs에 들어있는 dialog 개수 만큼 대화 진행
             while (dialogIndex < questValues[processingQuestindex].dialogs.Count)
             {
+                //연계퀘스트 true면 관련 퀘스트 완료 처리
+                ConnectQuestFinish(dialogIndex);
+
                 //퀘스트 발급 시점이 되면 퀘스트 발급
-                if (dialogIndex == questValues[processingQuestindex].questGetIndex && !questValues[processingQuestindex].questGet)
-                {
-                    questValues[processingQuestindex].questGet = true;
-                    Debug.Log("퀘스트 발급!!!");
-                }
+                QuestPublish(dialogIndex);
 
                 //대화 type에 따라 true면 textBox대화 false면 말풍선 대화
                 if (questValues[processingQuestindex].dialogs[dialogIndex].dialogType)
@@ -219,6 +241,48 @@ public class NPC_Quest_Manager : MonoBehaviour
                 yield return null;
             }
             dialogPanel.gameObject.SetActive(false);
+            //연계 퀘스트 인지 확인
+            CheckConnectQuest();
         }
     }
+
+
+    public void CheckConnectQuest()
+    {
+        if (questValues[0].nextQuestNPC_Code != null)
+        {
+            for (int i = 0; i < questValues[0].nextQuestNPC_Code.questValues.Count; i++)
+            {
+                if (questValues[0].nextQuestNPC_Code.questValues[i].QuestCode == questValues[0].nextQuestCode)
+                {
+                    questValues[0].nextQuestNPC_Code.questValues[i].connectQuest = true;
+                }
+            }
+        }
+    }
+
+    public void ConnectQuestFinish(int dialogIDX)
+    {
+        //연계퀘스트 true면 관련 퀘스트 완료 처리
+        if (questValues[processingQuestindex].connectQuest && dialogIDX == questValues[processingQuestindex].connectQuestFinishIndex)
+        {
+            for (int i = 0; i < questValues[processingQuestindex].preQuestNPC_Code.questValues.Count; i++)
+            {
+                if (questValues[processingQuestindex].preQuestNPC_Code.questValues[i].QuestCode == questValues[processingQuestindex].preQuestCode)
+                {
+                    questValues[processingQuestindex].preQuestNPC_Code.questValues.RemoveAt(i);
+                }
+            }
+        }
+    }
+    public void QuestPublish(int dialogIDX)
+    {
+        //퀘스트 발급 시점이 되면 퀘스트 발급
+        if (dialogIDX == questValues[processingQuestindex].questGetIndex && !questValues[processingQuestindex].questGet)
+        {
+            questValues[processingQuestindex].questGet = true;
+            Debug.Log("퀘스트 발급!!!"); //플레이어의 퀘스트 리스트에 넣어주고 UI표시
+        }
+    }
+
 }
