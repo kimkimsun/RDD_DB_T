@@ -24,7 +24,7 @@ public class NPC_Quest_Manager : MonoBehaviour
     public List<QuestManager.Quest> quests = new List<QuestManager.Quest>();    //퀘스트 목록 from DB
     [Space(20f)]
 
-    public int processingQuestCode;                                            //진행시작한 퀘스트의 index
+    public int processingQuestCode;                                             //진행시작한 퀘스트의 index
     public int processingQuestindex;                                            //진행시작한 퀘스트의 index
 
     [System.Serializable]
@@ -61,12 +61,12 @@ public class NPC_Quest_Manager : MonoBehaviour
         [Space(10f)]
         [Header("Quest Finish Conditions")]
         public bool questFinish = false;        //퀘스트 완료 여부 -> DB로 보냄
-        public int questFinishIndex = 0;    //퀘스트 완료 시점
-        public int connectQuestFinishIndex; //퀘스트 완료 조건 : 연계 퀘스트의 완료 시점
+        public int questFinishIndex = 0;        //퀘스트 완료 시점
+        public int connectQuestFinishIndex;     //퀘스트 완료 조건 : 연계 퀘스트의 완료 시점
 
         [Space(10f)]
         [Header("Quest Details")]
-        public Text[] questDetail = null;   //퀘스트 세부 사항 -> DB로 보냄
+        public Text[] questDetail = null;       //퀘스트 세부 사항 -> DB로 보냄
 
         [Space(10f)]
         [Header("Quest Information")]
@@ -240,7 +240,9 @@ public class NPC_Quest_Manager : MonoBehaviour
 
                 yield return null;
             }
+            //대화 끝나면 판넬 창 닫기
             dialogPanel.gameObject.SetActive(false);
+
             //연계 퀘스트 인지 확인
             CheckConnectQuest();
         }
