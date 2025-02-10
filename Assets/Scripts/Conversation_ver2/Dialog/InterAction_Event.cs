@@ -12,6 +12,7 @@ public class InterAction_Event : MonoBehaviour
     public int eventIndex = 0;
 
     [Header("Dialogue Show")]
+    public Image dialoguePanel;
     public Text dialogueCharacter;
     public Text dialogueContents;
     public Text BtnText;
@@ -57,7 +58,11 @@ public class InterAction_Event : MonoBehaviour
         }
         else
         {
-            Debug.Log("´Ý±â");
+            if(dialoguePanel.gameObject.activeSelf)
+            {
+                Debug.Log("´Ý±â");
+                dialoguePanel.gameObject.SetActive(false);
+            }
         }
     }
 }

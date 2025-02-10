@@ -328,6 +328,7 @@ MonoBehaviour:
     line: {x: 1, y: 6}
     dialogues: []
   eventIndex: 0
+  dialoguePanel: {fileID: 1099746423}
   dialogueCharacter: {fileID: 407228035}
   dialogueContents: {fileID: 174535246}
   BtnText: {fileID: 1742782166}
@@ -1207,6 +1208,7 @@ MonoBehaviour:
     line: {x: 7, y: 10}
     dialogues: []
   eventIndex: 0
+  dialoguePanel: {fileID: 0}
   dialogueCharacter: {fileID: 0}
   dialogueContents: {fileID: 0}
   BtnText: {fileID: 0}
