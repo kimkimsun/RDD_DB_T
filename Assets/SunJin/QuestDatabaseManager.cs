@@ -12,16 +12,16 @@ public class QuestResponse
 {
     public QuestData[] data;
 }
-public class WsClient : MonoBehaviour
+public class QuestDatabaseManager : MonoBehaviour
 {
     WebSocket ws;
     private void Start()
     {
-        ws = new WebSocket("ws://localhost:7777");
+        ws = new WebSocket("ws://localhost:7776");
         //서버에서 설정한 포트를 넣어줍니다.
-
+        Debug.Log("여긴가?");
         ws.Connect();
-
+        Debug.Log("여긴가222?");
         //연결합니다.
         ws.OnMessage += Call;
     }
