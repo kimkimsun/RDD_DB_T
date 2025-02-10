@@ -25,11 +25,7 @@ public class QuestDatabaseManager : MonoBehaviour
     private void Start()
     {
         ws = new WebSocket("ws://localhost:7777");
-        //서버에서 설정한 포트를 넣어줍니다.
-        Debug.Log("여긴가?");
         ws.Connect();
-        Debug.Log("여긴가222?");
-        //연결합니다.
         ws.OnMessage += Call;
     }
 
@@ -65,11 +61,11 @@ public class QuestDatabaseManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K))
+        if (Input.GetKeyDown(KeyCode.A))
         {
             SendUpdateNpcCode(1, 3);
         }
-        if (Input.GetKeyDown(KeyCode.U))
+        if (Input.GetKeyDown(KeyCode.S))
         {
             ws.Send("제이쓴아님");
         }
