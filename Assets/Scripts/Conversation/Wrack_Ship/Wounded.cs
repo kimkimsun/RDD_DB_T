@@ -18,7 +18,7 @@ public class Wounded : MonoBehaviour
     {
         //엔터단위와 탭으로 나눠서 배열의 크기 조정
         string currentText = txt.text.Substring(0, txt.text.Length - 1);
-        print(currentText);
+        //print(currentText);
         string[] line = currentText.Split('\n');
         lineSize = line.Length;
         rowSize = line[0].Split('\t').Length;
