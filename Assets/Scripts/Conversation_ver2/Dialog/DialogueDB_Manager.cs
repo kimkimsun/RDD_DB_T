@@ -1,9 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
+// 캐릭터 별 Dialogue DB
+
 public class DialogueDB_Manager : MonoBehaviour
 {
-    public static DialogueDB_Manager instance;
+    //public static DialogueDB_Manager instance;
 
     [SerializeField] string csv_FileName;
 
@@ -13,19 +17,29 @@ public class DialogueDB_Manager : MonoBehaviour
 
     private void Awake()
     {
-        if(instance == null)
+        Dialogue_Parser theParser = GetComponent<Dialogue_Parser>();
+        Dialogue[] dialogues = theParser.Parse(csv_FileName);
+
+        for (int i = 0; i < dialogues.Length; i++)
         {
-            instance = this;
-            Dialogue_Parser theParser= GetComponent<Dialogue_Parser>();
-            Dialogue[] dialogues = theParser.Parse(csv_FileName);
-
-            for(int i = 0; i < dialogues.Length; i++)
-            {
-                dialogueDic.Add(i+1, dialogues[i]);
-            }
-
-            isFinish = true;
+            dialogueDic.Add(i + 1, dialogues[i]);
         }
+
+        isFinish = true;
+
+        //if (instance == null)
+        //{
+        //    instance = this;
+        //    Dialogue_Parser theParser= GetComponent<Dialogue_Parser>();
+        //    Dialogue[] dialogues = theParser.Parse(csv_FileName);
+
+        //    for(int i = 0; i < dialogues.Length; i++)
+        //    {
+        //        dialogueDic.Add(i+1, dialogues[i]);
+        //    }
+
+        //    isFinish = true;
+        //}
     }
 
     public Dialogue[] GetDialogue(int _StartNum, int _EndNum)
