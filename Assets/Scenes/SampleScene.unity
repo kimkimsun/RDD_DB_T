@@ -277,51 +277,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 174535244}
   m_CullTransparentMesh: 1
---- !u!1 &182195564
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 182195565}
-  - component: {fileID: 182195566}
-  m_Layer: 0
-  m_Name: QuestManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &182195565
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 182195564}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &182195566
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 182195564}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b57f9a507d8bfac488f9d89f9035336e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  quests: []
 --- !u!1 &276102620
 GameObject:
   m_ObjectHideFlags: 0
@@ -335,6 +290,8 @@ GameObject:
   - component: {fileID: 276102622}
   - component: {fileID: 276102621}
   - component: {fileID: 276102625}
+  - component: {fileID: 276102627}
+  - component: {fileID: 276102626}
   m_Layer: 0
   m_Name: NPC_test01
   m_TagString: NPC
@@ -447,10 +404,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ed6598ebf4f74c439005b31d3b7f889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterDB: {fileID: 276102627}
   dialogue:
     name: 
-    line: {x: 1, y: 4}
+    line: {x: 2, y: 6}
     dialogues: []
+  eventIndex: 0
+--- !u!114 &276102626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 276102620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07c14b97eb64d1742b8c4b27533b0ae1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &276102627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 276102620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72702a7f15d9c2d4c99a1ee7cff2dfcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  csv_FileName: Test_Dialogue2
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1387,6 +1371,9 @@ GameObject:
   - component: {fileID: 621425477}
   - component: {fileID: 621425476}
   - component: {fileID: 621425475}
+  - component: {fileID: 621425481}
+  - component: {fileID: 621425480}
+  - component: {fileID: 621425479}
   m_Layer: 0
   m_Name: NPC2_test02
   m_TagString: NPC
@@ -1487,6 +1474,49 @@ Transform:
   - {fileID: 1455149148}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &621425479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 621425474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72702a7f15d9c2d4c99a1ee7cff2dfcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  csv_FileName: Test_Dialogue
+--- !u!114 &621425480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 621425474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07c14b97eb64d1742b8c4b27533b0ae1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &621425481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 621425474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ed6598ebf4f74c439005b31d3b7f889, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterDB: {fileID: 621425479}
+  dialogue:
+    name: 
+    line: {x: 1, y: 4}
+    dialogues: []
+  eventIndex: 0
 --- !u!1 &638148888
 GameObject:
   m_ObjectHideFlags: 0
@@ -1786,7 +1816,6 @@ GameObject:
   - component: {fileID: 748612684}
   - component: {fileID: 748612683}
   - component: {fileID: 748612682}
-  - component: {fileID: 748612681}
   m_Layer: 0
   m_Name: NPC2
   m_TagString: NPC
@@ -1794,57 +1823,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &748612681
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 748612680}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b535c5821cfe9014fbaa7602ded0b8f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  QM: {fileID: 0}
-  NPC_Code: 2
-  questIndicator: {fileID: 1279468813}
-  dialogPanel: {fileID: 392455943}
-  dialogText: {fileID: 40249385}
-  dialogTextPopup: {fileID: 0}
-  quests: []
-  processingQuestCode: 0
-  processingQuestindex: 0
-  questValues:
-  - questGet: 0
-    questGetIndex: 0
-    startQuest: 0
-    requireLevel: 0
-    condition_Level: 0
-    connectQuest: 0
-    preQuestNPC_Code: {fileID: 2147046117}
-    preQuestCode: 5
-    nextQuestNPC_Code: {fileID: 0}
-    nextQuestCode: 0
-    itemQuest: 0
-    requireItemLis: []
-    questProcessing: 0
-    questFinish: 0
-    questFinishIndex: 0
-    connectQuestFinishIndex: 0
-    questDetail: []
-    QuestCode: 4
-    choiceDialogStart: 0
-    choiceDialogIndex: 
-    dialogs:
-    - dialogType: 1
-      dialog: "\uBD80\uC0C1\uC790 \uD018\uC2A4\uD2B8 \uC644\uB8CC"
-    descriptImg: {fileID: 0}
-    imageShowIndex: 
-    imgList: []
-  playerController: {fileID: 0}
-  pEnter: 0
-  detectCol: {fileID: 0}
 --- !u!136 &748612682
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1936,50 +1914,6 @@ Transform:
   m_Children:
   - {fileID: 2144822213}
   - {fileID: 2076513384}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &819127161
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 819127163}
-  - component: {fileID: 819127162}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &819127162
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 819127161}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8f01db3e5ad72f4e8276388a350ec3a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &819127163
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 819127161}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 485.6201, y: 370.62537, z: 248.16562}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &832575517
@@ -2554,64 +2488,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1338933178}
   m_CullTransparentMesh: 1
---- !u!1 &1412921217
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1412921218}
-  - component: {fileID: 1412921219}
-  - component: {fileID: 1412921220}
-  m_Layer: 0
-  m_Name: DialogManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1412921218
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1412921217}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 312, y: 175.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1412921219
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1412921217}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07c14b97eb64d1742b8c4b27533b0ae1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1412921220
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1412921217}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72702a7f15d9c2d4c99a1ee7cff2dfcf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  csv_FileName: Test_Dialogue
 --- !u!1 &1455149147
 GameObject:
   m_ObjectHideFlags: 0
@@ -3407,7 +3283,6 @@ GameObject:
   - component: {fileID: 2147046115}
   - component: {fileID: 2147046114}
   - component: {fileID: 2147046113}
-  - component: {fileID: 2147046117}
   m_Layer: 0
   m_Name: NPC
   m_TagString: NPC
@@ -3508,105 +3383,12 @@ Transform:
   - {fileID: 677751834}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2147046117
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2147046112}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b535c5821cfe9014fbaa7602ded0b8f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  QM: {fileID: 0}
-  NPC_Code: 1
-  questIndicator: {fileID: 1988059935}
-  dialogPanel: {fileID: 638148890}
-  dialogText: {fileID: 1103630716}
-  dialogTextPopup: {fileID: 0}
-  quests: []
-  processingQuestCode: 0
-  processingQuestindex: 0
-  questValues:
-  - questGet: 0
-    questGetIndex: 2
-    startQuest: 0
-    requireLevel: 1
-    condition_Level: 1
-    connectQuest: 0
-    preQuestNPC_Code: {fileID: 0}
-    preQuestCode: 0
-    nextQuestNPC_Code: {fileID: 748612681}
-    nextQuestCode: 4
-    itemQuest: 0
-    requireItemLis: []
-    questProcessing: 0
-    questFinish: 0
-    questFinishIndex: 0
-    connectQuestFinishIndex: 0
-    questDetail: []
-    QuestCode: 5
-    choiceDialogStart: 0
-    choiceDialogIndex: 
-    dialogs:
-    - dialogType: 0
-      dialog: "(\uC549\uC740 \uC0C1\uD0DC\uB85C) \uC544\uC774\uACE0\uC624.."
-    - dialogType: 1
-      dialog: "[\uBD80\uC0C1\uC790] \uC640\uC6B0! \uC77C\uC73C\uCF1C\uC918\uC11C
-        \uC815\uB9D0 \uACE0\uB9D9\uAD70! \uC5B4\uCA4C\uB2E4 \uC774\uB7F0 \uD070 \uC0AC\uACE0\uAC00
-        \uB0AC\uB294\uC9C0 \uBAA8\uB974\uACA0\uC9C0\uB9CC \uC5B4\uC11C \uC774 \uBC30\uB97C
-        \uBE60\uC838\uB098\uAC00\uC790\uACE0"
-    - dialogType: 1
-      dialog: "[\uBD80\uC0C1\uC790] \u2026 \uC774\uB7F0, \uB0B4\uAC00 \uAC78\uC744
-        \uC218 \uC788\uB294 \uBAB8\uC774 \uC544\uB2C8\uC5C8\uAD70. \uBBF8\uC548\uD558\uC9C0\uB9CC
-        \uBC16\uC73C\uB85C \uB098\uAC00 \uB2E4\uB978 \uC0AC\uB78C\uB4E4\uC744 \uC880
-        \uBD88\uB7EC\uC904\uB798? \uAE30\uC655\uC774\uBA74 \uCE5C\uC808\uD55C \uBCF5\uC0AC\uB2D8\uC73C\uB85C.."
-    - dialogType: 1
-      dialog: "!- \uC548\uB0B4 -! NPC\uB85C\uBD80\uD130 \uD018\uC2A4\uD2B8\uB97C
-        \uBC1B\uC558\uC2B5\uB2C8\uB2E4. \uD018\uC2A4\uD2B8 \uC815\uBCF4\uB294 \uB2E8\uCD95\uD0A4
-        alt + u \uB610\uB294 \uBA54\uB274\uD2B8\uB808\uC774 \uD018\uC2A4\uD2B8 \uC544\uC774\uCF58\uC744
-        \uD1B5\uD574 \uD655\uC778 \uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
-    descriptImg: {fileID: 0}
-    imageShowIndex: 
-    imgList: []
-  - questGet: 0
-    questGetIndex: 0
-    startQuest: 0
-    requireLevel: 1
-    condition_Level: 3
-    connectQuest: 0
-    preQuestNPC_Code: {fileID: 0}
-    preQuestCode: 0
-    nextQuestNPC_Code: {fileID: 0}
-    nextQuestCode: 0
-    itemQuest: 0
-    requireItemLis: []
-    questProcessing: 0
-    questFinish: 0
-    questFinishIndex: 0
-    connectQuestFinishIndex: 0
-    questDetail: []
-    QuestCode: 8
-    choiceDialogStart: 0
-    choiceDialogIndex: 
-    dialogs:
-    - dialogType: 0
-      dialog: quest Reset Check
-    descriptImg: {fileID: 0}
-    imageShowIndex: 
-    imgList: []
-  playerController: {fileID: 0}
-  pEnter: 0
-  detectCol: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 410087041}
   - {fileID: 832575519}
-  - {fileID: 182195565}
   - {fileID: 1800426006}
   - {fileID: 741447381}
   - {fileID: 379272984}
@@ -3615,5 +3397,3 @@ SceneRoots:
   - {fileID: 276102624}
   - {fileID: 621425478}
   - {fileID: 1256032229}
-  - {fileID: 819127163}
-  - {fileID: 1412921218}
