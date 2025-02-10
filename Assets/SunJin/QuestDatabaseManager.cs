@@ -12,12 +12,19 @@ public class QuestResponse
 {
     public QuestData[] data;
 }
+[System.Serializable]
+public class UpdateNpcCodeMessage
+{
+    public string action;
+    public int questCode;
+    public int newNpcCode;
+}
 public class QuestDatabaseManager : MonoBehaviour
 {
     WebSocket ws;
     private void Start()
     {
-        ws = new WebSocket("ws://localhost:7776");
+        ws = new WebSocket("ws://localhost:7777");
         //서버에서 설정한 포트를 넣어줍니다.
         Debug.Log("여긴가?");
         ws.Connect();
@@ -44,16 +51,20 @@ public class QuestDatabaseManager : MonoBehaviour
     }
     public void SendUpdateNpcCode(int questCode, int newNpcCode)
     {
-        var message = JsonUtility.ToJson(new { action = "updateNpcCode", questCode, newNpcCode });
-        Debug.Log("보낼 메시지: " + message); // 메시지가 제대로 생성되는지 확인
-        ws.Send(message);
+        var message = new UpdateNpcCodeMessage
+        {
+            action = "updateNpcCode",
+            questCode = questCode,
+            newNpcCode = newNpcCode
+        };
+
+        var jsonMessage = JsonUtility.ToJson(message);
+        Debug.Log("보낼 메시지: " + jsonMessage); // 메시지가 제대로 생성되는지 확인
+        ws.Send(jsonMessage);
     }
+
     private void Update()
     {
-        if (ws == null)
-        {
-            return;
-        }
         if (Input.GetKeyDown(KeyCode.K))
         {
             SendUpdateNpcCode(1, 3);
