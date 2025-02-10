@@ -13,7 +13,7 @@ public class QuestResponse
     public QuestData[] data;
 }
 [System.Serializable]
-public class UpdateNpcCodeMessage
+public struct UpdateDatabase
 {
     public string action;
     public int questCode;
@@ -21,7 +21,7 @@ public class UpdateNpcCodeMessage
 }
 public class QuestDatabaseManager : MonoBehaviour
 {
-    WebSocket ws;
+    static WebSocket ws;
     private void Start()
     {
         ws = new WebSocket("ws://localhost:7777");
@@ -49,9 +49,9 @@ public class QuestDatabaseManager : MonoBehaviour
             Debug.Log("결과가 없습니다.");
         }
     }
-    public void SendUpdateNpcCode(int questCode, int newNpcCode)
+    public static void SendUpdateNpcCode(int questCode, int newNpcCode)
     {
-        var message = new UpdateNpcCodeMessage
+        var message = new UpdateDatabase
         {
             action = "updateNpcCode",
             questCode = questCode,
