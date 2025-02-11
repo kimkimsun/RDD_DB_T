@@ -44,6 +44,7 @@ public class InterAction_Event : MonoBehaviour
         {
             //Debug.Log("일정 조건 되면 마크 띄움");
 
+            //마크가 뜬 상태에서 클릭 했을 시 조건 추가
             if (Input.GetMouseButtonDown(0))
             {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
