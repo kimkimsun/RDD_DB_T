@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,6 +7,8 @@ public class InterAction_Event : MonoBehaviour
     //public DialogueDB_Manager characterDB;
     public int eventIndex = 0;
     [Space(10f)]
+
+    public GameObject player;
 
     [SerializeField] DialogueEvent dialogue;
 
@@ -23,6 +26,7 @@ public class InterAction_Event : MonoBehaviour
 
     private void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         dialogue.dialogues = GetDialogue();
     }
     public Dialogue[] GetDialogue()
@@ -32,10 +36,15 @@ public class InterAction_Event : MonoBehaviour
         return dialogue.dialogues;
     }
 
-    //private void Update()
-    //{
-
-    //}
+    float Dist = 0f;
+    private void Update()
+    {
+        Dist = Vector3.Distance(this.transform.position, player.transform.position);
+        if (Dist <= 13f)
+        {
+            Debug.Log("일정 조건 되면 마크 띄움");
+        }
+    }
 
     public void NextDialogue()
     {

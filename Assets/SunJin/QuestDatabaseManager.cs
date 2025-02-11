@@ -61,11 +61,11 @@ public class QuestDatabaseManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.G))
         {
             SendUpdateNpcCode(1, 3);
         }
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.H))
         {
             ws.Send("Á¦ÀÌ¾´¾Æ´Ô");
         }
