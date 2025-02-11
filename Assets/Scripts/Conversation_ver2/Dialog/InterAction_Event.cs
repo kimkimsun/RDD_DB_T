@@ -42,7 +42,28 @@ public class InterAction_Event : MonoBehaviour
         Dist = Vector3.Distance(this.transform.position, player.transform.position);
         if (Dist <= 13f)
         {
-            Debug.Log("일정 조건 되면 마크 띄움");
+            //Debug.Log("일정 조건 되면 마크 띄움");
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+                if (Physics.Raycast(ray, out hit))
+                {
+                    if (hit.transform.gameObject.tag == "NPC") // 악마만두 클릭 시
+                    {
+                        Debug.Log("NPC");
+
+                        //TEST
+                        if (!dialoguePanel.gameObject.activeSelf)
+                        {
+                            dialoguePanel.gameObject.SetActive(true);
+                        }
+                    }
+                }
+            }
+
+
         }
     }
 
