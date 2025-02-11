@@ -2442,6 +2442,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterDB: {fileID: 0}
+  tableCSV: {fileID: 4900000, guid: 4239db764a57da6468aca9fab69b76f4, type: 3}
+  npc_Code: 
+  quest_Code: 
+  TdataList: []
+  lineSize: 0
+  rowSize: 0
 --- !u!114 &2092255769
 MonoBehaviour:
   m_ObjectHideFlags: 0
