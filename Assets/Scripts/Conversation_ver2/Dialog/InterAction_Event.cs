@@ -64,8 +64,6 @@ public class InterAction_Event : MonoBehaviour
                     }
                 }
             }
-
-
         }
     }
 

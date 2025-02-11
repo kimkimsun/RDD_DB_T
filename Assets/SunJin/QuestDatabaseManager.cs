@@ -45,6 +45,7 @@ public class QuestDatabaseManager : MonoBehaviour
             Debug.Log("결과가 없습니다.");
         }
     }
+
     public static void SendUpdateNpcCode(int questCode, int newNpcCode)
     {
         var message = new UpdateDatabase
