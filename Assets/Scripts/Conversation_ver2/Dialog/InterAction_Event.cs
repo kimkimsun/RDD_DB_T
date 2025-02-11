@@ -5,7 +5,8 @@ using UnityEngine.UI;
 public class InterAction_Event : MonoBehaviour
 {
     //public DialogueDB_Manager characterDB;
-    public int eventIndex = 0;
+    public int curIndex = 0;
+    public int eventIndex;
     [Space(10f)]
 
     public GameObject player;
@@ -51,7 +52,7 @@ public class InterAction_Event : MonoBehaviour
                 RaycastHit hit;
                 if (Physics.Raycast(ray, out hit))
                 {
-                    if (hit.transform.gameObject.tag == "NPC") // 악마만두 클릭 시
+                    if (hit.transform.gameObject.tag == "NPC")
                     {
                         Debug.Log("NPC");
 
@@ -70,27 +71,35 @@ public class InterAction_Event : MonoBehaviour
 
     public void NextDialogue()
     {
-        if (dialogue.dialogues.Length -1 > eventIndex)
+        if (dialogue.dialogues.Length -1 > curIndex)
         {
-            dialogueCharacter.text = dialogue.dialogues[eventIndex].name;
-            dialogueContents.text = dialogue.dialogues[eventIndex].contexts[0];
-            eventIndex++;
+            dialogueCharacter.text = dialogue.dialogues[curIndex].name;
+            dialogueContents.text = dialogue.dialogues[curIndex].contexts[0];
+            curIndex++;
             BtnText.text = "다음";
         }
-        else if(dialogue.dialogues.Length - 1 == eventIndex)
+        else if(dialogue.dialogues.Length - 1 == curIndex)
         {
-            dialogueCharacter.text = dialogue.dialogues[eventIndex].name;
-            dialogueContents.text = dialogue.dialogues[eventIndex].contexts[0];
-            eventIndex++;
+            dialogueCharacter.text = dialogue.dialogues[curIndex].name;
+            dialogueContents.text = dialogue.dialogues[curIndex].contexts[0];
+            curIndex++;
             BtnText.text = "닫기";
         }
         else
         {
             if(dialoguePanel.gameObject.activeSelf)
             {
+                //나머지 초기화
+                curIndex = 0;
                 Debug.Log("닫기");
                 dialoguePanel.gameObject.SetActive(false);
             }
+        }
+
+        if (curIndex == eventIndex)
+        {
+            Debug.Log("DB 전달");
+            QuestDatabaseManager.SendUpdateNpcCode(1, 4);
         }
     }
 }

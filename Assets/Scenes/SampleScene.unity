@@ -323,7 +323,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ed6598ebf4f74c439005b31d3b7f889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventIndex: 0
+  curIndex: 0
+  eventIndex: 4
+  player: {fileID: 0}
   dialogue:
     name: 
     line: {x: 1, y: 6}
@@ -1203,7 +1205,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ed6598ebf4f74c439005b31d3b7f889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  curIndex: 0
   eventIndex: 0
+  player: {fileID: 0}
   dialogue:
     name: 
     line: {x: 7, y: 10}
