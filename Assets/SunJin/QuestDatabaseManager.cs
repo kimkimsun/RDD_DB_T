@@ -4,7 +4,15 @@ using WebSocketSharp;
 public class QuestData
 {
     public int quest_code;
-    public int npc_code;
+    public string quest_name;
+    public bool quest_get_ballon_appears;
+    public bool quest_get_condition;
+    public bool quest_get;
+    public bool quest_completion_ballon_appears;
+    public bool quest_completion_condition;
+    public bool quest_completion;
+    public string quest_progress;
+    public string[] quest_details;
 }
 
 [System.Serializable]
@@ -21,7 +29,9 @@ public struct UpdateDatabase
 }
 public class QuestDatabaseManager : MonoBehaviour
 {
-    static WebSocket ws;
+    public static QuestResponse serverData;
+    private static WebSocket ws;
+    
     private void Start()
     {
         ws = new WebSocket("ws://localhost:7777");
@@ -29,20 +39,18 @@ public class QuestDatabaseManager : MonoBehaviour
         ws.OnMessage += Call;
     }
 
-    void Call(object sender, MessageEventArgs e)
+    private void Call(object sender, MessageEventArgs e)
     {
-        var response = JsonUtility.FromJson<QuestResponse>(e.Data);
+        serverData = JsonUtility.FromJson<QuestResponse>(e.Data);
+        Debug.Log(serverData.data[1].quest_code);
+    }
 
-        if (response.data.Length > 0)
+    public static void SelectFromTable(int quest_code,int selectData)
+    {
+        foreach(QuestData data in serverData.data)
         {
-            int questCode = response.data[0].quest_code;
-            int npcCode = response.data[0].npc_code;
-            Debug.Log("quest_code: " + questCode);
-            Debug.Log("npc_code: " + npcCode);
-        }
-        else
-        {
-            Debug.Log("결과가 없습니다.");
+            if (data.quest_code == quest_code)
+                Debug.Log(data.quest_code);
         }
     }
 
@@ -62,13 +70,16 @@ public class QuestDatabaseManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.G))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
             SendUpdateNpcCode(1, 3);
         }
-        if (Input.GetKeyDown(KeyCode.H))
+        if (Input.GetKeyDown(KeyCode.X))
         {
             ws.Send("제이쓴아님");
+        }
+        if (Input.GetKeyDown(KeyCode.C))
+        {
         }
     }
 }
