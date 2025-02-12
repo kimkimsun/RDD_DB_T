@@ -97,7 +97,7 @@ public class InterAction_Event : MonoBehaviour
         if (curIndex == eventIndex)
         {
             Debug.Log("DB РќДо");
-            QuestDatabaseManager.SendUpdateNpcCode(1, 4);
+           // QuestDatabaseManager.SendUpdateNpcCode(1, 4);
         }
     }
 }

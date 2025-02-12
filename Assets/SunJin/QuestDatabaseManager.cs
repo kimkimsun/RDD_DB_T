@@ -23,27 +23,51 @@ public class QuestResponse
 [System.Serializable]
 public struct UpdateDatabase
 {
-    public string action;
+    public string function;
     public int questCode;
-    public int newNpcCode;
+    public bool newBool;
+    public string newString;
+    public string[] newStringArray;
 }
 public class QuestDatabaseManager : MonoBehaviour
 {
-    public static QuestResponse serverData;
-    private static WebSocket ws;
-    public static void SendUpdateNpcCode(int questCode, int newNpcCode)
+    public QuestResponse serverData;
+    private WebSocket ws;
+    #region UpdateDB
+    public void SendUpdateBool(string function, int questCode, bool newBool)
     {
         var message = new UpdateDatabase
         {
-            action = "UpdateNPCCode",
+            function = function,
             questCode = questCode,
-            newNpcCode = newNpcCode
+            newBool = newBool
         };
-
         var jsonMessage = JsonUtility.ToJson(message);
         ws.Send(jsonMessage);
     }
-
+    public void SendUpdateString(string function, int questCode, string newString)
+    {
+        var message = new UpdateDatabase
+        {
+            function = function,
+            questCode = questCode,
+            newString = newString
+        };
+        var jsonMessage = JsonUtility.ToJson(message);
+        ws.Send(jsonMessage);
+    }
+    public void SendUpdateStringArray(string function, int questCode, string[] newStringArray)
+    {
+        var message = new UpdateDatabase
+        {
+            function = function,
+            questCode = questCode,
+            newStringArray = newStringArray
+        };
+        var jsonMessage = JsonUtility.ToJson(message);
+        ws.Send(jsonMessage);
+    }
+    #endregion UpdateDB
     #region LoadDB
     private void Start()
     {
@@ -58,7 +82,7 @@ public class QuestDatabaseManager : MonoBehaviour
     }
     #endregion
     #region SearchDB
-    public static void SelectQuestCode(int quest_code)
+    public void SelectQuestCode(int quest_code)
     {
         foreach(QuestData data in serverData.data)
         {
@@ -66,7 +90,7 @@ public class QuestDatabaseManager : MonoBehaviour
         }
     }
 
-    public static void SelectQuestName(string quest_name)
+    public void SelectQuestName(string quest_name)
     {
         foreach (QuestData data in serverData.data)
         {
@@ -74,15 +98,21 @@ public class QuestDatabaseManager : MonoBehaviour
         }
     }
 
-    public static void SelectQuestGetBallonAppears(bool quest_get_ballon_appears)
+    public void SelectQuestGetBallonAppears(int questCode, bool quest_get_ballon_appears)
     {
         foreach (QuestData data in serverData.data)
         {
-            if (data.quest_get_ballon_appears == quest_get_ballon_appears) { }
+            if (data.quest_get_ballon_appears == quest_get_ballon_appears) 
+            {
+                //if임시DB 퀘스트 코드 == questcode 일 때
+                //   { 임시 DB 퀘스트 코드.quest_get_ballon_appears = quest_get_ballon_appears; }
+
+                //여기서 DB데이터를 업데이트 해줍니다.
+            }
         }
     }
 
-    public static void SelectQuestGetCondition(bool quest_get_condition)
+    public void SelectQuestGetCondition(bool quest_get_condition)
     {
         foreach (QuestData data in serverData.data)
         {
@@ -90,7 +120,7 @@ public class QuestDatabaseManager : MonoBehaviour
         }
     }
 
-    public static void SelectQuestGet(bool quest_get)
+    public void SelectQuestGet(bool quest_get)
     {
         foreach (QuestData data in serverData.data)
         {
@@ -98,7 +128,7 @@ public class QuestDatabaseManager : MonoBehaviour
         }
     }
 
-    public static void SelectQuestCompletionBallonAppears(bool quest_completion_ballon_appears)
+    public void SelectQuestCompletionBallonAppears(bool quest_completion_ballon_appears)
     {
         foreach (QuestData data in serverData.data)
         {
@@ -106,7 +136,7 @@ public class QuestDatabaseManager : MonoBehaviour
         }
     }
 
-    public static void SelectQuestCompletionCondition(bool quest_completion_condition)
+    public void SelectQuestCompletionCondition(bool quest_completion_condition)
     {
         foreach (QuestData data in serverData.data)
         {
@@ -114,7 +144,7 @@ public class QuestDatabaseManager : MonoBehaviour
         }
     }
 
-    public static void SelectQuestCompletion(bool quest_completion)
+    public void SelectQuestCompletion(bool quest_completion)
     {
         foreach (QuestData data in serverData.data)
         {
@@ -122,7 +152,7 @@ public class QuestDatabaseManager : MonoBehaviour
         }
     }
 
-    public static void SelectQuestProgress(string quest_progress)
+    public void SelectQuestProgress(string quest_progress)
     {
         foreach (QuestData data in serverData.data)
         {
@@ -130,7 +160,7 @@ public class QuestDatabaseManager : MonoBehaviour
         }
     }
 
-    public static void SelectQuestDetails(string[] quest_details)
+    public void SelectQuestDetails(string[] quest_details)
     {
         foreach (QuestData data in serverData.data)
         {
@@ -143,7 +173,7 @@ public class QuestDatabaseManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            SendUpdateNpcCode(1, 3);
+            SendUpdateBool("UpdateQuestGetBallonAppears", 1, false);
         }
         if (Input.GetKeyDown(KeyCode.X))
         {
