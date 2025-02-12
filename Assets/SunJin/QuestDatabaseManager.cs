@@ -31,7 +31,20 @@ public class QuestDatabaseManager : MonoBehaviour
 {
     public static QuestResponse serverData;
     private static WebSocket ws;
-    
+    public static void SendUpdateNpcCode(int questCode, int newNpcCode)
+    {
+        var message = new UpdateDatabase
+        {
+            action = "UpdateNPCCode",
+            questCode = questCode,
+            newNpcCode = newNpcCode
+        };
+
+        var jsonMessage = JsonUtility.ToJson(message);
+        ws.Send(jsonMessage);
+    }
+
+    #region LoadDB
     private void Start()
     {
         ws = new WebSocket("ws://localhost:7777");
@@ -42,22 +55,8 @@ public class QuestDatabaseManager : MonoBehaviour
     private void Call(object sender, MessageEventArgs e)
     {
         serverData = JsonUtility.FromJson<QuestResponse>(e.Data);
-        Debug.Log(serverData.data[1].quest_code);
     }
-    public static void SendUpdateNpcCode(int questCode, int newNpcCode)
-    {
-        var message = new UpdateDatabase
-        {
-            action = "updateNpcCode",
-            questCode = questCode,
-            newNpcCode = newNpcCode
-        };
-
-        var jsonMessage = JsonUtility.ToJson(message);
-        Debug.Log("보낼 메시지: " + jsonMessage); // 메시지가 제대로 생성되는지 확인
-        ws.Send(jsonMessage);
-    }
-
+    #endregion
     #region SearchDB
     public static void SelectQuestCode(int quest_code)
     {
