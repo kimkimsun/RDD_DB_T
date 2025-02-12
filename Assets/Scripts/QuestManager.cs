@@ -33,7 +33,6 @@ public class QuestManager : MonoBehaviour
             characterDB.csv_FileName = "Test_Dialogue2";
         }
     }
-
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -41,24 +40,50 @@ public class QuestManager : MonoBehaviour
         TableSetter();
     }
 
+    //4. 주는 NPC의 줄때 대화
+    //5. 완료 NPC의 완료 대화
+    //6. 주는 NPC의 퀘스트 진행 중 대화
+    //7. 완료 NPC의 퀘스트 진행 중 대화
+
     [System.Serializable]
     public class TableData
     {
-        public int Tnpc_code;                       //NPC 코드
+        public int Tquest_code;                     //1. 퀘스트 코드
 
-        public int Tquest_code;                     //퀘스트 코드
+        public string Tquest_name;                  //2. 퀘스트 이름
 
-        public bool TquestBaloon_On;                //퀘스트 획득 말풍선 출현 bool
+        public string Tquest_contents;              //3. 퀘스트 내용
 
-        public Image TquestBaloon_UI;               //퀘스트 획득 말풍선 UI
+        public int TGivenpc_code;                   //3. 주는NPC 코드
 
-        public string TqusetGet_Condition;          //퀘스트 획득 조건
+        public int TFinishnpc_code;                 //4. 완료NPC 코드
+
+        public int TquestGet_index;                 //8. 퀘스트 받는 시점
+
+        public int TquestChoice_index;              //9. 다지선다 시점
+
+        public int TquestFinish_index;              //10. 퀘스트 완료 시점
+
+        public int TquestTyping_index;              //11. 퀘스트 따라 쓰기 시점
+
+        public Sprite TquestBaloon_UI;                 //13. 퀘스트 획득 말풍선 UI Type
+
+        public string TqusetGet_Condition;          //퀘스트 획득 조건(일정 거리 내에 들어오면 검사)
     }
 
-    List<int> npc_Code = new List<int>();
     List<int> quest_Code = new List<int>();
-    List<bool> quest_baloonOn = new List<bool>();
-    List<Image> quest_GetbaloonUI = new List<Image>();
+    List<string> quest_Name = new List<string>();
+    List<string> quest_contents = new List<string>();
+    List<int> npcGive_Code = new List<int>();
+    List<int> npcFinish_Code = new List<int>();
+    List<int> questGet_index = new List<int>();
+    List<int> questChoice_index = new List<int>();
+    List<int> questFinish_index = new List<int>();
+    List<int> questTyping_index = new List<int>();
+
+    List<int> quest_GetbaloonUI = new List<int>();
+    public List<Sprite> questUI = new List<Sprite>();
+
     List<string> questGet_Condition = new List<string>();
 
     public List<TableData> TdataList = new List<TableData>();
@@ -84,31 +109,56 @@ public class QuestManager : MonoBehaviour
             }
         }
 
-        bool on;
+        //bool on;
         for (int i = 1; i < lineSize; i++)
         {
             string[] data = tables[i, 0].Split(',');
-            npc_Code.Add(int.Parse(data[0]));
-            quest_Code.Add(int.Parse(data[1]));
-            if (Boolean.TryParse(data[2], out on))
-            {
-                quest_baloonOn.Add(Boolean.Parse(data[2]));
-            }
-            else
-            {
-                Debug.Log("Boolean 형이 아닙니다.");
-            }
-            quest_GetbaloonUI.Add(this.transform.GetChild(0).Find(data[3]).GetComponent<Image>());
-            questGet_Condition.Add(data[4]);
+
+            quest_Code.Add(int.Parse(data[0]));
+
+            quest_Name.Add(data[1]);
+
+            quest_contents.Add(data[2]);
+
+            npcGive_Code.Add(int.Parse(data[3]));
+
+            npcFinish_Code.Add(int.Parse(data[4]));
+
+            questGet_index.Add(int.Parse(data[5]));
+
+            questChoice_index.Add(int.Parse(data[6]));
+
+            questFinish_index.Add(int.Parse(data[7]));
+
+            questTyping_index.Add(int.Parse(data[8]));
+
+            //if (Boolean.TryParse(data[2], out on))
+            //{
+            //    quest_baloonOn.Add(Boolean.Parse(data[2]));
+            //}
+            //else
+            //{
+            //    Debug.Log("Boolean 형이 아닙니다.");
+            //}
+
+            quest_GetbaloonUI.Add(int.Parse(data[9]));
+
+            questGet_Condition.Add(data[10]);
         }
 
-        for (int i = 0; i < npc_Code.Count; i++)
+        for (int i = 0; i < quest_Code.Count; i++)
         {
             TableData tempData = new TableData();
-            tempData.Tnpc_code = npc_Code[i];
             tempData.Tquest_code = quest_Code[i];
-            tempData.TquestBaloon_On = quest_baloonOn[i];
-            tempData.TquestBaloon_UI = quest_GetbaloonUI[i];
+            tempData.Tquest_name = quest_Name[i];
+            tempData.Tquest_contents = quest_contents[i];
+            tempData.TGivenpc_code = npcGive_Code[i];
+            tempData.TFinishnpc_code = npcFinish_Code[i];
+            tempData.TquestGet_index = questGet_index[i];
+            tempData.TquestChoice_index = questChoice_index[i];
+            tempData.TquestFinish_index = questFinish_index[i];
+            tempData.TquestTyping_index = questTyping_index[i];
+            tempData.TquestBaloon_UI = questUI[quest_GetbaloonUI[i]];
             tempData.TqusetGet_Condition = questGet_Condition[i];
             TdataList.Add(tempData);
         }

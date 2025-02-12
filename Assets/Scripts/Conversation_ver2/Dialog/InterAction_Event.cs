@@ -41,14 +41,15 @@ public class InterAction_Event : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         dialogue.dialogues = GetDialogue();
 
-        for(int i = 0; i < QuestManager.instance.TdataList.Count; i++)
+        for (int i = 0; i < QuestManager.instance.TdataList.Count; i++)
         {
-            if (QuestManager.instance.TdataList[i].Tnpc_code == npcCode)
+            if (QuestManager.instance.TdataList[i].TGivenpc_code == npcCode)
             {
                 questData.Add(QuestManager.instance.TdataList[i]);
             }
         }
     }
+
     public Dialogue[] GetDialogue()
     {
         dialogue.dialogues = QuestManager.instance.characterDB.GetDialogue((int)dialogue.line.x, (int)dialogue.line.y);
