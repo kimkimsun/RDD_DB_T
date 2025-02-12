@@ -428,9 +428,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ed6598ebf4f74c439005b31d3b7f889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  npcCode: 1
   curIndex: 0
   eventIndex: 4
   player: {fileID: 0}
+  questData: []
   dialogue:
     name: 
     line: {x: 1, y: 6}
@@ -1310,9 +1312,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ed6598ebf4f74c439005b31d3b7f889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  npcCode: 0
   curIndex: 0
   eventIndex: 0
   player: {fileID: 0}
+  questData: []
   dialogue:
     name: 
     line: {x: 7, y: 10}
@@ -2849,7 +2853,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterDB: {fileID: 0}
   tableCSV: {fileID: 4900000, guid: 4239db764a57da6468aca9fab69b76f4, type: 3}
-  quest_GetbaloonUI: []
   TdataList: []
   lineSize: 0
   rowSize: 0
