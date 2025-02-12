@@ -1,11 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static UnityEngine.Analytics.IAnalytic;
-using static UnityEngine.Rendering.DebugUI;
+using UnityEngine.UI;
 
 public class QuestManager : MonoBehaviour
 {
@@ -53,12 +50,15 @@ public class QuestManager : MonoBehaviour
 
         public bool TquestBaloon_On;                //Äù½ºÆ® È¹µæ ¸»Ç³¼± ÃâÇö bool
 
+        public Image TquestBaloon_UI;               //Äù½ºÆ® È¹µæ ¸»Ç³¼± UI
+
         public string TqusetGet_Condition;          //Äù½ºÆ® È¹µæ Á¶°Ç
     }
 
     List<int> npc_Code = new List<int>();
     List<int> quest_Code = new List<int>();
     List<bool> quest_baloonOn = new List<bool>();
+    public List<Image> quest_GetbaloonUI = new List<Image>();
     List<string> questGet_Condition = new List<string>();
 
     public List<TableData> TdataList = new List<TableData>();
@@ -98,8 +98,7 @@ public class QuestManager : MonoBehaviour
             {
                 Debug.Log("Boolean ÇüÀÌ ¾Æ´Õ´Ï´Ù.");
             }
-
-            questGet_Condition.Add(data[3]);
+            questGet_Condition.Add(data[4]);
         }
 
         for (int i = 0; i < npc_Code.Count; i++)
