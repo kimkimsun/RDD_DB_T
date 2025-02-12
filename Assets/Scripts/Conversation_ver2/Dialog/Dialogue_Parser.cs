@@ -8,9 +8,7 @@ public class Dialogue_Parser : MonoBehaviour
     {
         List<Dialogue> dialogueList = new List<Dialogue>(); //대사 리스트 생성.
         TextAsset csvDt = Resources.Load<TextAsset>(_CSVFileName);    //csv파일 가져옴.
-        //string csvData = csvDt.text.Substring(1, csvDt.text.Length-1);
         string[] data = csvDt.text.Split(new char[] {'\n'});
-
 
         for(int i = 1;  i < data.Length;)
         {
@@ -18,7 +16,6 @@ public class Dialogue_Parser : MonoBehaviour
 
             Dialogue dialogue  = new Dialogue();    //대사 리스트 생성
             dialogue.name = row[1];
-            //Debug.Log(row[1]);
             List<string> contextList = new List<string>();
 
             do
@@ -26,7 +23,6 @@ public class Dialogue_Parser : MonoBehaviour
                 if (++i < data.Length)
                 {
                     contextList.Add(row[2]);
-                    //Debug.Log(row[2]);
                     row = data[i].Split(new char[] { ',' });
                 }
                 else

@@ -1,15 +1,26 @@
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class InterAction_Event : MonoBehaviour
 {
+    [Header("NPC code")]
+    public int npcCode;
+    public int cur_QuestCode;
+
+    [Space(10f)]
+
     //public DialogueDB_Manager characterDB;
-    public int curIndex = 0;
-    public int eventIndex;
+    public int cur_Dialogue_Index = 0;
+    public int event_Dialogue_Index;
     [Space(10f)]
 
     public GameObject player;
+
+    //public QuestManager.TableData[] questData;
+
+    public List<QuestManager.TableData> questData = new List<QuestManager.TableData>();
 
     [SerializeField] DialogueEvent dialogue;
 
@@ -29,7 +40,16 @@ public class InterAction_Event : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         dialogue.dialogues = GetDialogue();
+
+        for (int i = 0; i < QuestManager.instance.TdataList.Count; i++)
+        {
+            if (QuestManager.instance.TdataList[i].TGivenpc_code == npcCode)
+            {
+                questData.Add(QuestManager.instance.TdataList[i]);
+            }
+        }
     }
+
     public Dialogue[] GetDialogue()
     {
         dialogue.dialogues = QuestManager.instance.characterDB.GetDialogue((int)dialogue.line.x, (int)dialogue.line.y);
@@ -69,18 +89,18 @@ public class InterAction_Event : MonoBehaviour
 
     public void NextDialogue()
     {
-        if (dialogue.dialogues.Length -1 > curIndex)
+        if (dialogue.dialogues.Length -1 > cur_Dialogue_Index)
         {
-            dialogueCharacter.text = dialogue.dialogues[curIndex].name;
-            dialogueContents.text = dialogue.dialogues[curIndex].contexts[0];
-            curIndex++;
+            dialogueCharacter.text = dialogue.dialogues[cur_Dialogue_Index].name;
+            dialogueContents.text = dialogue.dialogues[cur_Dialogue_Index].contexts[0];
+            cur_Dialogue_Index++;
             BtnText.text = "다음";
         }
-        else if(dialogue.dialogues.Length - 1 == curIndex)
+        else if(dialogue.dialogues.Length - 1 == cur_Dialogue_Index)
         {
-            dialogueCharacter.text = dialogue.dialogues[curIndex].name;
-            dialogueContents.text = dialogue.dialogues[curIndex].contexts[0];
-            curIndex++;
+            dialogueCharacter.text = dialogue.dialogues[cur_Dialogue_Index].name;
+            dialogueContents.text = dialogue.dialogues[cur_Dialogue_Index].contexts[0];
+            cur_Dialogue_Index++;
             BtnText.text = "닫기";
         }
         else
@@ -88,13 +108,13 @@ public class InterAction_Event : MonoBehaviour
             if(dialoguePanel.gameObject.activeSelf)
             {
                 //나머지 초기화
-                curIndex = 0;
+                cur_Dialogue_Index = 0;
                 Debug.Log("닫기");
                 dialoguePanel.gameObject.SetActive(false);
             }
         }
 
-        if (curIndex == eventIndex)
+        if (cur_Dialogue_Index == event_Dialogue_Index)
         {
             Debug.Log("DB 전달");
            // QuestDatabaseManager.SendUpdateNpcCode(1, 4);
