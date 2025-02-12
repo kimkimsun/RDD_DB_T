@@ -58,7 +58,7 @@ public class QuestManager : MonoBehaviour
     List<int> npc_Code = new List<int>();
     List<int> quest_Code = new List<int>();
     List<bool> quest_baloonOn = new List<bool>();
-    public List<Image> quest_GetbaloonUI = new List<Image>();
+    List<Image> quest_GetbaloonUI = new List<Image>();
     List<string> questGet_Condition = new List<string>();
 
     public List<TableData> TdataList = new List<TableData>();
@@ -98,6 +98,7 @@ public class QuestManager : MonoBehaviour
             {
                 Debug.Log("Boolean 형이 아닙니다.");
             }
+            quest_GetbaloonUI.Add(this.transform.GetChild(0).Find(data[3]).GetComponent<Image>());
             questGet_Condition.Add(data[4]);
         }
 
@@ -107,6 +108,7 @@ public class QuestManager : MonoBehaviour
             tempData.Tnpc_code = npc_Code[i];
             tempData.Tquest_code = quest_Code[i];
             tempData.TquestBaloon_On = quest_baloonOn[i];
+            tempData.TquestBaloon_UI = quest_GetbaloonUI[i];
             tempData.TqusetGet_Condition = questGet_Condition[i];
             TdataList.Add(tempData);
         }
