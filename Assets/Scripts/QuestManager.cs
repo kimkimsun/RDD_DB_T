@@ -9,6 +9,7 @@ public class QuestManager : MonoBehaviour
     public static QuestManager instance;
     public DialogueDB_Manager characterDB;
 
+    public QuestDatabaseManager QDBM;
 
     public TextAsset tableCSV;
 
@@ -37,6 +38,7 @@ public class QuestManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        QDBM = GetComponent<QuestDatabaseManager>();
         TableSetter();
     }
 
@@ -48,6 +50,7 @@ public class QuestManager : MonoBehaviour
     [System.Serializable]
     public class TableData
     {
+        [Header("CSV Part")]
         public int Tquest_code;                     //1. Äù½ºÆ® ÄÚµå
 
         public string Tquest_name;                  //2. Äù½ºÆ® ÀÌ¸§
@@ -66,9 +69,13 @@ public class QuestManager : MonoBehaviour
 
         public int TquestTyping_index;              //11. Äù½ºÆ® µû¶ó ¾²±â ½ÃÁ¡
 
-        public Sprite TquestBaloon_UI;                 //13. Äù½ºÆ® È¹µæ ¸»Ç³¼± UI Type
+        public Sprite TquestBaloon_UI;              //13. Äù½ºÆ® È¹µæ ¸»Ç³¼± UI Type
 
         public string TqusetGet_Condition;          //Äù½ºÆ® È¹µæ Á¶°Ç(ÀÏÁ¤ °Å¸® ³»¿¡ µé¾î¿À¸é °Ë»ç)
+
+        //---------------------------------------------------------------------------------------
+        [Header("DataBase Part")]
+        public bool quest_get;
     }
 
     List<int> quest_Code = new List<int>();
@@ -160,6 +167,11 @@ public class QuestManager : MonoBehaviour
             tempData.TquestTyping_index = questTyping_index[i];
             tempData.TquestBaloon_UI = questUI[quest_GetbaloonUI[i]];
             tempData.TqusetGet_Condition = questGet_Condition[i];
+
+            //tempData.quest_get = QDBM.serverData.data[i].quest_get;
+
+            // QDBM.serverData.data[i].quest_name = quest_Name[i];
+
             TdataList.Add(tempData);
         }
     }
