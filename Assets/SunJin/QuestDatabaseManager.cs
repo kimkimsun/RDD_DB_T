@@ -4,7 +4,6 @@ using WebSocketSharp;
 public class QuestData
 {
     public int quest_code;
-    public string quest_name;
     public bool quest_get_ballon_appears;
     public bool quest_get_condition;
     public bool quest_get;
@@ -32,35 +31,40 @@ public struct UpdateDatabase
 public class QuestDatabaseManager : MonoBehaviour
 {
     public QuestResponse serverData;
+    private string[] functionNameStorage = { "UpdateQuestGetBallonAppears"
+            ,"UpdateQuestGetCondition" ,"UpdateQuestGet" ,
+        "UpdateQuestCompletionBallonAppears" ,"UpdateQuestCompletionCondition" ,
+        "UpdateQuestCompletion","UpdateQuestProgress" ,"UpdateQuestDetails"};
+    string[] test = {"테스트","되는지","확인용" };
     private WebSocket ws;
     #region UpdateDB
-    public void SendUpdateBool(string function, int questCode, bool newBool)
+    public void SendUpdateBool(int function, int questCode, bool newBool)
     {
         var message = new UpdateDatabase
         {
-            function = function,
+            function = functionNameStorage[function],
             questCode = questCode,
             newBool = newBool
         };
         var jsonMessage = JsonUtility.ToJson(message);
         ws.Send(jsonMessage);
     }
-    public void SendUpdateString(string function, int questCode, string newString)
+    public void SendUpdateString(int function, int questCode, string newString)
     {
         var message = new UpdateDatabase
         {
-            function = function,
+            function = functionNameStorage[function],
             questCode = questCode,
             newString = newString
         };
         var jsonMessage = JsonUtility.ToJson(message);
         ws.Send(jsonMessage);
     }
-    public void SendUpdateStringArray(string function, int questCode, string[] newStringArray)
+    public void SendUpdateStringArray(int function, int questCode, string[] newStringArray)
     {
         var message = new UpdateDatabase
         {
-            function = function,
+            function = functionNameStorage[function],
             questCode = questCode,
             newStringArray = newStringArray
         };
@@ -81,20 +85,13 @@ public class QuestDatabaseManager : MonoBehaviour
         serverData = JsonUtility.FromJson<QuestResponse>(e.Data);
     }
     #endregion
+
     #region SearchDB
     public void SelectQuestCode(int quest_code)
     {
         foreach(QuestData data in serverData.data)
         {
             if (data.quest_code == quest_code) { }
-        }
-    }
-
-    public void SelectQuestName(string quest_name)
-    {
-        foreach (QuestData data in serverData.data)
-        {
-            if (data.quest_name == quest_name) { }
         }
     }
 
@@ -171,16 +168,37 @@ public class QuestDatabaseManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            SendUpdateBool("UpdateQuestGetBallonAppears", 1, false);
+            SendUpdateBool(0, 1, false);
         }
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            ws.Send("제이쓴아님");
+            SendUpdateBool(1, 1, true);
         }
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.Alpha3))
         {
+            SendUpdateBool(2, 1, true);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            SendUpdateBool(3, 1, true);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            SendUpdateBool(4, 1, true);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            SendUpdateBool(5, 1, true);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            SendUpdateString(6, 1, "은근 많이함");
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha8))
+        {
+            SendUpdateStringArray(7, 1, test);
         }
     }
 }
