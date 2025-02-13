@@ -73,12 +73,19 @@ public class QuestDatabaseManager : MonoBehaviour
     }
     #endregion UpdateDB
     #region LoadDB
-    private void Start()
+
+    private void Awake()
     {
         ws = new WebSocket("ws://localhost:7777");
         ws.Connect();
         ws.OnMessage += Call;
     }
+    //private void Start()
+    //{
+    //    ws = new WebSocket("ws://localhost:7777");
+    //    ws.Connect();
+    //    ws.OnMessage += Call;
+    //}
 
     private void Call(object sender, MessageEventArgs e)
     {

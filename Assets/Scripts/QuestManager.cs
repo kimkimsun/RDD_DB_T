@@ -75,6 +75,7 @@ public class QuestManager : MonoBehaviour
 
         //---------------------------------------------------------------------------------------
         [Header("DataBase Part")]
+        public bool quest_get_baloon;
         public bool quest_get;
     }
 
@@ -101,8 +102,10 @@ public class QuestManager : MonoBehaviour
 
     public void TableSetter()
     {
+
         string currentText = tableCSV.text.Substring(0, tableCSV.text.Length - 1);
         string[] line = currentText.Split(new char[] { '\n' });
+        Debug.Log("ต้");
         lineSize = line.Length;
         rowSize = line[0].Split(new char[] { '\t' }).Length;
         tables = new string[lineSize, rowSize];
@@ -119,6 +122,7 @@ public class QuestManager : MonoBehaviour
         //bool on;
         for (int i = 1; i < lineSize; i++)
         {
+
             string[] data = tables[i, 0].Split(',');
 
             quest_Code.Add(int.Parse(data[0]));
@@ -153,9 +157,10 @@ public class QuestManager : MonoBehaviour
             questGet_Condition.Add(data[10]);
         }
 
-        for (int i = 0; i < quest_Code.Count; i++)
+        TableData tempData = new TableData();
+
+        for (int i = 0; i < QDBM.serverData.data.Length/*quest_Code.Count*/; i++)
         {
-            TableData tempData = new TableData();
             tempData.Tquest_code = quest_Code[i];
             tempData.Tquest_name = quest_Name[i];
             tempData.Tquest_contents = quest_contents[i];
@@ -167,18 +172,21 @@ public class QuestManager : MonoBehaviour
             tempData.TquestTyping_index = questTyping_index[i];
             tempData.TquestBaloon_UI = questUI[quest_GetbaloonUI[i]];
             tempData.TqusetGet_Condition = questGet_Condition[i];
-
-            //tempData.quest_get = QDBM.serverData.data[i].quest_get;
-
             // QDBM.serverData.data[i].quest_name = quest_Name[i];
 
             TdataList.Add(tempData);
         }
+
+        for(int i = 0; i < QDBM.serverData.data.Length; i++)
+        {
+            tempData.quest_get_baloon = QDBM.serverData.data[i].quest_get_ballon_appears;
+            tempData.quest_get = QDBM.serverData.data[i].quest_get;
+        }
     }
 
-    // Update is called once per frame
-    //void Update()
-    //{
+   // Update is called once per frame
+    void Update()
+    {
 
-    //}
+    }
 }
