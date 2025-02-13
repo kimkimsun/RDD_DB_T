@@ -18,19 +18,19 @@ public class Dialogue_Parser : MonoBehaviour
             dialogue.name = row[0];
             List<string> contextList = new List<string>();
 
-            //do
-            //{
-            //    if (++i < data.Length)
-            //    {
-            //        contextList.Add(row[1]);
-            //        row = data[i].Split(new char[] { ',' });
-            //    }
-            //    else
-            //    {
-            //        break;
-            //    }
-            //}
-            //while (row[0].ToString() == "");
+            do
+            {
+                if (++i < data.Length)
+                {
+                    contextList.Add(row[1]);
+                    row = data[i].Split(new char[] { ',' });
+                }
+                else
+                {
+                    break;
+                }
+            }
+            while (row[0].ToString() == "");
 
             dialogue.contexts = contextList.ToArray();
 
