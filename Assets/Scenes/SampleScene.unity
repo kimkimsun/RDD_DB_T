@@ -217,7 +217,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!136 &276102621
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1102,7 +1102,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!136 &621425475
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1214,10 +1214,6 @@ MonoBehaviour:
   event_Dialogue_Index: 0
   player: {fileID: 0}
   questData: []
-  dialogue:
-    name: 
-    line: {x: 0, y: 0}
-    dialogues: []
   dialoguePanel: {fileID: 0}
   dialogueCharacter: {fileID: 0}
   dialogueContents: {fileID: 0}
@@ -2386,8 +2382,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2092255764}
-  - component: {fileID: 2092255767}
-  - component: {fileID: 2092255766}
   - component: {fileID: 2092255768}
   - component: {fileID: 2092255769}
   m_Layer: 0
@@ -2412,31 +2406,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2092255766
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2092255763}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07c14b97eb64d1742b8c4b27533b0ae1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2092255767
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2092255763}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72702a7f15d9c2d4c99a1ee7cff2dfcf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  csv_FileName: 
 --- !u!114 &2092255768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2449,7 +2418,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b57f9a507d8bfac488f9d89f9035336e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterDB: {fileID: 0}
   QDBM: {fileID: 0}
   tableCSV: {fileID: 4900000, guid: 4239db764a57da6468aca9fab69b76f4, type: 3}
   questUI:

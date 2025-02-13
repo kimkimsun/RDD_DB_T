@@ -15,18 +15,18 @@ public class DialogueDB_Manager : MonoBehaviour
 
     public static bool isFinish = false;
 
-    private void Awake()
-    {
-        Dialogue_Parser theParser = GetComponent<Dialogue_Parser>();
-        Dialogue[] dialogues = theParser.Parse(csv_FileName);
+    //private void Awake()
+    //{
+    //    Dialogue_Parser theParser = GetComponent<Dialogue_Parser>();
+    //    Dialogue[] dialogues = theParser.Parse(csv_FileName);
 
-        for (int i = 0; i < dialogues.Length; i++)
-        {
-            dialogueDic.Add(i + 1, dialogues[i]);
-        }
+    //    for (int i = 0; i < dialogues.Length; i++)
+    //    {
+    //        dialogueDic.Add(i + 1, dialogues[i]);
+    //    }
 
-        isFinish = true;
-    }
+    //    isFinish = true;
+    //}
 
     private void Start()
     {

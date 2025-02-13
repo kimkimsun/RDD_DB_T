@@ -15,14 +15,14 @@ public class Dialogue_Parser : MonoBehaviour
             string[] row = data[i].Split(new char[] {','});
 
             Dialogue dialogue  = new Dialogue();    //대사 리스트 생성
-            dialogue.name = row[0];
+            dialogue.name = row[1];
             List<string> contextList = new List<string>();
 
             do
             {
                 if (++i < data.Length)
                 {
-                    contextList.Add(row[1]);
+                    contextList.Add(row[2]);
                     row = data[i].Split(new char[] { ',' });
                 }
                 else

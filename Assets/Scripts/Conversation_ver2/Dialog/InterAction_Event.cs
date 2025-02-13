@@ -39,7 +39,7 @@ public class InterAction_Event : MonoBehaviour
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        dialogue.dialogues = GetDialogue();
+        //dialogue.dialogues = GetDialogue();
 
         //본인 NPC코드에 맞는 퀘스트 가져오기
         for (int i = 0; i < QuestManager.instance.TdataList.Count; i++)
@@ -53,12 +53,12 @@ public class InterAction_Event : MonoBehaviour
         //quest code에 대응하는 대화들
     }
 
-    public Dialogue[] GetDialogue()
-    {
-        dialogue.dialogues = QuestManager.instance.characterDB.GetDialogue((int)dialogue.line.x, (int)dialogue.line.y);
-        dialogue.name = QuestManager.instance.characterDB.csv_FileName;
-        return dialogue.dialogues;
-    }
+    //public Dialogue[] GetDialogue()
+    //{
+    //    dialogue.dialogues = QuestManager.instance.characterDB.GetDialogue((int)dialogue.line.x, (int)dialogue.line.y);
+    //    dialogue.name = QuestManager.instance.characterDB.csv_FileName;
+    //    return dialogue.dialogues;
+    //}
 
     float Dist = 0f;
     private void Update()

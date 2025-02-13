@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class QuestManager : MonoBehaviour
 {
     public static QuestManager instance;
-    public DialogueDB_Manager characterDB;
+    //public DialogueDB_Manager characterDB;
 
     public QuestDatabaseManager QDBM;
 
@@ -20,19 +20,19 @@ public class QuestManager : MonoBehaviour
             instance = this;
         }
 
-        if (characterDB == null)
-        {
-            characterDB = GetComponent<DialogueDB_Manager>();
-        }
+        //if (characterDB == null)
+        //{
+        //    characterDB = GetComponent<DialogueDB_Manager>();
+        //}
 
-        if (SceneManager.GetActiveScene().buildIndex == 0)
-        {
-            characterDB.csv_FileName = "izlu_Dialogue_Table";
-        }
-        else if (SceneManager.GetActiveScene().buildIndex == 1)
-        {
-            characterDB.csv_FileName = "Test_Dialogue2";
-        }
+        //if (SceneManager.GetActiveScene().buildIndex == 0)
+        //{
+        //    characterDB.csv_FileName = "izlu_Dialogue_Table";
+        //}
+        //else if (SceneManager.GetActiveScene().buildIndex == 1)
+        //{
+        //    characterDB.csv_FileName = "Test_Dialogue2";
+        //}
     }
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
