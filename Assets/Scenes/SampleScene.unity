@@ -217,7 +217,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!136 &276102621
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1102,7 +1102,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!136 &621425475
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1208,6 +1208,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b44c3acbaa887f94cb662a4878b20b72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  npcCode: 0
+  cur_QuestCode: 0
+  cur_Dialogue_Index: 0
+  event_Dialogue_Index: 0
+  player: {fileID: 0}
+  questData: []
+  dialogue:
+    name: 
+    line: {x: 0, y: 0}
+    dialogues: []
+  dialoguePanel: {fileID: 0}
+  dialogueCharacter: {fileID: 0}
+  dialogueContents: {fileID: 0}
+  BtnText: {fileID: 0}
 --- !u!1 &741447377
 GameObject:
   m_ObjectHideFlags: 0

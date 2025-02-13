@@ -75,8 +75,21 @@ public class QuestManager : MonoBehaviour
 
         //---------------------------------------------------------------------------------------
         [Header("DataBase Part")]
-        public bool quest_get_baloon;
-        public bool quest_get;
+        public bool DBquest_get_baloon;
+
+        public bool DBquest_get_condition;
+
+        public bool DBquest_get;
+
+        public bool DBquest_complete_baloon;
+
+        public bool DBquest_complete_condition;
+
+        public bool DBquest_complete;
+
+        public string DBquest_progress;
+
+        public string[] DBquest_detail;
     }
 
     List<int> quest_Code = new List<int>();
@@ -159,6 +172,7 @@ public class QuestManager : MonoBehaviour
 
         TableData tempData = new TableData();
 
+        //CSV의 값 Tdata_List에 넣기
         for (int i = 0; i < QDBM.serverData.data.Length/*quest_Code.Count*/; i++)
         {
             tempData.Tquest_code = quest_Code[i];
@@ -172,16 +186,25 @@ public class QuestManager : MonoBehaviour
             tempData.TquestTyping_index = questTyping_index[i];
             tempData.TquestBaloon_UI = questUI[quest_GetbaloonUI[i]];
             tempData.TqusetGet_Condition = questGet_Condition[i];
-            // QDBM.serverData.data[i].quest_name = quest_Name[i];
 
-            TdataList.Add(tempData);
+            //TdataList.Add(tempData);
         }
 
-        for(int i = 0; i < QDBM.serverData.data.Length; i++)
+        //DB의 값 Tdata_List에 넣기
+        for (int i = 0; i < QDBM.serverData.data.Length; i++)
         {
-            tempData.quest_get_baloon = QDBM.serverData.data[i].quest_get_ballon_appears;
-            tempData.quest_get = QDBM.serverData.data[i].quest_get;
+            tempData.DBquest_get_baloon = QDBM.serverData.data[i].quest_get_ballon_appears;
+            tempData.DBquest_get_condition = QDBM.serverData.data[i].quest_get_condition;
+            tempData.DBquest_get = QDBM.serverData.data[i].quest_get;
+            tempData.DBquest_complete_baloon = QDBM.serverData.data[i].quest_completion_ballon_appears;
+            tempData.DBquest_complete_condition = QDBM.serverData.data[i].quest_completion_condition;
+            tempData.DBquest_complete = QDBM.serverData.data[i].quest_completion;
+            tempData.DBquest_progress = QDBM.serverData.data[i].quest_progress;
+            tempData.DBquest_detail = QDBM.serverData.data[i].quest_details;
         }
+
+
+        TdataList.Add(tempData);
     }
 
    // Update is called once per frame
