@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
+using static DialogueManager;
+using static UnityEngine.Analytics.IAnalytic;
 
 
 public class DialogueManager : MonoBehaviour
@@ -37,28 +40,59 @@ public class DialogueManager : MonoBehaviour
         DialogueGetter();
     }
 
-    string[,] tables;
-    public int lineSize;
-    public int rowSize;
-
     [System.Serializable]
     public class Dialogue
     {
+        public int quest_code;
         public string NPC_name;
-        public string[] dialogues;
+        public string dialogues;
     }
-    public Dialogue[] dialogue;
+
+    List<int> questCode = new List<int>();
+    List<string> nameList = new List<string>();
+    List<string> dialogues = new List<string>();
+
+    [Header("Area Dialogue List")]
+    public List<Dialogue> dialogueList = new List<Dialogue>();
+
+    string[,] tables;
+    int lineSize;
+    int rowSize;
+
+
     public void DialogueGetter()
     {
         string currentText = dialogueCSV.text.Substring(0, dialogueCSV.text.Length - 1);
         string[] line = currentText.Split(new char[] { '\n' });
         lineSize = line.Length;
-        rowSize = line[1].Split(new char[] { ',' }).Length;
+        rowSize = line[0].Split(new char[] { '\t' }).Length;
         tables = new string[lineSize, rowSize];
 
-        for(int i = 0; i <  lineSize; i++)
+        for (int i = 0; i < lineSize; i++)
         {
-            dialogue[i].NPC_name = line[i];
+            string[] row = line[i].Split(new char[] { '\t' });
+            for (int j = 0; j < rowSize; j++)
+            {
+                tables[i, j] = row[j];
+            }
+        }
+
+        for(int i = 1; i  < lineSize; i++)
+        {
+            string[] data = tables[i, 0].Split(',');
+            questCode.Add(int.Parse(data[0]));
+            nameList.Add(data[1]);
+            dialogues.Add(data[2]);
+        }
+
+
+        for (int i = 0; i < lineSize-1; i++)
+        {
+            Dialogue tempDialogue = new Dialogue();
+            tempDialogue.quest_code = questCode[i];
+            tempDialogue.NPC_name = nameList[i];
+            tempDialogue.dialogues = dialogues[i];
+            dialogueList.Add(tempDialogue);
         }
     }
 
