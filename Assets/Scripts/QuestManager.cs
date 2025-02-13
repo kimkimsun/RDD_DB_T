@@ -27,7 +27,7 @@ public class QuestManager : MonoBehaviour
 
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
-            characterDB.csv_FileName = "Test_Dialogue";
+            characterDB.csv_FileName = "izlu_Dialogue_Table";
         }
         else if (SceneManager.GetActiveScene().buildIndex == 1)
         {
@@ -181,7 +181,7 @@ public class QuestManager : MonoBehaviour
             TdataList.Add(tempData);
         }
 
-        //DB의 값 Tdata_List에 넣기
+        //DB의 값 Tdata_List에 추가로 넣기
         for (int i = 0; i < QDBM.serverData.data.Length; i++)
         {
             TdataList[i].DBquest_get_baloon = QDBM.serverData.data[i].quest_get_ballon_appears;
