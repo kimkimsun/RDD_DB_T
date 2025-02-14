@@ -68,6 +68,7 @@ public class Dialogue_NPC : MonoBehaviour
         Dist = Vector3.Distance(this.transform.position, player.transform.position);
         if (Dist <= 13f)
         {
+#region 퀘스트 말풍선 띄우기 조건
             //Debug.Log("일정 조건 되면 마크 띄움");
             //if("일정조건 == true")
             //{
@@ -77,6 +78,7 @@ public class Dialogue_NPC : MonoBehaviour
             questBaloonUI.GetComponent<Image>().sprite = questData[0].TquestBaloon_UI;
             //    }
             //}
+#endregion
 
 
             //마크가 뜬 상태에서 클릭 했을 시 조건 추가
@@ -104,6 +106,13 @@ public class Dialogue_NPC : MonoBehaviour
                 }
             }
 
+        }
+        else
+        {
+            if(questBaloonCanvas.gameObject.activeSelf)
+            {
+                questBaloonCanvas.gameObject.SetActive(false);
+            }
         }
     }
 

@@ -326,7 +326,7 @@ MonoBehaviour:
   npcCode: 2
   cur_QuestCode: 2
   cur_Dialogue_Index: 0
-  event_Dialogue_Index: 0
+  event_Dialogue_Index: 1
   player: {fileID: 0}
   questData: []
   dialogueData: []
@@ -625,7 +625,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2834d10802f007e4cbb4bec551f2e0d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 4
+  moveSpeed: 6
   rigid: {fileID: 0}
   move: {x: 0, y: 0, z: 0}
   Lv: 1
@@ -1134,7 +1134,7 @@ MonoBehaviour:
   npcCode: 1
   cur_QuestCode: 1
   cur_Dialogue_Index: 0
-  event_Dialogue_Index: 0
+  event_Dialogue_Index: 1
   player: {fileID: 0}
   questData: []
   dialogueData: []
