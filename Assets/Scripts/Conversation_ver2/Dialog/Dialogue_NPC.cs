@@ -25,7 +25,9 @@ public class Dialogue_NPC : MonoBehaviour
     public List<DialogueManager.Dialogue> dialogueData = new List<DialogueManager.Dialogue>();
 
     [Header("Dialogue Show")]
-    public Canvas questUI;
+    public Canvas questUICanvas;
+
+    public Canvas questBaloonCanvas;
     public Image questBaloonUI;
     //public Image dialoguePanel;
     public Text dialogueCharacter;
@@ -67,26 +69,41 @@ public class Dialogue_NPC : MonoBehaviour
         if (Dist <= 13f)
         {
             //Debug.Log("일정 조건 되면 마크 띄움");
+            //if("일정조건 == true")
+            //{
+            //    //if("퀘스트 수락 전까지 UI 켜두기")
+            //    {
+            questBaloonCanvas.gameObject.SetActive(true);
+            questBaloonUI.GetComponent<Image>().sprite = questData[0].TquestBaloon_UI;
+            //    }
+            //}
+
 
             //마크가 뜬 상태에서 클릭 했을 시 조건 추가
-            if (Input.GetMouseButtonDown(0))
+            if (questBaloonUI.gameObject.activeSelf)
             {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-                if (Physics.Raycast(ray, out hit))
+                if (Input.GetMouseButtonDown(0))
                 {
-                    if (hit.transform.gameObject.tag == "NPC")
+                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    RaycastHit hit;
+                    if (Physics.Raycast(ray, out hit))
                     {
-                        Debug.Log(hit.transform.gameObject.name);
-
-                        //TEST
-                        if (!questUI.gameObject.activeSelf)
+                        if (hit.transform.gameObject.tag == "NPC")
                         {
-                            questUI.gameObject.SetActive(true);
+                            Debug.Log(hit.transform.gameObject.name);
+
+                            //TEST
+                            if (!questUICanvas.gameObject.activeSelf)
+                            {
+                                questUICanvas.gameObject.SetActive(true);
+                                questBaloonCanvas.gameObject.SetActive(false);
+                                NextDialogue();
+                            }
                         }
                     }
                 }
             }
+
         }
     }
 
@@ -108,11 +125,11 @@ public class Dialogue_NPC : MonoBehaviour
         }
         else
         {
-            if (questUI.gameObject.activeSelf)
+            if (questUICanvas.gameObject.activeSelf)
             {
                 //나머지 초기화
                 cur_Dialogue_Index = 0;
-                questUI.gameObject.SetActive(false);
+                questUICanvas.gameObject.SetActive(false);
                 Debug.Log("닫기");
             }
         }
