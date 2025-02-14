@@ -20,6 +20,8 @@ public class QuestManager : MonoBehaviour
             instance = this;
         }
 
+        //tableCSV값 어떻게 정해줄 지 작성 필요 + Dont destroy On Load 제작 필요
+
         //if (characterDB == null)
         //{
         //    characterDB = GetComponent<DialogueDB_Manager>();
@@ -34,7 +36,7 @@ public class QuestManager : MonoBehaviour
         //    characterDB.csv_FileName = "Test_Dialogue2";
         //}
     }
-    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
