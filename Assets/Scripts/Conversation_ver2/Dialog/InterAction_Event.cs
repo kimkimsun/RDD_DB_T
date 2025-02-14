@@ -42,11 +42,11 @@ public class InterAction_Event : MonoBehaviour
         //dialogue.dialogues = GetDialogue();
 
         //본인 NPC코드에 맞는 퀘스트 가져오기
-        for (int i = 0; i < QuestManager.instance.TdataList.Count; i++)
+        for (int i = 0; i < QuestManager.instance.TQuestdataList.Count; i++)
         {
-            if (QuestManager.instance.TdataList[i].TGivenpc_code == npcCode)
+            if (QuestManager.instance.TQuestdataList[i].TGivenpc_code == npcCode)
             {
-                questData.Add(QuestManager.instance.TdataList[i]);
+                questData.Add(QuestManager.instance.TQuestdataList[i]);
             }
         }
         //여기에 맞춰서 대화도 가져오면 좋을텐데

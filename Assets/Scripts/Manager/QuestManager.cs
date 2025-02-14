@@ -107,7 +107,7 @@ public class QuestManager : MonoBehaviour
 
     List<string> questGet_Condition = new List<string>();
 
-    public List<TableData> TdataList = new List<TableData>();
+    public List<TableData> TQuestdataList = new List<TableData>();
 
     string[,] tables;
     public int lineSize;
@@ -178,20 +178,20 @@ public class QuestManager : MonoBehaviour
             tempData.TquestBaloon_UI = questUI[quest_GetbaloonUI[i]];
             tempData.TqusetGet_Condition = questGet_Condition[i];
 
-            TdataList.Add(tempData);
+            TQuestdataList.Add(tempData);
         }
 
         //DB의 값 Tdata_List에 추가로 넣기
         for (int i = 0; i < QDBM.serverData.data.Length; i++)
         {
-            TdataList[i].DBquest_get_baloon = QDBM.serverData.data[i].quest_get_ballon_appears;
-            TdataList[i].DBquest_get_condition = QDBM.serverData.data[i].quest_get_condition;
-            TdataList[i].DBquest_get = QDBM.serverData.data[i].quest_get;
-            TdataList[i].DBquest_complete_baloon = QDBM.serverData.data[i].quest_completion_ballon_appears;
-            TdataList[i].DBquest_complete_condition = QDBM.serverData.data[i].quest_completion_condition;
-            TdataList[i].DBquest_complete = QDBM.serverData.data[i].quest_completion;
-            TdataList[i].DBquest_progress = QDBM.serverData.data[i].quest_progress;
-            TdataList[i].DBquest_detail = QDBM.serverData.data[i].quest_details;
+            TQuestdataList[i].DBquest_get_baloon = QDBM.serverData.data[i].quest_get_ballon_appears;
+            TQuestdataList[i].DBquest_get_condition = QDBM.serverData.data[i].quest_get_condition;
+            TQuestdataList[i].DBquest_get = QDBM.serverData.data[i].quest_get;
+            TQuestdataList[i].DBquest_complete_baloon = QDBM.serverData.data[i].quest_completion_ballon_appears;
+            TQuestdataList[i].DBquest_complete_condition = QDBM.serverData.data[i].quest_completion_condition;
+            TQuestdataList[i].DBquest_complete = QDBM.serverData.data[i].quest_completion;
+            TQuestdataList[i].DBquest_progress = QDBM.serverData.data[i].quest_progress;
+            TQuestdataList[i].DBquest_detail = QDBM.serverData.data[i].quest_details;
         }
 
     }

@@ -217,7 +217,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!136 &276102621
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -320,23 +320,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 276102620}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ed6598ebf4f74c439005b31d3b7f889, type: 3}
+  m_Script: {fileID: 11500000, guid: b44c3acbaa887f94cb662a4878b20b72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npcCode: 1
-  cur_QuestCode: 0
+  npcCode: 2
+  cur_QuestCode: 2
   cur_Dialogue_Index: 0
   event_Dialogue_Index: 0
   player: {fileID: 0}
   questData: []
-  dialogue:
-    name: 
-    line: {x: 1, y: 6}
-    dialogues: []
-  dialoguePanel: {fileID: 1099746423}
-  dialogueCharacter: {fileID: 407228035}
-  dialogueContents: {fileID: 174535246}
-  BtnText: {fileID: 1742782166}
+  dialogueData: []
+  dialoguePanel: {fileID: 0}
+  dialogueCharacter: {fileID: 0}
+  dialogueContents: {fileID: 0}
+  BtnText: {fileID: 0}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1097,7 +1094,7 @@ GameObject:
   - component: {fileID: 621425475}
   - component: {fileID: 621425479}
   m_Layer: 0
-  m_Name: NPC2_test02
+  m_Name: NPC_test02
   m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1208,12 +1205,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b44c3acbaa887f94cb662a4878b20b72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npcCode: 0
-  cur_QuestCode: 0
+  npcCode: 1
+  cur_QuestCode: 1
   cur_Dialogue_Index: 0
   event_Dialogue_Index: 0
   player: {fileID: 0}
   questData: []
+  dialogueData: []
   dialoguePanel: {fileID: 0}
   dialogueCharacter: {fileID: 0}
   dialogueContents: {fileID: 0}
@@ -1459,7 +1457,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 276102625}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: InterAction_Event, Assembly-CSharp
         m_MethodName: NextDialogue
         m_Mode: 1
@@ -2454,6 +2452,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bc1bdc93ce41654a8c3ec125fa33917, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogueCSV_name: 
+  dialogueCSV: {fileID: 0}
+  dialogueList: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
