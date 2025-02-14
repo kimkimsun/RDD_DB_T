@@ -12,14 +12,11 @@ public class Dialogue_NPC : MonoBehaviour
 
     [Space(10f)]
 
-    //public DialogueDB_Manager characterDB;
     public int cur_Dialogue_Index = 0;
     public int event_Dialogue_Index;
     [Space(10f)]
 
     public GameObject player;
-
-    //public QuestManager.TableData[] questData;
 
     public List<QuestManager.TableData> questData = new List<QuestManager.TableData>();
     public List<DialogueManager.Dialogue> dialogueData = new List<DialogueManager.Dialogue>();
@@ -29,7 +26,6 @@ public class Dialogue_NPC : MonoBehaviour
 
     public Canvas questBaloonCanvas;
     public Image questBaloonUI;
-    //public Image dialoguePanel;
     public Text dialogueCharacter;
     public Text dialogueContents;
     public Text BtnText;
@@ -49,8 +45,7 @@ public class Dialogue_NPC : MonoBehaviour
             }
         }
 
-        //Debug.Log(DialogueManager.instance.dialogueList.Count);
-        //여기에 맞춰서 대화도 가져오면 좋을텐데
+        //quest code에 대응하는 대화들
         for (int i = 0; i < DialogueManager.instance.dialogueList.Count; i++)
         {
             if (DialogueManager.instance.dialogueList[i].quest_code == cur_QuestCode)
@@ -58,7 +53,7 @@ public class Dialogue_NPC : MonoBehaviour
                 dialogueData.Add(DialogueManager.instance.dialogueList[i]);
             }
         }
-        //quest code에 대응하는 대화들
+
     }
 
     float Dist = 0f;

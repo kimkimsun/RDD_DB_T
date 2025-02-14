@@ -1,9 +1,7 @@
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
-using static DialogueManager;
-using static UnityEngine.Analytics.IAnalytic;
+
 
 
 public class DialogueManager : MonoBehaviour
