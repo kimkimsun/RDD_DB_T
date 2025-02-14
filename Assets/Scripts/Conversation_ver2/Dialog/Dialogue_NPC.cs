@@ -70,12 +70,12 @@ public class Dialogue_NPC : MonoBehaviour
         {
 #region 퀘스트 말풍선 띄우기 조건
             //Debug.Log("일정 조건 되면 마크 띄움");
-            //if("일정조건 == true")
+            //if("일정조건 == true")    //SendMessage(QuestGEt)
             //{
             //    //if("퀘스트 수락 전까지 UI 켜두기")
             //    {
-            questBaloonCanvas.gameObject.SetActive(true);
-            questBaloonUI.GetComponent<Image>().sprite = questData[0].TquestBaloon_UI;
+                    questBaloonCanvas.gameObject.SetActive(true);
+                    questBaloonUI.GetComponent<Image>().sprite = questData[0].TquestBaloon_UI;
             //    }
             //}
 #endregion
@@ -149,35 +149,5 @@ public class Dialogue_NPC : MonoBehaviour
             // QuestDatabaseManager.SendUpdateNpcCode(1, 4);
         }
 
-        //if (dialogueData..Length - 1 > cur_Dialogue_Index)
-        //{
-        //    dialogueCharacter.text = dialogue.dialogues[cur_Dialogue_Index].name;
-        //    dialogueContents.text = dialogue.dialogues[cur_Dialogue_Index].contexts[0];
-        //    cur_Dialogue_Index++;
-        //    BtnText.text = "다음";
-        //}
-        //else if (dialogue.dialogues.Length - 1 == cur_Dialogue_Index)
-        //{
-        //    dialogueCharacter.text = dialogue.dialogues[cur_Dialogue_Index].name;
-        //    dialogueContents.text = dialogue.dialogues[cur_Dialogue_Index].contexts[0];
-        //    cur_Dialogue_Index++;
-        //    BtnText.text = "닫기";
-        //}
-        //else
-        //{
-        //    if (dialoguePanel.gameObject.activeSelf)
-        //    {
-        //        //나머지 초기화
-        //        cur_Dialogue_Index = 0;
-        //        Debug.Log("닫기");
-        //        dialoguePanel.gameObject.SetActive(false);
-        //    }
-        //}
-
-        //if (cur_Dialogue_Index == event_Dialogue_Index)
-        //{
-        //    Debug.Log("DB 전달");
-        //    // QuestDatabaseManager.SendUpdateNpcCode(1, 4);
-        //}
     }
 }
