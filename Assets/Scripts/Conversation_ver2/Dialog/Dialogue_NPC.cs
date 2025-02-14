@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static DialogueManager;
 
 
 public class Dialogue_NPC : MonoBehaviour
@@ -24,7 +25,9 @@ public class Dialogue_NPC : MonoBehaviour
     public List<DialogueManager.Dialogue> dialogueData = new List<DialogueManager.Dialogue>();
 
     [Header("Dialogue Show")]
-    public Image dialoguePanel;
+    public Canvas questUI;
+    public Image questBaloonUI;
+    //public Image dialoguePanel;
     public Text dialogueCharacter;
     public Text dialogueContents;
     public Text BtnText;
@@ -44,7 +47,7 @@ public class Dialogue_NPC : MonoBehaviour
             }
         }
 
-        Debug.Log(DialogueManager.instance.dialogueList.Count);
+        //Debug.Log(DialogueManager.instance.dialogueList.Count);
         //여기에 맞춰서 대화도 가져오면 좋을텐데
         for (int i = 0; i < DialogueManager.instance.dialogueList.Count; i++)
         {
@@ -56,9 +59,99 @@ public class Dialogue_NPC : MonoBehaviour
         //quest code에 대응하는 대화들
     }
 
+    float Dist = 0f;
     // Update is called once per frame
-    //void Update()
-    //{
-        
-    //}
+    void Update()
+    {
+        Dist = Vector3.Distance(this.transform.position, player.transform.position);
+        if (Dist <= 13f)
+        {
+            //Debug.Log("일정 조건 되면 마크 띄움");
+
+            //마크가 뜬 상태에서 클릭 했을 시 조건 추가
+            if (Input.GetMouseButtonDown(0))
+            {
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+                if (Physics.Raycast(ray, out hit))
+                {
+                    if (hit.transform.gameObject.tag == "NPC")
+                    {
+                        Debug.Log(hit.transform.gameObject.name);
+
+                        //TEST
+                        if (!questUI.gameObject.activeSelf)
+                        {
+                            questUI.gameObject.SetActive(true);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void NextDialogue()
+    {
+        if(dialogueData.Count -1 > cur_Dialogue_Index)
+        {
+            dialogueCharacter.text = dialogueData[cur_Dialogue_Index].NPC_name;
+            dialogueContents.text = dialogueData[cur_Dialogue_Index].dialogues;
+            BtnText.text = "다음";
+            cur_Dialogue_Index++;
+        }
+        else if(dialogueData.Count - 1 == cur_Dialogue_Index)
+        {
+            dialogueCharacter.text = dialogueData[cur_Dialogue_Index].NPC_name;
+            dialogueContents.text = dialogueData[cur_Dialogue_Index].dialogues;
+            BtnText.text = "닫기";
+            cur_Dialogue_Index++;
+        }
+        else
+        {
+            if (questUI.gameObject.activeSelf)
+            {
+                //나머지 초기화
+                cur_Dialogue_Index = 0;
+                questUI.gameObject.SetActive(false);
+                Debug.Log("닫기");
+            }
+        }
+
+        if (cur_Dialogue_Index == event_Dialogue_Index)
+        {
+            Debug.Log("DB 전달");
+            // QuestDatabaseManager.SendUpdateNpcCode(1, 4);
+        }
+
+        //if (dialogueData..Length - 1 > cur_Dialogue_Index)
+        //{
+        //    dialogueCharacter.text = dialogue.dialogues[cur_Dialogue_Index].name;
+        //    dialogueContents.text = dialogue.dialogues[cur_Dialogue_Index].contexts[0];
+        //    cur_Dialogue_Index++;
+        //    BtnText.text = "다음";
+        //}
+        //else if (dialogue.dialogues.Length - 1 == cur_Dialogue_Index)
+        //{
+        //    dialogueCharacter.text = dialogue.dialogues[cur_Dialogue_Index].name;
+        //    dialogueContents.text = dialogue.dialogues[cur_Dialogue_Index].contexts[0];
+        //    cur_Dialogue_Index++;
+        //    BtnText.text = "닫기";
+        //}
+        //else
+        //{
+        //    if (dialoguePanel.gameObject.activeSelf)
+        //    {
+        //        //나머지 초기화
+        //        cur_Dialogue_Index = 0;
+        //        Debug.Log("닫기");
+        //        dialoguePanel.gameObject.SetActive(false);
+        //    }
+        //}
+
+        //if (cur_Dialogue_Index == event_Dialogue_Index)
+        //{
+        //    Debug.Log("DB 전달");
+        //    // QuestDatabaseManager.SendUpdateNpcCode(1, 4);
+        //}
+    }
 }
