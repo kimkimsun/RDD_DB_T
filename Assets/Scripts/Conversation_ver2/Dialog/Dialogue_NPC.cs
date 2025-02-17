@@ -25,6 +25,8 @@ public class Dialogue_NPC : MonoBehaviour
     public Canvas questUICanvas;
 
     public Canvas questBaloonCanvas;
+    //bool baloonOn;
+
     public Image questBaloonUI;
     public Text dialogueCharacter;
     public Text dialogueContents;
@@ -69,6 +71,11 @@ public class Dialogue_NPC : MonoBehaviour
             //{
             //    //if("퀘스트 수락 전까지 UI 켜두기")
             //    {
+                    //if(!baloonOn)
+                    //{
+                    //    baloonOn = true;
+                    //    questBaloonCanvas.gameObject.SetActive(true);
+                    //}
                     questBaloonCanvas.gameObject.SetActive(true);
                     questBaloonUI.GetComponent<Image>().sprite = questData[0].TquestBaloon_UI;
             //    }

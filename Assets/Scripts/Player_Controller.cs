@@ -9,6 +9,10 @@ public class Player_Controller : MonoBehaviour
 
     public int Lv;
 
+    private void Awake()
+    {
+        DontDestroyOnLoad(this);
+    }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

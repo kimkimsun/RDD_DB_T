@@ -20,6 +20,8 @@ public class QuestManager : MonoBehaviour
             instance = this;
         }
 
+        DontDestroyOnLoad(this);
+
         //tableCSV값 어떻게 정해줄 지 작성 필요 + Dont destroy On Load 제작 필요
 
         //if (characterDB == null)
