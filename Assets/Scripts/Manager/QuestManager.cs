@@ -141,6 +141,10 @@ public class QuestManager : MonoBehaviour
     public void TableClear()
     {
         Debug.Log("값 초기화");
+        if (TQuestdataList.Count > 0)
+        {
+            TQuestdataList.Clear();
+        }
         quest_Code.Clear();
         quest_Name.Clear();
         quest_contents.Clear();
@@ -151,16 +155,12 @@ public class QuestManager : MonoBehaviour
         questFinish_index.Clear();
         questTyping_index.Clear();
 
-        if (TQuestdataList.Count > 0)
-        {
-            TQuestdataList.Clear();
-        }
+
     }
 
     public void TableSetter()
     {
-        //Table초기화 하고 시작
-        TableClear();
+
 
         tableCSV = Resources.Load<TextAsset>(csvName);
         string currentText = tableCSV.text.Substring(0, tableCSV.text.Length - 1);
@@ -177,6 +177,9 @@ public class QuestManager : MonoBehaviour
                 tables[i, j] = row[j];
             }
         }
+
+        //Table초기화 하고 시작
+        TableClear();
 
         //bool on;
         for (int i = 1; i < lineSize; i++)
