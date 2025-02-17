@@ -11,7 +11,16 @@ public class Player_Controller : MonoBehaviour
 
     private void Awake()
     {
-        DontDestroyOnLoad(this);
+        var obj = FindObjectsOfType<Player_Controller>();
+
+        if (obj.Length == 1)
+        {
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
