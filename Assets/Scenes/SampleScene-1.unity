@@ -521,6 +521,90 @@ MonoBehaviour:
   rigid: {fileID: 0}
   move: {x: 0, y: 0, z: 0}
   Lv: 1
+--- !u!1 &441768767
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 441768771}
+  - component: {fileID: 441768770}
+  - component: {fileID: 441768769}
+  - component: {fileID: 441768768}
+  m_Layer: 0
+  m_Name: QuestManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &441768768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 441768767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bc1bdc93ce41654a8c3ec125fa33917, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueCSV_name: 
+  dialogueCSV: {fileID: 0}
+  dialogueList: []
+--- !u!114 &441768769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 441768767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8f01db3e5ad72f4e8276388a350ec3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serverData:
+    data: []
+--- !u!114 &441768770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 441768767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b57f9a507d8bfac488f9d89f9035336e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  QDBM: {fileID: 0}
+  tableCSV: {fileID: 4900000, guid: 4239db764a57da6468aca9fab69b76f4, type: 3}
+  questUI:
+  - {fileID: 21300000, guid: b2fa9845135d4ad459dd11841abdf8ba, type: 3}
+  - {fileID: 21300000, guid: 862173501622b6049926808fc4396ae9, type: 3}
+  - {fileID: 21300000, guid: 0fa4c3f84a304bc40a4f6c8dda0f81f6, type: 3}
+  TQuestdataList: []
+  lineSize: 0
+  rowSize: 0
+--- !u!4 &441768771
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 441768767}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &517005731
 GameObject:
   m_ObjectHideFlags: 0
@@ -1718,3 +1802,4 @@ SceneRoots:
   - {fileID: 1201489435}
   - {fileID: 379272984}
   - {fileID: 925220710}
+  - {fileID: 441768771}

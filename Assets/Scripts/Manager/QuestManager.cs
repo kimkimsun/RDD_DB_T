@@ -12,6 +12,7 @@ public class QuestManager : MonoBehaviour
     public QuestDatabaseManager QDBM;
 
     public TextAsset tableCSV;
+    public string csvName;
 
     private void Awake()
     {
@@ -20,30 +21,50 @@ public class QuestManager : MonoBehaviour
             instance = this;
         }
 
-        DontDestroyOnLoad(this);
+        var obj = FindObjectsOfType<QuestManager>();
 
-        //tableCSV값 어떻게 정해줄 지 작성 필요 + Dont destroy On Load 제작 필요
+        if (obj.Length == 1)
+        {
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
 
-        //if (characterDB == null)
-        //{
-        //    characterDB = GetComponent<DialogueDB_Manager>();
-        //}
-
-        //if (SceneManager.GetActiveScene().buildIndex == 0)
-        //{
-        //    characterDB.csv_FileName = "izlu_Dialogue_Table";
-        //}
-        //else if (SceneManager.GetActiveScene().buildIndex == 1)
-        //{
-        //    characterDB.csv_FileName = "Test_Dialogue2";
-        //}
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         QDBM = GetComponent<QuestDatabaseManager>();
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        TableCSVSetter();
         TableSetter();
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        TableCSVSetter();
+        TableSetter();
+    }
+
+    public void TableCSVSetter()
+    {
+        //tableCSV값 어떻게 정해줄 지 작성 필요 + Dont destroy On Load 제작 필요
+
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            csvName = "island_Quest_Table";
+        }
+        else if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            csvName = "island_Quest_Table";
+        }
+        else if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            csvName = "izlu_Quest_Table";
+        }
     }
 
     //4. 주는 NPC의 줄때 대화
@@ -117,9 +138,31 @@ public class QuestManager : MonoBehaviour
     public int lineSize;
     public int rowSize;
 
+    public void TableClear()
+    {
+        Debug.Log("값 초기화");
+        quest_Code.Clear();
+        quest_Name.Clear();
+        quest_contents.Clear();
+        npcGive_Code.Clear();
+        npcFinish_Code.Clear();
+        questGet_index.Clear();
+        questChoice_index.Clear();
+        questFinish_index.Clear();
+        questTyping_index.Clear();
+
+        if (TQuestdataList.Count > 0)
+        {
+            TQuestdataList.Clear();
+        }
+    }
+
     public void TableSetter()
     {
+        //Table초기화 하고 시작
+        TableClear();
 
+        tableCSV = Resources.Load<TextAsset>(csvName);
         string currentText = tableCSV.text.Substring(0, tableCSV.text.Length - 1);
         string[] line = currentText.Split(new char[] { '\n' });
         lineSize = line.Length;
@@ -164,8 +207,6 @@ public class QuestManager : MonoBehaviour
             questGet_Condition.Add(data[10]);
         }
 
-
-
         //CSV의 값 Tdata_List에 넣기
         for (int i = 0; i < QDBM.serverData.data.Length; i++)
         {
@@ -197,7 +238,7 @@ public class QuestManager : MonoBehaviour
             TQuestdataList[i].DBquest_progress = QDBM.serverData.data[i].quest_progress;
             TQuestdataList[i].DBquest_detail = QDBM.serverData.data[i].quest_details;
         }
-
+        Debug.Log("테이블");
     }
 
    // Update is called once per frame
