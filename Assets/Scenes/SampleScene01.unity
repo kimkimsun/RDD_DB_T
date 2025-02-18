@@ -326,7 +326,7 @@ MonoBehaviour:
   npcCode: 2
   cur_QuestCode: 2
   cur_Dialogue_Index: 0
-  event_Dialogue_Index: 1
+  event_Dialogue_Index: 3
   player: {fileID: 0}
   questData: []
   dialogueData: []

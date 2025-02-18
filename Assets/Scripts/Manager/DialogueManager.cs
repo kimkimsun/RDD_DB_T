@@ -44,6 +44,7 @@ public class DialogueManager : MonoBehaviour
         public int quest_code;
         public string NPC_name;
         public string dialogues;
+        public bool choiceStart_Index;
     }
 
     List<int> questCode = new List<int>();

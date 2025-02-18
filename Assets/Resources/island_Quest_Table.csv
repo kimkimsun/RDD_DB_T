@@ -1,4 +1,4 @@
 ﻿Quest_Code,Quest_Name,Quest_Contents,Give_NPC_Code,Finish_NPC_Code,QuestGet_Index,Choice_Index,QuestFinish_Index,QuestTyping_Index,QuestGet_UI,QuestGet_Condition,QuestReward_Index,Quest_Reward
-1,난파선 탈출,abaaba,1,1,0,0,1,0,1,test,1,string
-2,name,abaaba,1,1,1,0,1,1,2,this is test,1,string
+1,난파선 탈출,abaaba,1,1,3,0,1,0,1,test,1,string
+2,name,abaaba,2,2,1,0,1,1,2,this is test,1,string
 3,name,abaaba,1,1,3,0,1,1,1,for string value,1,string

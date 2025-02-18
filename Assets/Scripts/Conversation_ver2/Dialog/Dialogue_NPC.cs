@@ -13,7 +13,8 @@ public class Dialogue_NPC : MonoBehaviour
     [Space(10f)]
 
     public int cur_Dialogue_Index = 0;
-    public int event_Dialogue_Index;
+    //public int quest_get_Index;
+
     [Space(10f)]
 
     public GameObject player;
@@ -145,9 +146,9 @@ public class Dialogue_NPC : MonoBehaviour
             }
         }
 
-        if (cur_Dialogue_Index == event_Dialogue_Index)
+        if (cur_Dialogue_Index == questData[0].TquestGet_index)
         {
-            Debug.Log("DB Àü´Þ");
+            Debug.Log("Äù½ºÆ® È¹µæ");
             // QuestDatabaseManager.SendUpdateNpcCode(1, 4);
         }
 
