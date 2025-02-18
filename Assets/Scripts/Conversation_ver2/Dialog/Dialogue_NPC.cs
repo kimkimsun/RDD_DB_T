@@ -122,6 +122,15 @@ public class Dialogue_NPC : MonoBehaviour
 
     public void NextDialogue()
     {
+        //for (int i = 0; i < qmInstance.TQuestdataList.Count; i++)
+        //{
+        //    if (qmInstance.TQuestdataList[i].quest_get == false)
+        //    {
+        //        for (int j = 0; j < questData.Count; j++)
+        //        if (qmInstance.TQuestdataList[i].Tquest_code == questData[j].Tquest_code)
+        //                cur_Dialogue_Index = i;
+        //    }
+        //}
         if (dialogueData.Count - 1 > cur_Dialogue_Index)
         {
             dialogueCharacter.text = dialogueData[cur_Dialogue_Index].NPC_name;
