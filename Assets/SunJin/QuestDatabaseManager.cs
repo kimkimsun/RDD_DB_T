@@ -104,11 +104,11 @@ public class QuestDatabaseManager : MonoBehaviour
         }
     }
 
-    public void SelectQuestGetBallonAppears(int questCode, bool quest_get_ballon_appears)
+    public void SelectQuestGetBallonAppears(int questCode, bool ballon_appears)
     {
         foreach (QuestData data in serverData.data)
         {
-            if (data.quest_get_ballon_appears == quest_get_ballon_appears) 
+            if (data.ballon_appears == ballon_appears) 
             {
                 //if임시DB 퀘스트 코드 == questcode 일 때
                 //   { 임시 DB 퀘스트 코드.quest_get_ballon_appears = quest_get_ballon_appears; }
@@ -131,14 +131,6 @@ public class QuestDatabaseManager : MonoBehaviour
         foreach (QuestData data in serverData.data)
         {
             if (data.quest_get == quest_get) { }
-        }
-    }
-
-    public void SelectQuestCompletionBallonAppears(bool quest_completion_ballon_appears)
-    {
-        foreach (QuestData data in serverData.data)
-        {
-            if (data.quest_completion_ballon_appears == quest_completion_ballon_appears) { }
         }
     }
 
