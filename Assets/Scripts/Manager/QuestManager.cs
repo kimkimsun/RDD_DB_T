@@ -100,21 +100,27 @@ public class QuestManager : MonoBehaviour
 
         //---------------------------------------------------------------------------------------
         [Header("DataBase Part")]
-        public bool DBquest_get_baloon;
+        public bool ballon_appears;
 
-        public bool DBquest_get_condition;
+        public bool quest_get_condition;
 
-        public bool DBquest_get;
+        public bool quest_get;
 
-        public bool DBquest_complete_baloon;
+        //public int NPC_Code;
+        //public bool DBquest_complete_baloon;
+        public int chain_quest_get_code = -1;
 
-        public bool DBquest_complete_condition;
+        public bool quest_complete_condition;
 
-        public bool DBquest_complete;
+        public bool quest_completion;
 
-        public string DBquest_progress;
+        public int chain_quest_completion_code = -1;
 
-        public string[] DBquest_detail;
+        public string quest_progress = null;
+
+        public string[] quest_details = null;
+
+
     }
 
     List<int> quest_Code = new List<int>();
@@ -232,14 +238,16 @@ public class QuestManager : MonoBehaviour
         //DB의 값 Tdata_List에 추가로 넣기
         for (int i = 0; i < QDBM.serverData.data.Length; i++)
         {
-            TQuestdataList[i].DBquest_get_baloon = QDBM.serverData.data[i].quest_get_ballon_appears;
-            TQuestdataList[i].DBquest_get_condition = QDBM.serverData.data[i].quest_get_condition;
-            TQuestdataList[i].DBquest_get = QDBM.serverData.data[i].quest_get;
-            TQuestdataList[i].DBquest_complete_baloon = QDBM.serverData.data[i].quest_completion_ballon_appears;
-            TQuestdataList[i].DBquest_complete_condition = QDBM.serverData.data[i].quest_completion_condition;
-            TQuestdataList[i].DBquest_complete = QDBM.serverData.data[i].quest_completion;
-            TQuestdataList[i].DBquest_progress = QDBM.serverData.data[i].quest_progress;
-            TQuestdataList[i].DBquest_detail = QDBM.serverData.data[i].quest_details;
+            TQuestdataList[i].ballon_appears = QDBM.serverData.data[i].ballon_appears;
+            TQuestdataList[i].quest_get_condition = QDBM.serverData.data[i].quest_get_condition;
+            TQuestdataList[i].quest_get = QDBM.serverData.data[i].quest_get;
+            //TQuestdataList[i].DBquest_complete_baloon = QDBM.serverData.data[i].quest_completion_ballon_appears;
+            TQuestdataList[i].chain_quest_get_code = QDBM.serverData.data[i].chain_quest_get_code;
+            TQuestdataList[i].chain_quest_completion_code = QDBM.serverData.data[i].chain_quest_completion_code;
+            TQuestdataList[i].quest_complete_condition = QDBM.serverData.data[i].quest_completion_condition;
+            TQuestdataList[i].quest_completion = QDBM.serverData.data[i].quest_completion;
+            TQuestdataList[i].quest_progress = QDBM.serverData.data[i].quest_progress;
+            TQuestdataList[i].quest_details = QDBM.serverData.data[i].quest_details;
         }
         Debug.Log("테이블");
     }
