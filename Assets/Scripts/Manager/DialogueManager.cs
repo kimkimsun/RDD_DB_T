@@ -18,16 +18,25 @@ public class DialogueManager : MonoBehaviour
             instance = this;
         }
 
+        //tableCSV값 어떻게 정해줄 지 작성 필요 + Dont destroy On Load 제작 필요
 
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
-            dialogueCSV_name = "izlu_Dialogue_Table";
-
+            dialogueCSV_name = "island_Dialogue_Table";
         }
         else if (SceneManager.GetActiveScene().buildIndex == 1)
         {
-            dialogueCSV_name = "Test_Dialogue2";
+            dialogueCSV_name = "island_Dialogue_Table";
         }
+        else if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            dialogueCSV_name = "island_Dialogue_Table";
+        }
+        else if (SceneManager.GetActiveScene().buildIndex == 3)
+        {
+            dialogueCSV_name = "izlu_Dialogue_Table";
+        }
+        Debug.Log("첫번째");
 
         dialogueCSV = Resources.Load<TextAsset>(dialogueCSV_name);
     }
@@ -44,7 +53,6 @@ public class DialogueManager : MonoBehaviour
         public int quest_code;
         public string NPC_name;
         public string dialogues;
-        public bool choiceStart_Index;
     }
 
     List<int> questCode = new List<int>();
@@ -94,10 +102,4 @@ public class DialogueManager : MonoBehaviour
             dialogueList.Add(tempDialogue);
         }
     }
-
-    // Update is called once per frame
-    //void Update()
-    //{
-        
-    //}
 }

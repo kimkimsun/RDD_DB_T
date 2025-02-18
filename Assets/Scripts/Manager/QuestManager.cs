@@ -4,6 +4,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+
+
+public enum QCT
+{
+    LEVEL,
+    PREQUEST,
+}
+
 public class QuestManager : MonoBehaviour
 {
     public static QuestManager instance;
@@ -69,6 +77,7 @@ public class QuestManager : MonoBehaviour
         {
             csvName = "izlu_Quest_Table";
         }
+        Debug.Log("첫번째");
     }
 
     //4. 주는 NPC의 줄때 대화
@@ -84,11 +93,7 @@ public class QuestManager : MonoBehaviour
 
         public string Tquest_name;                  //2. 퀘스트 이름
 
-        public string Tquest_contents;              //3. 퀘스트 내용
-
         public int TGivenpc_code;                   //3. 주는NPC 코드
-
-        public int TFinishnpc_code;                 //4. 완료NPC 코드
 
         public int TquestGet_index;                 //8. 퀘스트 받는 시점
 
@@ -100,7 +105,13 @@ public class QuestManager : MonoBehaviour
 
         public Sprite TquestBaloon_UI;              //13. 퀘스트 획득 말풍선 UI Type
 
-        public string TqusetGet_Condition;          //퀘스트 획득 조건(일정 거리 내에 들어오면 검사)
+        public QCT TquestGet_Condition_Type;
+
+        public int TqusetGet_Condition;          //퀘스트 획득 조건(일정 거리 내에 들어오면 검사)
+
+        public int TquestReward_index;
+
+        public string Tquest_Reward;
 
         //---------------------------------------------------------------------------------------
         [Header("DataBase Part")]
@@ -112,26 +123,23 @@ public class QuestManager : MonoBehaviour
 
         //public int NPC_Code;
         //public bool DBquest_complete_baloon;
-        public int chain_quest_get_code = -1;
+        public int chain_quest_get_code;
 
         public bool quest_complete_condition;
 
         public bool quest_completion;
 
-        public int chain_quest_completion_code = -1;
+        public int chain_quest_completion_code;
 
         public string quest_progress = null;
 
         public string[] quest_details = null;
 
-
     }
 
     List<int> quest_Code = new List<int>();
     List<string> quest_Name = new List<string>();
-    List<string> quest_contents = new List<string>();
     List<int> npcGive_Code = new List<int>();
-    List<int> npcFinish_Code = new List<int>();
     List<int> questGet_index = new List<int>();
     List<int> questChoice_index = new List<int>();
     List<int> questFinish_index = new List<int>();
@@ -139,8 +147,12 @@ public class QuestManager : MonoBehaviour
 
     List<int> quest_GetbaloonUI = new List<int>();
     public List<Sprite> questUI = new List<Sprite>();
+    
+    List<int> questGet_Condition_Type = new List<int>();
+    List<int> questGet_Condition = new List<int>();
 
-    List<string> questGet_Condition = new List<string>();
+    List<int> quest_Reward_index = new List<int>();
+    List<string> quest_Reward = new List<string>();
 
     public List<TableData> TQuestdataList = new List<TableData>();
 
@@ -150,28 +162,27 @@ public class QuestManager : MonoBehaviour
 
     public void TableClear()
     {
-        Debug.Log("값 초기화");
         if (TQuestdataList.Count > 0)
         {
             TQuestdataList.Clear();
         }
         quest_Code.Clear();
         quest_Name.Clear();
-        quest_contents.Clear();
         npcGive_Code.Clear();
-        npcFinish_Code.Clear();
         questGet_index.Clear();
         questChoice_index.Clear();
         questFinish_index.Clear();
         questTyping_index.Clear();
-
-
+        quest_GetbaloonUI.Clear();
+        questGet_Condition_Type.Clear();
+        questGet_Condition.Clear();
+        quest_Reward_index.Clear();
+        quest_Reward.Clear();
+        Debug.Log("클리어");
     }
 
     public void TableSetter()
     {
-
-
         tableCSV = Resources.Load<TextAsset>(csvName);
         string currentText = tableCSV.text.Substring(0, tableCSV.text.Length - 1);
         string[] line = currentText.Split(new char[] { '\n' });
@@ -194,30 +205,32 @@ public class QuestManager : MonoBehaviour
         //bool on;
         for (int i = 1; i < lineSize; i++)
         {
-
+            Debug.Log("다시 넣기");
             string[] data = tables[i, 0].Split(',');
-
+            
             quest_Code.Add(int.Parse(data[0]));
 
             quest_Name.Add(data[1]);
 
-            quest_contents.Add(data[2]);
+            npcGive_Code.Add(int.Parse(data[2]));
 
-            npcGive_Code.Add(int.Parse(data[3]));
+            questGet_index.Add(int.Parse(data[3]));
 
-            npcFinish_Code.Add(int.Parse(data[4]));
+            questChoice_index.Add(int.Parse(data[4]));
 
-            questGet_index.Add(int.Parse(data[5]));
+            questFinish_index.Add(int.Parse(data[5]));
 
-            questChoice_index.Add(int.Parse(data[6]));
+            questTyping_index.Add(int.Parse(data[6]));
 
-            questFinish_index.Add(int.Parse(data[7]));
+            quest_GetbaloonUI.Add(int.Parse(data[7]));
 
-            questTyping_index.Add(int.Parse(data[8]));
+            questGet_Condition_Type.Add(int.Parse(data[8]));
 
-            quest_GetbaloonUI.Add(int.Parse(data[9]));
+            questGet_Condition.Add(int.Parse(data[9]));
 
-            questGet_Condition.Add(data[10]);
+            quest_Reward_index.Add(int.Parse(data[10]));
+         
+            quest_Reward.Add(data[11]);
         }
 
         //CSV의 값 Tdata_List에 넣기
@@ -226,16 +239,24 @@ public class QuestManager : MonoBehaviour
             TableData tempData = new TableData();
             tempData.Tquest_code = quest_Code[i];
             tempData.Tquest_name = quest_Name[i];
-            tempData.Tquest_contents = quest_contents[i];
             tempData.TGivenpc_code = npcGive_Code[i];
-            tempData.TFinishnpc_code = npcFinish_Code[i];
             tempData.TquestGet_index = questGet_index[i];
             tempData.TquestChoice_index = questChoice_index[i];
             tempData.TquestFinish_index = questFinish_index[i];
             tempData.TquestTyping_index = questTyping_index[i];
             tempData.TquestBaloon_UI = questUI[quest_GetbaloonUI[i]];
+            switch(questGet_Condition_Type[i])
+            {
+                case 1:
+                    tempData.TquestGet_Condition_Type = QCT.LEVEL;
+                    break;
+                case 2:
+                    tempData.TquestGet_Condition_Type = QCT.PREQUEST;
+                    break;
+            }
             tempData.TqusetGet_Condition = questGet_Condition[i];
-
+            tempData.TquestReward_index = quest_Reward_index[i];
+            tempData.Tquest_Reward = quest_Reward[i];
             TQuestdataList.Add(tempData);
         }
 
@@ -245,7 +266,6 @@ public class QuestManager : MonoBehaviour
             TQuestdataList[i].ballon_appears = QDBM.serverData.data[i].ballon_appears;
             TQuestdataList[i].quest_get_condition = QDBM.serverData.data[i].quest_get_condition;
             TQuestdataList[i].quest_get = QDBM.serverData.data[i].quest_get;
-            //TQuestdataList[i].DBquest_complete_baloon = QDBM.serverData.data[i].quest_completion_ballon_appears;
             TQuestdataList[i].chain_quest_get_code = QDBM.serverData.data[i].chain_quest_get_code;
             TQuestdataList[i].chain_quest_completion_code = QDBM.serverData.data[i].chain_quest_completion_code;
             TQuestdataList[i].quest_complete_condition = QDBM.serverData.data[i].quest_completion_condition;

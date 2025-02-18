@@ -824,9 +824,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   npcCode: 1
-  cur_QuestCode: 1
+  cur_QuestCode: 3
   cur_Dialogue_Index: 0
-  event_Dialogue_Index: 1
   player: {fileID: 0}
   questData: []
   dialogueData: []
