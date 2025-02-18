@@ -10,6 +10,7 @@ public class Dialogue_NPC : MonoBehaviour
     [Header("NPC code")]
     public int npcCode;
     public int cur_QuestCode;
+    public QuestManager.TableData curQuestData;
 
     [Space(10f)]
 
@@ -51,6 +52,8 @@ public class Dialogue_NPC : MonoBehaviour
                 !(qmInstance.TQuestdataList[i].quest_completion))
                 {
                     questData.Add(qmInstance.TQuestdataList[i]);
+                    curQuestData = questData[0];
+                    cur_QuestCode = curQuestData.Tquest_code;
                 }
             }
         }
@@ -63,13 +66,15 @@ public class Dialogue_NPC : MonoBehaviour
                 if (dmInstance.dialogueList[j].quest_code == questData[i].Tquest_code)
                 {
                     dialogueData.Add(dmInstance.dialogueList[j]);
+
                 }
             }
         }
     }
     float Dist = 0f;
 
-    int dialogueIndex = 0;
+
+    public int currentDialogueCount = 0;
     void Update()
     {
         Dist = Vector3.Distance(this.transform.position, player.transform.position);
@@ -101,6 +106,14 @@ public class Dialogue_NPC : MonoBehaviour
                             //TEST
                             if (!questUICanvas.gameObject.activeSelf)
                             {
+                                for (int i = 0; i < dialogueData.Count; i++)
+                                {
+                                    if (dialogueData[i].quest_code == cur_QuestCode)
+                                    {
+                                        currentDialogueCount++;
+                                    }
+                                }
+
                                 questUICanvas.gameObject.SetActive(true);
                                 questBaloonCanvas.gameObject.SetActive(false);
                                 NextDialogue();
@@ -119,44 +132,77 @@ public class Dialogue_NPC : MonoBehaviour
             }
         }
     }
+    public int dialogueStartIndex = 0;
+    public int questIndex = 0;
 
     public void NextDialogue()
     {
-        //for (int i = 0; i < qmInstance.TQuestdataList.Count; i++)
-        //{
-        //    if (qmInstance.TQuestdataList[i].quest_get == false)
-        //    {
-        //        for (int j = 0; j < questData.Count; j++)
-        //        if (qmInstance.TQuestdataList[i].Tquest_code == questData[j].Tquest_code)
-        //                cur_Dialogue_Index = i;
-        //    }
-        //}
-        if (dialogueData.Count - 1 > cur_Dialogue_Index)
+        if (dialogueData.Count == 0)
         {
-            dialogueCharacter.text = dialogueData[cur_Dialogue_Index].NPC_name;
-            dialogueContents.text = dialogueData[cur_Dialogue_Index].dialogues;
-            BtnText.text = "다음";
-            cur_Dialogue_Index++;
+            Debug.LogError("dialogueData가 비어 있습니다!");
+            return;
         }
-        else if (dialogueData.Count - 1 == cur_Dialogue_Index)
+
+        if (dialogueStartIndex >= dialogueData.Count)
         {
-            dialogueCharacter.text = dialogueData[cur_Dialogue_Index].NPC_name;
-            dialogueContents.text = dialogueData[cur_Dialogue_Index].dialogues;
-            BtnText.text = "닫기";
-            cur_Dialogue_Index++;
+            Debug.LogWarning("더 이상 대화가 없습니다.");
+            return;
+        }
+
+        if (cur_QuestCode ==  dialogueData[dialogueStartIndex].quest_code)
+        {
+            if (currentDialogueCount - 1 > cur_Dialogue_Index)
+            {
+                dialogueCharacter.text = dialogueData[dialogueStartIndex].NPC_name;
+                dialogueContents.text = dialogueData[dialogueStartIndex].dialogues;
+                BtnText.text = "다음";
+                dialogueStartIndex++;
+                cur_Dialogue_Index++;
+            }
+            else if (currentDialogueCount - 1 == cur_Dialogue_Index)
+            {
+                dialogueCharacter.text = dialogueData[dialogueStartIndex].NPC_name;
+                dialogueContents.text = dialogueData[dialogueStartIndex].dialogues;
+                BtnText.text = "닫기";
+                cur_Dialogue_Index++;
+                dialogueStartIndex++;
+
+            }
+
+
+            //더이상 받을 퀘스트 없을 때, 종료 Case
+            if (dialogueStartIndex >= dialogueData.Count)
+            {
+                if (questUICanvas.gameObject.activeSelf)
+                {
+                    //나머지 초기화
+                    questIndex = 0;
+                    curQuestData = null;
+                    cur_QuestCode = 0;
+                    currentDialogueCount = 0;
+                    cur_Dialogue_Index = 0;
+                    questUICanvas.gameObject.SetActive(false);
+                }
+                return;
+            }
         }
         else
         {
             if (questUICanvas.gameObject.activeSelf)
             {
                 //나머지 초기화
+                questIndex++;
+                curQuestData = questData[questIndex];
+                cur_QuestCode = curQuestData.Tquest_code;
+                currentDialogueCount = 0;
                 cur_Dialogue_Index = 0;
                 questUICanvas.gameObject.SetActive(false);
-                Debug.Log("닫기");
             }
         }
 
-        if (cur_Dialogue_Index == questData[0].TquestGet_index)
+
+
+        if (dialogueStartIndex == questData[0].TquestGet_index)
         {
             Debug.Log("퀘스트 획득");
             // QuestDatabaseManager.SendUpdateNpcCode(1, 4);

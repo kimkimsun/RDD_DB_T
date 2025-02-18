@@ -77,7 +77,7 @@ public class QuestManager : MonoBehaviour
         {
             csvName = "izlu_Quest_Table";
         }
-        Debug.Log("첫번째");
+        //Debug.Log("첫번째");
     }
 
     //4. 주는 NPC의 줄때 대화
@@ -178,7 +178,7 @@ public class QuestManager : MonoBehaviour
         questGet_Condition.Clear();
         quest_Reward_index.Clear();
         quest_Reward.Clear();
-        Debug.Log("클리어");
+        //Debug.Log("클리어");
     }
 
     public void TableSetter()
@@ -205,7 +205,7 @@ public class QuestManager : MonoBehaviour
         //bool on;
         for (int i = 1; i < lineSize; i++)
         {
-            Debug.Log("다시 넣기");
+            //Debug.Log("다시 넣기");
             string[] data = tables[i, 0].Split(',');
             
             quest_Code.Add(int.Parse(data[0]));
@@ -273,7 +273,7 @@ public class QuestManager : MonoBehaviour
             TQuestdataList[i].quest_progress = QDBM.serverData.data[i].quest_progress;
             TQuestdataList[i].quest_details = QDBM.serverData.data[i].quest_details;
         }
-        Debug.Log("테이블");
+        //Debug.Log("테이블");
     }
 
    // Update is called once per frame

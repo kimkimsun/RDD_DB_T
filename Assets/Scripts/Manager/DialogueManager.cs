@@ -36,7 +36,7 @@ public class DialogueManager : MonoBehaviour
         {
             dialogueCSV_name = "izlu_Dialogue_Table";
         }
-        Debug.Log("첫번째");
+        //Debug.Log("첫번째");
 
         dialogueCSV = Resources.Load<TextAsset>(dialogueCSV_name);
     }
