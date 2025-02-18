@@ -4,12 +4,14 @@ using WebSocketSharp;
 public class QuestData
 {
     public int quest_code;
-    public bool quest_get_ballon_appears;
+    public int npc_code;
+    public bool ballon_appears;
     public bool quest_get_condition;
     public bool quest_get;
-    public bool quest_completion_ballon_appears;
+    public int chain_quest_get_code;
     public bool quest_completion_condition;
     public bool quest_completion;
+    public int chain_quest_completion_code;
     public string quest_progress;
     public string[] quest_details;
 }
