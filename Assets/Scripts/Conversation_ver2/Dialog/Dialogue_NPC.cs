@@ -30,6 +30,7 @@ public class Dialogue_NPC : MonoBehaviour
     public Canvas questBaloonCanvas;
     //bool baloonOn;
 
+    public Text baloonText;
     public Image questBaloonUI;
     public Text dialogueCharacter;
     public Text dialogueContents;
@@ -80,6 +81,8 @@ public class Dialogue_NPC : MonoBehaviour
         Dist = Vector3.Distance(this.transform.position, player.transform.position);
         if (Dist <= 13f)
         {
+
+
             #region ƒ˘Ω∫∆Æ ∏ª«≥º± ∂ÁøÏ±‚ ¡∂∞«
             if (dialogueData.Count > 0)    //SendMessage(QuestGEt)
             {
@@ -101,7 +104,7 @@ public class Dialogue_NPC : MonoBehaviour
                     {
                         if (hit.transform.gameObject.tag == "NPC")
                         {
-                            Debug.Log(hit.transform.gameObject.name);
+                            //Debug.Log(hit.transform.gameObject.name);
 
                             //TEST
                             if (!questUICanvas.gameObject.activeSelf)
@@ -114,9 +117,18 @@ public class Dialogue_NPC : MonoBehaviour
                                     }
                                 }
 
-                                questUICanvas.gameObject.SetActive(true);
-                                questBaloonCanvas.gameObject.SetActive(false);
-                                NextDialogue();
+                                if (this.gameObject.name.Equals("Wounded"))
+                                {
+
+                                }
+                                else
+                                {
+                                    questUICanvas.gameObject.SetActive(true);
+                                    questBaloonCanvas.gameObject.SetActive(false);
+
+                                    NextDialogue();
+                                }
+
                             }
                         }
                     }
@@ -134,6 +146,15 @@ public class Dialogue_NPC : MonoBehaviour
     }
     public int dialogueStartIndex = 0;
     public int questIndex = 0;
+
+    public void NextDialogue2ndVersion(int Textindex)
+    {
+        if(cur_QuestCode == dialogueData[dialogueStartIndex].quest_code)
+        {
+
+        }
+    }
+
 
     public void NextDialogue()
     {
@@ -153,8 +174,12 @@ public class Dialogue_NPC : MonoBehaviour
         {
             if (currentDialogueCount - 1 > cur_Dialogue_Index)
             {
-                dialogueCharacter.text = dialogueData[dialogueStartIndex].NPC_name;
-                dialogueContents.text = dialogueData[dialogueStartIndex].dialogues;
+                if (dialogueData[dialogueStartIndex].dialogueType != 0)
+                {
+                    dialogueCharacter.text = dialogueData[dialogueStartIndex].NPC_name;
+                    dialogueContents.text = dialogueData[dialogueStartIndex].dialogues;
+                }
+
                 BtnText.text = "¥Ÿ¿Ω";
                 dialogueStartIndex++;
                 cur_Dialogue_Index++;

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using NUnit.Framework;
 
 
 
@@ -51,11 +52,13 @@ public class DialogueManager : MonoBehaviour
         public int quest_code;
         public string NPC_name;
         public string dialogues;
+        public int dialogueType;
     }
 
     List<int> questCode = new List<int>();
     List<string> nameList = new List<string>();
     List<string> dialogues = new List<string>();
+    List<int> dialogueType = new List<int>();
 
     [Header("Area Dialogue List")]
     public List<Dialogue> dialogueList = new List<Dialogue>();
@@ -89,6 +92,7 @@ public class DialogueManager : MonoBehaviour
             questCode.Add(int.Parse(data[0]));
             nameList.Add(data[1]);
             dialogues.Add(data[2]);
+            dialogueType.Add(int.Parse(data[3]));
         }
 
 
@@ -98,6 +102,7 @@ public class DialogueManager : MonoBehaviour
             tempDialogue.quest_code = questCode[i];
             tempDialogue.NPC_name = nameList[i];
             tempDialogue.dialogues = dialogues[i];
+            tempDialogue.dialogueType = dialogueType[i];
             dialogueList.Add(tempDialogue);
         }
     }
