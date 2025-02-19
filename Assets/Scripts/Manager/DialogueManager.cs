@@ -40,8 +40,6 @@ public class DialogueManager : MonoBehaviour
 
         dialogueCSV = Resources.Load<TextAsset>(dialogueCSV_name);
     }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         DialogueGetter();
@@ -69,6 +67,7 @@ public class DialogueManager : MonoBehaviour
 
     public void DialogueGetter()
     {
+        dialogueList.Clear();
         string currentText = dialogueCSV.text.Substring(0, dialogueCSV.text.Length - 1);
         string[] line = currentText.Split(new char[] { '\n' });
         lineSize = line.Length;

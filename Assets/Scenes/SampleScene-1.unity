@@ -582,7 +582,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   QDBM: {fileID: 0}
-  tableCSV: {fileID: 4900000, guid: 4239db764a57da6468aca9fab69b76f4, type: 3}
+  tableCSV: {fileID: 4900000, guid: 71d24c05835088c49a3e23f43f55c1c1, type: 3}
   csvName: 
   questUI:
   - {fileID: 21300000, guid: b2fa9845135d4ad459dd11841abdf8ba, type: 3}
@@ -910,6 +910,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   npcCode: 1
   cur_QuestCode: 1
+  curQuestData:
+    Tquest_code: 0
+    Tquest_name: 
+    TGivenpc_code: 0
+    TquestGet_index: 0
+    TquestChoice_index: 0
+    TquestFinish_index: 0
+    TquestTyping_index: 0
+    TquestBaloon_UI: {fileID: 0}
+    TquestGet_Condition_Type: 0
+    TqusetGet_Condition: 0
+    TquestReward_index: 0
+    Tquest_Reward: 
+    ballon_appears: 0
+    quest_get_condition: 0
+    quest_get: 0
+    chain_quest_get_code: 0
+    quest_complete_condition: 0
+    quest_completion: 0
+    chain_quest_completion_code: 0
+    quest_progress: 
+    quest_details: []
   cur_Dialogue_Index: 0
   player: {fileID: 0}
   questData: []
@@ -920,6 +942,9 @@ MonoBehaviour:
   dialogueCharacter: {fileID: 905980362}
   dialogueContents: {fileID: 1074768188}
   BtnText: {fileID: 1869364577}
+  currentDialogueCount: 0
+  dialogueStartIndex: 0
+  questIndex: 0
 --- !u!1 &667209139
 GameObject:
   m_ObjectHideFlags: 0

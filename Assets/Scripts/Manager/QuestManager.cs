@@ -232,9 +232,8 @@ public class QuestManager : MonoBehaviour
          
             quest_Reward.Add(data[11]);
         }
-
         //CSV의 값 Tdata_List에 넣기
-        for (int i = 0; i < QDBM.serverData.data.Length; i++)
+        for (int i = 0; i < lineSize - 1; i++)
         {
             TableData tempData = new TableData();
             tempData.Tquest_code = quest_Code[i];
@@ -275,10 +274,4 @@ public class QuestManager : MonoBehaviour
         }
         //Debug.Log("테이블");
     }
-
-   // Update is called once per frame
-    //void Update()
-    //{
-
-    //}
 }
