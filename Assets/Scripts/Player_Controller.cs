@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player_Controller : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class Player_Controller : MonoBehaviour
     public Vector3 move;
 
     public int Lv;
+
+    public Text QuestList;
+
 
     private void Awake()
     {
@@ -33,6 +37,14 @@ public class Player_Controller : MonoBehaviour
     {
         move.x = Input.GetAxisRaw("Horizontal");
         move.z = Input.GetAxisRaw("Vertical");
+
+        if(Input.GetKey(KeyCode.LeftAlt))
+        {
+            if(Input.GetKeyDown(KeyCode.U))
+            {
+
+            }
+        }
     }
 
     void FixedUpdate()
