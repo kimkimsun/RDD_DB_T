@@ -912,6 +912,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   npcCode: 1
   cur_QuestCode: 1
+  currentQuestCode: 0
   curQuestData:
     Tquest_code: 0
     Tquest_name: 
@@ -940,11 +941,11 @@ MonoBehaviour:
   dialogueData: []
   questUICanvas: {fileID: 1455149151}
   questBaloonCanvas: {fileID: 517005735}
+  baloonText: {fileID: 0}
   questBaloonUI: {fileID: 585071087}
   dialogueCharacter: {fileID: 905980362}
   dialogueContents: {fileID: 1074768188}
   BtnText: {fileID: 1869364577}
-  currentDialogueCount: 0
   dialogueStartIndex: 0
   questIndex: 0
 --- !u!1 &667209139

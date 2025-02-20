@@ -10,6 +10,7 @@ public class Dialogue_NPC : MonoBehaviour
     [Header("NPC code")]
     public int npcCode;
     public int cur_QuestCode;
+    public int currentQuestCode;
     public QuestManager.TableData curQuestData;
 
     [Space(10f)]
@@ -39,122 +40,110 @@ public class Dialogue_NPC : MonoBehaviour
     private QuestManager qmInstance;
     private DialogueManager dmInstance;
 
+    private bool isprocessing;
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         qmInstance = QuestManager.instance;
         dmInstance = DialogueManager.instance;
+        questData.Clear();
         //본인 NPC코드에 맞는 퀘스트 가져오기
         for (int i = 0; i < qmInstance.TQuestdataList.Count; i++)
         {
             if (qmInstance.TQuestdataList[i].TGivenpc_code == npcCode)
             {
-                if (qmInstance.TQuestdataList[i].quest_get_condition &&
-                !(qmInstance.TQuestdataList[i].quest_completion))
-                {
-                    questData.Add(qmInstance.TQuestdataList[i]);
-                    curQuestData = questData[0];
-                    cur_QuestCode = curQuestData.Tquest_code;
-                }
+                // 만약 내가 가지고 있어야 할 퀘스트가 있다면 다 가져온다.
+                questData.Add(qmInstance.TQuestdataList[i]);
             }
         }
+        BallonCheck();
+        //UI어떤 놈이 나와야되는지 
+        CommunicationCheck();
+    }
+    float Dist = 0f;
 
-        //quest code에 대응하는 대화들
+    void UISet(bool appear)
+    {
+        questBaloonCanvas.gameObject.SetActive(appear);
+        if (appear == true)
+            questBaloonUI.GetComponent<Image>().sprite = questData[currentQuestCode].TquestBaloon_UI;
+    }
+    void BallonCheck()
+    {
+        currentQuestCode = -1;
+        isprocessing = false;
+        for (int i = 0; i < questData.Count; i++)
+        {
+            if (questData[i].quest_get_condition)
+            {
+                currentQuestCode = questData[i].Tquest_code;
+                UISet(false);
+                isprocessing = true;
+                break;
+            }
+            if (questData[i].ballon_appears)
+            {
+                currentQuestCode = questData[i].Tquest_code;
+                UISet(true);
+                break;
+            }
+        }
+        if (currentQuestCode == -1)
+            UISet(false);
+    }
+
+    void CommunicationCheck()
+    {
+        dialogueData.Clear();
         for (int i = 0; i < questData.Count; i++)
         {
             for (int j = 0; j < dmInstance.dialogueList.Count; j++)
             {
-                if (dmInstance.dialogueList[j].quest_code == questData[i].Tquest_code)
+                if (dmInstance.dialogueList[j].quest_code == currentQuestCode)
                 {
                     dialogueData.Add(dmInstance.dialogueList[j]);
-
                 }
             }
         }
     }
-    float Dist = 0f;
-
-
-    public int currentDialogueCount = 0;
+    int currentDialogueCount;
     void Update()
     {
-        Dist = Vector3.Distance(this.transform.position, player.transform.position);
-        if (Dist <= 13f)
+        if (Input.GetMouseButtonDown(0))
         {
-
-
-            #region 퀘스트 말풍선 띄우기 조건
-            if (dialogueData.Count > 0)    //SendMessage(QuestGEt)
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit))
             {
-                questBaloonCanvas.gameObject.SetActive(true);
-                if (questData[0].Tquest_code == dialogueData[0].quest_code)
-                    questBaloonUI.GetComponent<Image>().sprite = questData[0].TquestBaloon_UI;
-            }
-            #endregion
-
-
-            //마크가 뜬 상태에서 클릭 했을 시 조건 추가
-            if (questBaloonUI.gameObject.activeSelf)
-            {
-                if (Input.GetMouseButtonDown(0))
+                if (hit.transform.gameObject.tag == "NPC")
                 {
-                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    RaycastHit hit;
-                    if (Physics.Raycast(ray, out hit))
+                    //Debug.Log(hit.transform.gameObject.name);
+
+                    //TEST
+                    if (currentQuestCode == -1)
                     {
-                        if (hit.transform.gameObject.tag == "NPC")
+                        Debug.Log("바닐라 출력"); // 여기가 바닐라입니다.
+                    }
+                    else
+                    {
+                        if(isprocessing)
                         {
-                            //Debug.Log(hit.transform.gameObject.name);
-
-                            //TEST
-                            if (!questUICanvas.gameObject.activeSelf)
-                            {
-                                for (int i = 0; i < dialogueData.Count; i++)
-                                {
-                                    if (dialogueData[i].quest_code == cur_QuestCode)
-                                    {
-                                        currentDialogueCount++;
-                                    }
-                                }
-
-                                if (this.gameObject.name.Equals("Wounded"))
-                                {
-
-                                }
-                                else
-                                {
-                                    questUICanvas.gameObject.SetActive(true);
-                                    questBaloonCanvas.gameObject.SetActive(false);
-
-                                    NextDialogue();
-                                }
-
-                            }
+                            //questData[currentQuestCode].
                         }
+                        // 퀘스트 진행중 대화로 갈건지
+                        // 퀘스트 획득 대화로 갈건지
+                        // 퀘스트 완료 대화로 갈건지
+                        // 분기 3개
                     }
                 }
             }
-
-        }
-        else
-        {
-            if (questBaloonCanvas.gameObject.activeSelf)
-            {
-                questBaloonCanvas.gameObject.SetActive(false);
-            }
         }
     }
+
+
     public int dialogueStartIndex = 0;
     public int questIndex = 0;
-
-    public void NextDialogue2ndVersion(int Textindex)
-    {
-        if(cur_QuestCode == dialogueData[dialogueStartIndex].quest_code)
-        {
-
-        }
-    }
-
 
     public void NextDialogue()
     {
@@ -170,7 +159,7 @@ public class Dialogue_NPC : MonoBehaviour
             return;
         }
 
-        if (cur_QuestCode ==  dialogueData[dialogueStartIndex].quest_code)
+        if (cur_QuestCode == dialogueData[dialogueStartIndex].quest_code)
         {
             if (currentDialogueCount - 1 > cur_Dialogue_Index)
             {

@@ -7,10 +7,11 @@ using NUnit.Framework;
 
 public class DialogueManager : MonoBehaviour
 {
-    public string dialogueCSV_name;
     public TextAsset dialogueCSV;
+    public TextAsset processingCSV;
     public static DialogueManager instance;
 
+    private string dialogueCSV_name;
 
     private void Awake()
     {
