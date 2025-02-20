@@ -8,7 +8,6 @@ using NUnit.Framework;
 public class DialogueManager : MonoBehaviour
 {
     public TextAsset dialogueCSV;
-    public TextAsset processingCSV;
     public static DialogueManager instance;
 
     private string dialogueCSV_name;
@@ -37,7 +36,6 @@ public class DialogueManager : MonoBehaviour
         //Debug.Log("Ã¹¹øÂ°");
 
         dialogueCSV = Resources.Load<TextAsset>(dialogueCSV_name);
-        processingCSV = Resources.Load<TextAsset>(precessingCSV_name);
     }
     void Start()
     {
@@ -48,13 +46,11 @@ public class DialogueManager : MonoBehaviour
     public class Dialogue
     {
         public int quest_code;
-        public string NPC_name;
         public string dialogues;
         public int dialogueType;
     }
 
     List<int> questCode = new List<int>();
-    List<string> nameList = new List<string>();
     List<string> dialogues = new List<string>();
     List<int> dialogueType = new List<int>();
 
@@ -66,7 +62,7 @@ public class DialogueManager : MonoBehaviour
     int rowSize;
 
 
-    public void DialogueGetter(TextAsset a)
+    public void DialogueGetter()
     {
         dialogueList.Clear();
         string currentText = dialogueCSV.text.Substring(0, dialogueCSV.text.Length - 1);
@@ -84,21 +80,19 @@ public class DialogueManager : MonoBehaviour
             }
         }
 
-        for(int i = 1; i  < lineSize; i++)
+        for (int i = 1; i < lineSize; i++)
         {
             string[] data = tables[i, 0].Split(',');
             questCode.Add(int.Parse(data[0]));
-            nameList.Add(data[1]);
-            dialogues.Add(data[2]);
-            dialogueType.Add(int.Parse(data[3]));
+            dialogues.Add(data[1]);
+            dialogueType.Add(int.Parse(data[2]));
         }
 
 
-        for (int i = 0; i < lineSize-1; i++)
+        for (int i = 0; i < lineSize - 1; i++)
         {
             Dialogue tempDialogue = new Dialogue();
             tempDialogue.quest_code = questCode[i];
-            tempDialogue.NPC_name = nameList[i];
             tempDialogue.dialogues = dialogues[i];
             tempDialogue.dialogueType = dialogueType[i];
             dialogueList.Add(tempDialogue);
