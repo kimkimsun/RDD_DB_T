@@ -12,14 +12,14 @@ public class DialogueManager : MonoBehaviour
     public static DialogueManager instance;
 
     private string dialogueCSV_name;
-    private string precessingCSV_name;
+
     private void Awake()
     {
         if (instance == null)
         {
             instance = this;
         }
-        precessingCSV_name = "processing_dialogue";
+
         //tableCSV값 어떻게 정해줄 지 작성 필요 + Dont destroy On Load 제작 필요
 
         if (SceneManager.GetActiveScene().buildIndex == 0)
@@ -34,10 +34,13 @@ public class DialogueManager : MonoBehaviour
         {
             dialogueCSV_name = "island_Dialogue_Table";
         }
+        else if (SceneManager.GetActiveScene().buildIndex == 3)
+        {
+            dialogueCSV_name = "izlu_Dialogue_Table";
+        }
         //Debug.Log("첫번째");
 
         dialogueCSV = Resources.Load<TextAsset>(dialogueCSV_name);
-        processingCSV = Resources.Load<TextAsset>(precessingCSV_name);
     }
     void Start()
     {
@@ -66,7 +69,7 @@ public class DialogueManager : MonoBehaviour
     int rowSize;
 
 
-    public void DialogueGetter(TextAsset a)
+    public void DialogueGetter()
     {
         dialogueList.Clear();
         string currentText = dialogueCSV.text.Substring(0, dialogueCSV.text.Length - 1);

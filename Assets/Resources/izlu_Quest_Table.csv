@@ -1,0 +1,16 @@
+﻿Quest_Code,Quest_Name,Quest_Contents,Give_NPC_Code,Finish_NPC_Code,QuestGet_Index,Choice_Index,QuestFinish_Index,QuestTyping_Index,QuestGet_UI,QuestGet_Condition
+1,안녕하세요,abaaba,1,1,0,0,1,0,1,test
+2,name,abaaba,1,1,1,0,1,1,2,this is test
+3,name,abaaba,1,1,3,0,1,1,1,for string value
+4,name,abaaba,1,2,1,0,1,1,2,12345
+1,name,abaaba,2,3,1,0,1,1,2,
+2,name,abaaba,2,3,1,0,1,1,2,
+3,name,abaaba,2,4,1,0,1,1,1,
+4,name,abaaba,2,2,0,0,1,1,1,
+5,name,abaaba,3,2,2,0,1,1,2,
+6,name,abaaba,3,3,1,0,1,1,1,
+7,name,abaaba,3,3,1,0,1,1,2,
+1,name,abaaba,4,5,1,0,1,1,1,43265
+1,name,abaaba,5,5,1,0,1,1,2,df
+1,name,abaaba,6,6,1,0,1,1,1,eawtraet
+2,name,abaaba,6,6,1,0,1,1,2,
