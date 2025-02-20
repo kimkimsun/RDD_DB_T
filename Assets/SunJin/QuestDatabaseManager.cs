@@ -33,10 +33,10 @@ public struct UpdateDatabase
 public class QuestDatabaseManager : MonoBehaviour
 {
     public QuestResponse serverData;
-    private string[] functionNameStorage = { "UpdateQuestGetBallonAppears"
+    private string[] functionNameStorage = { "UpdateBallonAppears"
             ,"UpdateQuestGetCondition" ,"UpdateQuestGet" ,
-        "UpdateQuestCompletionBallonAppears" ,"UpdateQuestCompletionCondition" ,
-        "UpdateQuestCompletion","UpdateQuestProgress" ,"UpdateQuestDetails"};
+        "UpdateQuestCompletionCondition" ,"UpdateQuestCompletion" ,
+        "UpdateQuestProgress","UpdateQuestDetails" ,"UpdateQuestDetails"};
     private WebSocket ws;
     #region UpdateDB
     public void SendUpdateBool(int function, int questCode, bool newBool)

@@ -828,19 +828,19 @@ MonoBehaviour:
   npcCode: 1
   currentQuestCode: 0
   curQuestData:
-    Tquest_code: 0
-    Tquest_name: 
-    TGivenpc_code: 0
-    TquestGet_index: 0
-    TquestChoice_index: 0
-    TquestFinish_index: 0
-    TquestTyping_index: 0
-    TquestBaloon_UI: {fileID: 0}
-    TquestGet_Condition_Type: 0
-    TqusetGet_Condition: 0
-    TquestReward_index: 0
-    Tquest_Reward: 
+    quest_code: 0
+    quest_name: 
+    questGet_index: 0
+    questChoice_index: 0
+    questFinish_index: 0
+    questTyping_index: 0
+    questBaloon_UI: {fileID: 0}
+    questGet_Condition_Type: 0
+    qusetGet_Condition: 0
+    questReward_index: 0
+    quest_Reward: 
     ballon_appears: 0
+    npc_code: 0
     quest_get_condition: 0
     quest_get: 0
     chain_quest_get_code: 0
