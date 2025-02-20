@@ -3,12 +3,15 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Player_Quest : MonoBehaviour
 {
-
+    [Header("Quest Panel")]
     public Image questPanel;
 
     public Text questTitle;
     public Text questSubTitle;
 
+    [Space(10f)]
+
+    [Header("Quest Detail Panel")]
     public Image questDetails;
     public List<Image> questList = new List<Image>();
     public bool toggle;
