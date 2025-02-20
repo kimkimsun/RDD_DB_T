@@ -1,9 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
-using NUnit.Framework;
-
-
 
 public class DialogueManager : MonoBehaviour
 {
@@ -11,14 +8,12 @@ public class DialogueManager : MonoBehaviour
     public static DialogueManager instance;
 
     private string dialogueCSV_name;
-    private string precessingCSV_name;
     private void Awake()
     {
         if (instance == null)
         {
             instance = this;
         }
-        precessingCSV_name = "processing_dialogue";
         //tableCSV값 어떻게 정해줄 지 작성 필요 + Dont destroy On Load 제작 필요
 
         if (SceneManager.GetActiveScene().buildIndex == 0)

@@ -110,6 +110,8 @@ public class QuestManager : MonoBehaviour
 
         public Sprite questBaloon_UI;              //13. Äù½ºÆ® È¹µæ ¸»Ç³¼± UI Type
 
+        public Sprite questIcon_UI;
+
         public QCT questGet_Condition_Type;
 
         public int qusetGet_Condition;          //Äù½ºÆ® È¹µæ Á¶°Ç(ÀÏÁ¤ °Å¸® ³»¿¡ µé¾î¿À¸é °Ë»ç)
@@ -153,6 +155,8 @@ public class QuestManager : MonoBehaviour
 
     List<int> quest_GetbaloonUI = new List<int>();
     public List<Sprite> questUI = new List<Sprite>();
+    List<int> quest_icon_UI = new List<int>();
+    public List<Sprite> questIconUI = new List<Sprite>();
     
     List<int> questGet_Condition_Type = new List<int>();
     List<int> questGet_Condition = new List<int>();
@@ -227,13 +231,15 @@ public class QuestManager : MonoBehaviour
 
             quest_GetbaloonUI.Add(int.Parse(data[6]));
 
-            questGet_Condition_Type.Add(int.Parse(data[7]));
+            quest_icon_UI.Add(int.Parse(data[7]));
 
-            questGet_Condition.Add(int.Parse(data[8]));
+            questGet_Condition_Type.Add(int.Parse(data[8]));
 
-            quest_Reward_index.Add(int.Parse(data[9]));
+            questGet_Condition.Add(int.Parse(data[9]));
+
+            quest_Reward_index.Add(int.Parse(data[10]));
          
-            quest_Reward.Add(data[10]);
+            quest_Reward.Add(data[11]);
         }
         //CSVÀÇ °ª Tdata_List¿¡ ³Ö±â
         for (int i = 0; i < lineSize - 1; i++)
@@ -246,7 +252,8 @@ public class QuestManager : MonoBehaviour
             tempData.questFinish_index = questFinish_index[i];
             tempData.questTyping_index = questTyping_index[i];
             tempData.questBaloon_UI = questUI[quest_GetbaloonUI[i]];
-            switch(questGet_Condition_Type[i])
+            tempData.questIcon_UI = questIconUI[quest_icon_UI[i]];
+            switch (questGet_Condition_Type[i])
             {
                 case 1:
                     tempData.questGet_Condition_Type = QCT.LEVEL;

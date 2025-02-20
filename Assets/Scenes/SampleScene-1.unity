@@ -536,6 +536,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c27eb6f24a9428c43a794a8208ef023b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  questPanel: {fileID: 0}
+  questDetails: {fileID: 0}
+  questList: []
+  toggle: 0
 --- !u!1 &441768767
 GameObject:
   m_ObjectHideFlags: 0
@@ -603,6 +607,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: b2fa9845135d4ad459dd11841abdf8ba, type: 3}
   - {fileID: 21300000, guid: 862173501622b6049926808fc4396ae9, type: 3}
   - {fileID: 21300000, guid: 0fa4c3f84a304bc40a4f6c8dda0f81f6, type: 3}
+  questIconUI:
+  - {fileID: 21300000, guid: cdf7a46aee4c12e4e8e1ecbc5b0b8c98, type: 3}
   questdataList: []
   lineSize: 0
   rowSize: 0
@@ -933,6 +939,7 @@ MonoBehaviour:
     questFinish_index: 0
     questTyping_index: 0
     questBaloon_UI: {fileID: 0}
+    questIcon_UI: {fileID: 0}
     questGet_Condition_Type: 0
     qusetGet_Condition: 0
     questReward_index: 0
@@ -947,8 +954,8 @@ MonoBehaviour:
     chain_quest_completion_code: 0
     quest_progress: 
     quest_details: []
-  cur_Dialogue_Index: 0
   player: {fileID: 0}
+  p_Quest: {fileID: 0}
   questData: []
   dialogueData: []
   questUICanvas: {fileID: 1455149151}
@@ -958,7 +965,6 @@ MonoBehaviour:
   dialogueContents: {fileID: 1074768188}
   BtnText: {fileID: 1869364577}
   dialogueStartIndex: 0
-  questIndex: 0
 --- !u!1 &667209139
 GameObject:
   m_ObjectHideFlags: 0

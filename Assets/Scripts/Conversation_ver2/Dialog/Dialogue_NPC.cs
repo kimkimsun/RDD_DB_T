@@ -13,11 +13,6 @@ public class Dialogue_NPC : MonoBehaviour
 
     [Space(10f)]
 
-    public int cur_Dialogue_Index = 0;
-    //public int quest_get_Index;
-
-    [Space(10f)]
-
     public GameObject player;
     public Player_Quest p_Quest;
 
