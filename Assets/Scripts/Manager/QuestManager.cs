@@ -73,10 +73,6 @@ public class QuestManager : MonoBehaviour
         {
             csvName = "island_Quest_Table";
         }
-        else if (SceneManager.GetActiveScene().buildIndex == 3)
-        {
-            csvName = "izlu_Quest_Table";
-        }
         //Debug.Log("Ã¹¹øÂ°");
     }
 
