@@ -174,8 +174,18 @@ public class Dialogue_NPC : MonoBehaviour
         {
             qmInstance.QDBM.SendUpdateBool(ballon, questData[questIndex].quest_code, false);
             qmInstance.QDBM.SendUpdateBool(questget, questData[questIndex].quest_code, true);
-            qmInstance.QDBM.SendUpdateBool(ballon, questData[questIndex].chain_quest_get_code, true);
-            //p_Quest.
+            if (questData[questIndex].chain_quest_get_code > 0)
+            {
+                qmInstance.QDBM.SendUpdateBool(ballon, questData[questIndex].chain_quest_get_code, true);
+                qmInstance.QDBM.SendUpdateBool(questgetcondition, questData[questIndex].chain_quest_get_code, true);
+            }
+            qmInstance.TableSetter();
+            BallonCheck();
+            CommunicationCheck();
+            //questData[questIndex].questIcon_UI;
+            //questData[questIndex].quest_title;
+            //questData[questIndex].quest_describe;
+            //questData[questIndex].quest_details;
         }
         if (dialogueData.Count - 1 == dialogueStartIndex)
         {

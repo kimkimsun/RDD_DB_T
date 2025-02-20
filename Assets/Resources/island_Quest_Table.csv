@@ -1,4 +1,4 @@
-﻿Quest_Code,Quest_Name,QuestGet_Index,Choice_Index,QuestFinish_Index,QuestTyping_Index,QuestGet_UI,QuestIcon_UI,QuestGet_Condition_Type,QuestGet_Condition,QuestReward_Index,Quest_Reward
-1,난파선 탈출,3,0,1,-1,1,1,1,1,-1,string
-2,,-1,3,2,-1,2,1,-1,-1,1,string
-3,tettest,3,0,1,-1,1,1,1,1,-1,string
+﻿Quest_Code,Quest_Name,QuestGet_Index,Choice_Index,QuestFinish_Index,QuestTyping_Index,QuestGet_UI,QuestIcon_UI,QuestGet_Condition_Type,QuestGet_Condition,QuestReward_Index,Quest_Reward,Quest_Title,Quest_describe
+1,난파선 탈출,3,0,1,-1,1,1,1,1,-1,string,난파선 탈출,선장과 대화
+2,,-1,3,2,-1,2,1,-1,-1,1,string,,
+3,tettest,3,0,1,-1,1,1,1,1,-1,string,,

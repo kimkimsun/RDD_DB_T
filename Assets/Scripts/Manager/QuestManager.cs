@@ -120,6 +120,10 @@ public class QuestManager : MonoBehaviour
 
         public string quest_Reward;
 
+        public string quest_title;
+        
+        public string quest_describe;
+
         //---------------------------------------------------------------------------------------
         [Header("DataBase Part")]
         public bool ballon_appears;
@@ -163,6 +167,9 @@ public class QuestManager : MonoBehaviour
 
     List<int> quest_Reward_index = new List<int>();
     List<string> quest_Reward = new List<string>();
+    List<string> quest_title = new List<string>();
+    List<string> quest_describe = new List<string>();
+
 
     public List<TableData> questdataList = new List<TableData>();
 
@@ -187,7 +194,8 @@ public class QuestManager : MonoBehaviour
         questGet_Condition.Clear();
         quest_Reward_index.Clear();
         quest_Reward.Clear();
-        //Debug.Log("클리어");
+        quest_title.Clear();
+        quest_describe.Clear();
     }
 
     public void TableSetter()
@@ -240,6 +248,10 @@ public class QuestManager : MonoBehaviour
             quest_Reward_index.Add(int.Parse(data[10]));
          
             quest_Reward.Add(data[11]);
+
+            quest_title.Add(data[12]);
+
+            quest_describe.Add(data[13]);
         }
         //CSV의 값 Tdata_List에 넣기
         for (int i = 0; i < lineSize - 1; i++)
