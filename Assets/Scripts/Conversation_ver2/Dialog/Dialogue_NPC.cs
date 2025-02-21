@@ -18,6 +18,10 @@ public class Dialogue_NPC : MonoBehaviour
 
     public List<QuestManager.TableData> questData = new List<QuestManager.TableData>();
     public List<DialogueManager.Dialogue> dialogueData = new List<DialogueManager.Dialogue>();
+    
+    [Tooltip ("valueStorage")]
+    private List<DialogueManager.Dialogue> tempDialogueData = new List<DialogueManager.Dialogue>();
+    private int tempQuestIndex;
 
     [Header("Dialogue Show")]
     public Canvas questUICanvas;
@@ -35,17 +39,6 @@ public class Dialogue_NPC : MonoBehaviour
 
     private bool isprocessing;
     private int questIndex;
-
-    [Tooltip("Database Number")]
-    private int ballon = 0;
-    private int questgetcondition = 1;
-    private int questget = 2;
-    private int questcompletioncondition = 3;
-    private int questcompletion = 4;
-    private int questprogress = 5;
-    private int questdetails = 6;
-
-
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -58,7 +51,6 @@ public class Dialogue_NPC : MonoBehaviour
         {
             if (qmInstance.questdataList[i].npc_code == npcCode)
             {
-                Debug.Log(i);
                 // 만약 내가 가지고 있어야 할 퀘스트가 있다면 다 가져온다.
                 questData.Add(qmInstance.questdataList[i]);
             }
@@ -69,19 +61,20 @@ public class Dialogue_NPC : MonoBehaviour
     }
     float Dist = 0f;
 
-    void UISet(bool appear, int uiIndex = 0)
+    void UISet(bool appear, int uiIndex = -1)
     {
+        questIndex = -1;
         questBaloonCanvas.gameObject.SetActive(appear);
         if (appear)
         {
             questBaloonUI.GetComponent<Image>().sprite = questData[uiIndex].questBaloon_UI;
-            questIndex = uiIndex;
         }
+            if(uiIndex != -1)
+                questIndex = uiIndex;
     }
     void BallonCheck()
     {
         currentQuestCode = -1;
-        questIndex = -1;
         isprocessing = false;
         for (int i = 0; i < questData.Count; i++)
         {
@@ -92,10 +85,13 @@ public class Dialogue_NPC : MonoBehaviour
                 isprocessing = true;
                 break;
             }
-            else if(questData[i].ballon_appears)
+            else if(questData[i].quest_get_condition)
             {
                 currentQuestCode = questData[i].quest_code;
-                UISet(true , i);
+                if (questData[i].ballon_appears)
+                    UISet(true, i);
+                else
+                    UISet(false, i);
                 break;
             }
         }
@@ -138,6 +134,7 @@ public class Dialogue_NPC : MonoBehaviour
                     {
                         if (isprocessing)
                         {
+                            Debug.Log("프로세싱");
                             //questData[currentQuestCode].
                         }
                         else 
@@ -145,6 +142,8 @@ public class Dialogue_NPC : MonoBehaviour
                             if (questData[questIndex].quest_get_condition)
                             {
                                 questUICanvas.gameObject.SetActive(true);
+                                tempDialogueData = dialogueData;
+                                tempQuestIndex = questIndex;
                                 NextDialogue();
                             }
                             else
@@ -167,37 +166,38 @@ public class Dialogue_NPC : MonoBehaviour
 
     public void NextDialogue()
     {
-        dialogueContents.text = dialogueData[dialogueStartIndex].dialogues;
+        dialogueContents.text = tempDialogueData[dialogueStartIndex].dialogues;
         dialogueStartIndex++;
-        Debug.Log("nextDialogue start : " + dialogueStartIndex);
-        if (dialogueStartIndex == questData[questIndex].questGet_index)
+        if (dialogueStartIndex == questData[tempQuestIndex].questGet_index)
         {
-            qmInstance.QDBM.SendUpdateBool(ballon, questData[questIndex].quest_code, false);
-            qmInstance.QDBM.SendUpdateBool(questget, questData[questIndex].quest_code, true);
-            if (questData[questIndex].chain_quest_get_code > 0)
+            qmInstance.QDBM.SendUpdateBallonAppears(questData[tempQuestIndex].quest_code, false);
+            BallonCheck();
+            CommunicationCheck();
+            qmInstance.QDBM.SendUpdateQuestGet(questData[tempQuestIndex].quest_code, true);
+            BallonCheck();
+            CommunicationCheck();
+            if (questData[tempQuestIndex].chain_quest_get_code > 0)
             {
-                qmInstance.QDBM.SendUpdateBool(ballon, questData[questIndex].chain_quest_get_code, true);
-                qmInstance.QDBM.SendUpdateBool(questgetcondition, questData[questIndex].chain_quest_get_code, true);
+                qmInstance.QDBM.SendUpdateBallonAppears(questData[tempQuestIndex].chain_quest_get_code, true);
+                BallonCheck();
+                CommunicationCheck();
+                qmInstance.QDBM.SendUpdateQuestGetCondition(questData[tempQuestIndex].chain_quest_get_code, true);
+                BallonCheck();
+                CommunicationCheck();
             }
-            //qmInstance.TableSetter();
-            //BallonCheck();
-            //CommunicationCheck();
+            p_Quest.QuestDataInIt(questData[tempQuestIndex].questIcon_UI, 
+                                  questData[tempQuestIndex].quest_title, 
+                                  questData[tempQuestIndex].quest_describe, 
+                                  questData[tempQuestIndex].quest_details);
 
-
-            p_Quest.QuestDataInIt(questData[questIndex].questIcon_UI, questData[questIndex].quest_title, questData[questIndex].quest_describe, questData[questIndex].quest_details);
-
-            //questData[questIndex].questIcon_UI;
-            //questData[questIndex].quest_title;
-            //questData[questIndex].quest_describe;
-            //questData[questIndex].quest_details;
         }
-        if (dialogueData.Count - 1 == dialogueStartIndex)
+        if (tempDialogueData.Count - 1 == dialogueStartIndex)
         {
             Debug.Log("닫기 뜰 때 : " + dialogueStartIndex);
-            dialogueContents.text = dialogueData[dialogueStartIndex].dialogues;
+            dialogueContents.text = tempDialogueData[dialogueStartIndex].dialogues;
             BtnText.text = "닫기";
         }
-        else if (dialogueData.Count == dialogueStartIndex)
+        else if (tempDialogueData.Count == dialogueStartIndex)
         {
             Debug.Log("없어 질 때 : " + dialogueStartIndex);
             questUICanvas.gameObject.SetActive(false);

@@ -3,7 +3,8 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Player_Quest : MonoBehaviour
 {
-    public bool toggle;
+    public bool panelToggle;
+    public bool detailToggle;
     [Header("Quest Panel")]
     public Image questPanel;
     public Image questIcon;
@@ -11,36 +12,36 @@ public class Player_Quest : MonoBehaviour
     public Text questTitle;
     public Text questSubTitle;
 
-    public List<Image> questList = new List<Image>();
-
+    public Button questBtn;
     [Space(10f)]
 
     [Header("Quest Detail Panel")]
     public Image questdetailPanel;
-    public string[] detailGroup = new string[4];
-
-    private void Start()
-    {
-
-    }
+    public Text[] detailGroup = new Text[4];
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.U))
         {
-            toggle = !toggle;
-            questPanel.gameObject.SetActive(toggle);
+            panelToggle = !panelToggle;
+            questPanel.gameObject.SetActive(panelToggle);
         }
     }
 
     public void QuestDetiailOn()
     {
-        questdetailPanel.gameObject.SetActive(true);
+        detailToggle = !detailToggle;
+        questdetailPanel.gameObject.SetActive(detailToggle);
     }
 
     public void QuestDataInIt(Sprite Icon, string title, string describe, string[] details)
     {
-
+        questIcon.sprite = Icon;
+        questTitle.text = title;
+        questSubTitle.text = describe;
+        for (int i = 0; i < details.Length; i++)
+        {
+            detailGroup[i].text = details[i];
+        }
     }
-
 }

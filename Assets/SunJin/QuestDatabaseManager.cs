@@ -33,44 +33,123 @@ public struct UpdateDatabase
 public class QuestDatabaseManager : MonoBehaviour
 {
     public QuestResponse serverData;
-    private string[] functionNameStorage = { "UpdateBallonAppears"
-            ,"UpdateQuestGetCondition" ,"UpdateQuestGet" ,
-        "UpdateQuestCompletionCondition" ,"UpdateQuestCompletion" ,
-        "UpdateQuestProgress","UpdateQuestDetails" ,"UpdateQuestDetails"};
+    private QuestManager qmInstance;
     private WebSocket ws;
     #region UpdateDB
-    public void SendUpdateBool(int function, int questCode, bool newBool)
+    public void SendUpdateBallonAppears(int questCode, bool newBool)
     {
         var message = new UpdateDatabase
         {
-            function = functionNameStorage[function],
+            function = "UpdateBallonAppears",
             questCode = questCode,
             newBool = newBool
         };
         var jsonMessage = JsonUtility.ToJson(message);
         ws.Send(jsonMessage);
+        serverData.data[questCode].ballon_appears = newBool;
+        int qc = FindListSameQC(questCode);
+        if(qc != -1)
+            qmInstance.questdataList[qc].ballon_appears = newBool;
     }
-    public void SendUpdateString(int function, int questCode, string newString)
+    public void SendUpdateQuestGetCondition(int questCode, bool newBool)
     {
         var message = new UpdateDatabase
         {
-            function = functionNameStorage[function],
+            function = "UpdateQuestGetCondition",
+            questCode = questCode,
+            newBool = newBool
+        };
+        var jsonMessage = JsonUtility.ToJson(message);
+        ws.Send(jsonMessage);
+        serverData.data[questCode].quest_get_condition = newBool;
+        int qc = FindListSameQC(questCode);
+        if (qc != -1)
+            qmInstance.questdataList[qc].quest_get_condition = newBool;
+    }
+    public void SendUpdateQuestGet(int questCode, bool newBool)
+    {
+        var message = new UpdateDatabase
+        {
+            function = "UpdateQuestGet",
+            questCode = questCode,
+            newBool = newBool
+        };
+        var jsonMessage = JsonUtility.ToJson(message);
+        ws.Send(jsonMessage);
+        serverData.data[questCode].quest_get = newBool;
+        int qc = FindListSameQC(questCode);
+        if (qc != -1)
+            qmInstance.questdataList[qc].quest_get = newBool;
+    }
+    public void SendUpdatQuestCompletionCondition(int questCode, bool newBool)
+    {
+        var message = new UpdateDatabase
+        {
+            function = "UpdateQuestCompletionCondition",
+            questCode = questCode,
+            newBool = newBool
+        };
+        var jsonMessage = JsonUtility.ToJson(message);
+        ws.Send(jsonMessage);
+        serverData.data[questCode].quest_completion_condition = newBool;
+        int qc = FindListSameQC(questCode);
+        if (qc != -1)
+            qmInstance.questdataList[qc].quest_complete_condition = newBool;
+    }
+    public void SendUpdatQuestCompletion(int questCode, bool newBool)
+    {
+        var message = new UpdateDatabase
+        {
+            function = "UpdateQuestCompletion",
+            questCode = questCode,
+            newBool = newBool
+        };
+        var jsonMessage = JsonUtility.ToJson(message);
+        ws.Send(jsonMessage);
+        serverData.data[questCode].quest_completion = newBool;
+        int qc = FindListSameQC(questCode);
+        if (qc != -1)
+            qmInstance.questdataList[qc].quest_completion = newBool;
+    }
+    public void SendUpdatQuestProgress(int questCode, string newString)
+    {
+        var message = new UpdateDatabase
+        {
+            function = "UpdateQuestProgress",
             questCode = questCode,
             newString = newString
         };
         var jsonMessage = JsonUtility.ToJson(message);
         ws.Send(jsonMessage);
+        serverData.data[questCode].quest_progress= newString;
+        int qc = FindListSameQC(questCode);
+        if (qc != -1)
+            qmInstance.questdataList[qc].quest_progress = newString;
     }
-    public void SendUpdateStringArray(int function, int questCode, string[] newStringArray)
+    public void SendUpdateQuestDetails(int questCode, string[] newStringArray)
     {
         var message = new UpdateDatabase
         {
-            function = functionNameStorage[function],
+            function = "UpdateQuestDetails",
             questCode = questCode,
             newStringArray = newStringArray
         };
         var jsonMessage = JsonUtility.ToJson(message);
         ws.Send(jsonMessage);
+        serverData.data[questCode].quest_details = newStringArray;
+        int qc = FindListSameQC(questCode);
+        if (qc != -1)
+            qmInstance.questdataList[qc].quest_details = newStringArray;
+    }
+
+    public int FindListSameQC(int questCode)
+    {
+        for(int i = 0; i < qmInstance.questdataList.Count; i++)
+        {
+            if (qmInstance.questdataList[i].quest_code == questCode)
+                return i;
+        }
+        return -1;
     }
     #endregion UpdateDB
     #region LoadDB
@@ -82,16 +161,13 @@ public class QuestDatabaseManager : MonoBehaviour
         ws.Connect();
         ws.OnMessage += Call;
     }
-    //private void Start()
-    //{
-    //    ws = new WebSocket("ws://localhost:7777");
-    //    ws.Connect();
-    //    ws.OnMessage += Call;
-    //}
-
     private void Call(object sender, MessageEventArgs e)
     {
         serverData = JsonUtility.FromJson<QuestResponse>(e.Data);
+    }
+    private void Start()
+    {
+        qmInstance = QuestManager.instance;
     }
     #endregion
 

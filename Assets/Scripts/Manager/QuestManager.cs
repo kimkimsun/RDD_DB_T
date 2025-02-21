@@ -1,9 +1,6 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-
 
 
 public enum QCT
@@ -250,7 +247,7 @@ public class QuestManager : MonoBehaviour
             quest_Reward.Add(data[11]);
 
             quest_title.Add(data[12]);
-
+            
             quest_describe.Add(data[13]);
         }
         //CSV의 값 Tdata_List에 넣기
@@ -277,6 +274,8 @@ public class QuestManager : MonoBehaviour
             tempData.qusetGet_Condition = questGet_Condition[i];
             tempData.questReward_index = quest_Reward_index[i];
             tempData.quest_Reward = quest_Reward[i];
+            tempData.quest_title = quest_title[i];
+            tempData.quest_describe = quest_describe[i];
             questdataList.Add(tempData);
         }
 
