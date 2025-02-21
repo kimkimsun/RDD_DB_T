@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -107,9 +106,6 @@ public class Dialogue_NPC : MonoBehaviour
             if (dmInstance.processingList[i].processing_quest_code == currentQuestCode)
                 processingData.Add(dmInstance.processingList[i]);
         }
-        Debug.Log($"ÇÁ·Î¼¼½Ì µ¥ÀÌÅÍ : {processingData[0]}");
-        Debug.Log($"ÇÁ·Î¼¼½Ì µ¥ÀÌÅÍ : {processingData[1]}");
-        Debug.Log($"ÇÁ·Î¼¼½Ì µ¥ÀÌÅÍ : {processingData[2]}");
     }
     void CommunicationCheck()
     {
@@ -146,8 +142,8 @@ public class Dialogue_NPC : MonoBehaviour
                     {
                         if (isprocessing)
                         {
-                            Debug.Log("ÇÁ·Î¼¼½Ì");
-                            //questData[currentQuestCode].
+                            questUICanvas.gameObject.SetActive(true);
+                            processingDialogue();
                         }
                         else 
                         {
@@ -170,11 +166,15 @@ public class Dialogue_NPC : MonoBehaviour
     }
 
 
-    public int dialogueStartIndex = 0;
+    private int dialogueStartIndex = -1;
 
     public void NextDialogue()
     {
-        dialogueContents.text = tempDialogueData[dialogueStartIndex].dialogues;
+        if (isprocessing)
+        {
+            processingDialogue();
+            return;
+        }
         dialogueStartIndex++;
         if (dialogueStartIndex == questData[tempQuestIndex].questGet_index)
         {
@@ -207,8 +207,25 @@ public class Dialogue_NPC : MonoBehaviour
         else if (tempDialogueData.Count == dialogueStartIndex)
         {
             questUICanvas.gameObject.SetActive(false);
-            dialogueStartIndex = 0;
+            dialogueStartIndex = -1;
         }
-        //´õÀÌ»ó ¹ÞÀ» Äù½ºÆ® ¾øÀ» ¶§, Á¾·á Case
+        else
+            dialogueContents.text = tempDialogueData[dialogueStartIndex].dialogues;
+    }
+    public void processingDialogue()
+    {
+        dialogueStartIndex++;
+        if (processingData.Count - 1 == dialogueStartIndex)
+        {
+            dialogueContents.text = processingData[dialogueStartIndex].processing_dialogues;
+            BtnText.text = "´Ý±â";
+        }
+        else if (processingData.Count <= dialogueStartIndex)
+        {
+            questUICanvas.gameObject.SetActive(false);
+            dialogueStartIndex = -1;
+        }
+        else
+            dialogueContents.text = processingData[dialogueStartIndex].processing_dialogues;
     }
 }
