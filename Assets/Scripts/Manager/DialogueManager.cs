@@ -5,9 +5,11 @@ using System.Collections.Generic;
 public class DialogueManager : MonoBehaviour
 {
     public TextAsset dialogueCSV;
+    public TextAsset processingCSV;
     public static DialogueManager instance;
 
     private string dialogueCSV_name;
+    private string processingCSV_name;
     private void Awake()
     {
         if (instance == null)
@@ -19,22 +21,27 @@ public class DialogueManager : MonoBehaviour
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
             dialogueCSV_name = "island_Dialogue_Table";
+            processingCSV_name = "island_processing_Table";
         }
         else if (SceneManager.GetActiveScene().buildIndex == 1)
         {
             dialogueCSV_name = "island_Dialogue_Table";
+            processingCSV_name = "island_processing_Table";
         }
         else if (SceneManager.GetActiveScene().buildIndex == 2)
         {
             dialogueCSV_name = "island_Dialogue_Table";
+            processingCSV_name = "island_processing_Table";
         }
         //Debug.Log("Ã¹¹øÂ°");
 
         dialogueCSV = Resources.Load<TextAsset>(dialogueCSV_name);
+        processingCSV = Resources.Load<TextAsset>(processingCSV_name);
     }
     void Start()
     {
         DialogueGetter();
+        ProcessingDialogueGetter();
     }
 
     [System.Serializable]
@@ -56,6 +63,21 @@ public class DialogueManager : MonoBehaviour
     int lineSize;
     int rowSize;
 
+    [System.Serializable]
+    public class Processing
+    {
+        public int processing_quest_code;
+        public string processing_dialogues;
+    }
+
+    List<int> processingQuestCode = new List<int>();
+    List<string> processingDialogues = new List<string>();
+
+    public List<Processing> processingList = new List<Processing>();
+
+    string[,] processingtables;
+    int processinglineSize;
+    int processingrowSize;
 
     public void DialogueGetter()
     {
@@ -91,6 +113,40 @@ public class DialogueManager : MonoBehaviour
             tempDialogue.dialogues = dialogues[i];
             tempDialogue.dialogueType = dialogueType[i];
             dialogueList.Add(tempDialogue);
+        }
+    }
+    void ProcessingDialogueGetter()
+    {
+        processingList.Clear();
+        string currentText = processingCSV.text.Substring(0, processingCSV.text.Length - 1);
+        string[] line = currentText.Split(new char[] { '\n' });
+        processinglineSize = line.Length;
+        processingrowSize = line[0].Split(new char[] { '\t' }).Length;
+        processingtables = new string[processinglineSize, processingrowSize];
+
+        for (int i = 0; i < processinglineSize; i++)
+        {
+            string[] row = line[i].Split(new char[] { '\t' });
+            for (int j = 0; j < processingrowSize; j++)
+            {
+                processingtables[i, j] = row[j];
+            }
+        }
+
+        for (int i = 1; i < processinglineSize; i++)
+        {
+            string[] data = processingtables[i, 0].Split(',');
+            processingQuestCode.Add(int.Parse(data[0]));
+            processingDialogues.Add(data[1]);
+        }
+
+
+        for (int i = 0; i < processinglineSize - 1; i++)
+        {
+            Processing tempProcessing = new Processing();
+            tempProcessing.processing_quest_code = processingQuestCode[i];
+            tempProcessing.processing_dialogues = processingDialogues[i];
+            processingList.Add(tempProcessing);
         }
     }
 }

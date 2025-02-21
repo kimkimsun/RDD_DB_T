@@ -18,6 +18,7 @@ public class Dialogue_NPC : MonoBehaviour
 
     public List<QuestManager.TableData> questData = new List<QuestManager.TableData>();
     public List<DialogueManager.Dialogue> dialogueData = new List<DialogueManager.Dialogue>();
+    public List<DialogueManager.Processing> processingData = new List<DialogueManager.Processing>();
     
     [Tooltip ("valueStorage")]
     private List<DialogueManager.Dialogue> tempDialogueData = new List<DialogueManager.Dialogue>();
@@ -83,6 +84,7 @@ public class Dialogue_NPC : MonoBehaviour
                 currentQuestCode = questData[i].quest_code;
                 UISet(false);
                 isprocessing = true;
+                ProcessingSet();
                 break;
             }
             else if(questData[i].quest_get_condition)
@@ -98,7 +100,17 @@ public class Dialogue_NPC : MonoBehaviour
         if (currentQuestCode == -1)
             UISet(false);
     }
-
+    void ProcessingSet()
+    {
+        for (int i = 0; i < dmInstance.processingList.Count; i++) 
+        {
+            if (dmInstance.processingList[i].processing_quest_code == currentQuestCode)
+                processingData.Add(dmInstance.processingList[i]);
+        }
+        Debug.Log($"프로세싱 데이터 : {processingData[0]}");
+        Debug.Log($"프로세싱 데이터 : {processingData[1]}");
+        Debug.Log($"프로세싱 데이터 : {processingData[2]}");
+    }
     void CommunicationCheck()
     {
         dialogueData.Clear();
@@ -151,10 +163,6 @@ public class Dialogue_NPC : MonoBehaviour
                                 // processing과 로직이 같게 움직이면 됨
                             }
                         }
-                        // 퀘스트 진행중 대화로 갈건지
-                        // 퀘스트 획득 대화로 갈건지
-                        // 퀘스트 완료 대화로 갈건지
-                        // 분기 3개
                     }
                 }
             }
@@ -193,13 +201,11 @@ public class Dialogue_NPC : MonoBehaviour
         }
         if (tempDialogueData.Count - 1 == dialogueStartIndex)
         {
-            Debug.Log("닫기 뜰 때 : " + dialogueStartIndex);
             dialogueContents.text = tempDialogueData[dialogueStartIndex].dialogues;
             BtnText.text = "닫기";
         }
         else if (tempDialogueData.Count == dialogueStartIndex)
         {
-            Debug.Log("없어 질 때 : " + dialogueStartIndex);
             questUICanvas.gameObject.SetActive(false);
             dialogueStartIndex = 0;
         }
